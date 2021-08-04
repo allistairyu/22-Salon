@@ -5,7 +5,7 @@
 const express = require('express');
 var router = express.Router();  // get an instance of the express Router
 var mongoose   = require('mongoose');
-mongoose.connect('mongodb://127.0.0.1/my_database', { useNewUrlParser: true });
+mongoose.connect('mongodb://127.0.0.1/my_database', { useNewUrlParser: true, useUnifiedTopology: true });
 
 //Define our schema for User
 var User = mongoose.model('User', {
@@ -16,9 +16,9 @@ var User = mongoose.model('User', {
 User.find((err, users) => {
   if(users.length == 0) {
     var testUsers = [
-      { name: 'cor', desc : 'person who does the thing'},
-      { name: 'jynnie', desc : 'person who does the thing'},
-      { name: 'mntan', desc : 'person who does the thing'}
+      { name: 'Alan', desc : 'gamah'},
+      { name: 'Westoo', desc : 'absolute gamah'},
+      { name: 'Ali', desc : 'apex legends player'}
     ];
 
     User.collection.insert(testUsers, (err, users) => { if (err) console.log(err); })
