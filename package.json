@@ -1,14 +1,15 @@
 {
-  "name": "test",
+  "name": "package",
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
     "react-scripts": "0.8.4"
   },
   "dependencies": {
-    "body-parser": "^1.15.2",
-    "express": "^4.14.0",
-    "mongoose": "^4.7.6",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "http-proxy-middleware": "^2.0.1",
+    "mongoose": "^5.7.0",
     "path": "^0.12.7",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
@@ -16,10 +17,14 @@
   },
   "scripts": {
     "build": "react-scripts build",
+    "server": "nodemon server",
     "dev": "nodemon server & react-scripts start",
     "start": "react-scripts build && sudo su -c \"pm2 start process.yml\" root && echo To kill, run \\\"npm run stop\\\"",
     "stop": "sudo su -c \"pm2 stop server\" root",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:9000"
+  "description": "A simple MERN stack template built with create-react-app",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC"
 }
