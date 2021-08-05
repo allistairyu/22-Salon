@@ -24,6 +24,7 @@ User.find((err, users) => {
     User.collection.insert(testUsers, (err, users) => { if (err) console.log(err); })
   }
 });
+
 // Now, we list all of our routes.
 // Note that the actual routes you specify here will be prefixed by /api
 

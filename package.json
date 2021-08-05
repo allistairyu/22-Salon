@@ -26,5 +26,6 @@
   "description": "A simple MERN stack template built with create-react-app",
   "main": "index.js",
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "proxy": "http://localhost:8999"
 }
