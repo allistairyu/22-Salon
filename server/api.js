@@ -9,16 +9,17 @@ mongoose.connect('mongodb://127.0.0.1/my_database', { useNewUrlParser: true, use
 
 //Define our schema for User
 var User = mongoose.model('User', {
-    name: String,
-    desc: String });
+  name: String,
+  desc: String
+});
 
 // If the database is empty, insert some dummy data into it
 User.find((err, users) => {
   if(users.length == 0) {
     var testUsers = [
-      { name: 'Alan', desc : 'gamah'},
-      { name: 'Westoo', desc : 'absolute gamah'},
-      { name: 'Ali', desc : 'apex legends player'}
+      { name: 'Alan', desc : 'gamah' },
+      { name: 'Westoo', desc : 'absolute gamah' },
+      { name: 'Ali', desc : 'apex legends player' }
     ];
 
     User.collection.insert(testUsers, (err, users) => { if (err) console.log(err); })
@@ -39,5 +40,8 @@ router.get('/users', (req, res) => {
     }
   });
 });
+
+//Routed to POST /api/users
+
 
 module.exports = router
