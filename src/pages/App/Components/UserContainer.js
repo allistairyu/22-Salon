@@ -8,34 +8,25 @@ export default class UserContainer extends Component {
 		this.state = {users: []};
 	}
 
-	componentDidMount() {
-		let currentComponent = this;
-		fetch('http://localhost:8999/api/users/')
-			.then(
-				function(response) {
-				if (response.status !== 200) {
-					console.log('Looks like there was a problem. Status Code: ' +
-					response.status);
-					return;
-				}
-
-				response.json().then(function(data) {
-					console.log(data);
-					currentComponent.setState({users: data});
-				});
+	async componentDidMount() {
+		try {
+			const response = await fetch("api/users/")
+			if (!response.ok) {
+				throw Error(response.statusText);
 			}
-		)
-		.catch(function(err) {
-			console.log('Fetch Error :-S', err);
-		});
-		console.log('Fetch has been attempted.');
+			const json = await response.json()
+			this.setState({ users: json })
+		} catch(error) {
+			console.log(error)
+		}
 	}
 
 	render() {
 		return (
 			<div>
 				{this.state.users.map((user) => (
-					<User key={user._id} name={user.name} desc={user.desc} />
+					<User key={user._id} firstName={user.firstName} lastName={user.lastName} date={user.date} time={user.time} 
+						email={user.email} number={user.number}/>
 				))}
 			</div>
 		);

@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router';
 import './style.css'
+import Navbar from '../App/Components/Navbar'
 
 export default class NotFound extends Component {
 	render() {
 		return (
 			<div>
+				<Navbar />
 				<h1>Error 404: Page Not Found</h1>
-				<Link to="/">Go to home page</Link>
 			</div>
 		);
 	}

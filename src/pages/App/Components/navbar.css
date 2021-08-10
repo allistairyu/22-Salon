@@ -1,0 +1,38 @@
+a {
+  color: black !important;
+}
+a:hover {
+  color: black !important;
+}
+
+img {
+  margin-left: 100%;
+  width: 200px;
+  height: auto;
+}
+
+.Navbar {
+  height: 140px;
+}
+
+/*
+.Navbar button {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.Navbar #hidden {
+  display: flex;
+}
+*/
+
+/* @media only screen and (max-width: 800px) {
+  .Navbar .thelinks {
+    font-size: 25px;
+  }
+  .Navbar button {
+    display: flex;
+  }
+} */

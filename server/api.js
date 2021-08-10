@@ -1,6 +1,8 @@
 // Express router for our API.
 // Every URL starting with /api/ will be directed here
 // This is a basic CRUD API for our Users MongoDB database
+// TODO: 
+global.bodyParser = require('body-parser')
 
 const express = require('express');
 var router = express.Router();  // get an instance of the express Router
@@ -9,23 +11,23 @@ mongoose.connect('mongodb://127.0.0.1/my_database', { useNewUrlParser: true, use
 
 //Define our schema for User
 var User = mongoose.model('User', {
-  name: String,
-  desc: String
-});
+  firstName: String,
+  lastName: String,
+  date: String,
+  time: String,
+  email: String,
+  number: String });
 
 // If the database is empty, insert some dummy data into it
 User.find((err, users) => {
-  if(users.length == 0) {
-    var testUsers = [
-      { name: 'Alan', desc : 'gamah' },
-      { name: 'Westoo', desc : 'absolute gamah' },
-      { name: 'Ali', desc : 'apex legends player' }
-    ];
+  var testUsers = [
+    { firstName: 'yo', lastName: 'lastname', date: 'the date', time: 'the time', email: 'asdf@gmail.com', number: '323-312-6838'},
+      { firstName: 'ribgjhf', lastName: 'lastname', date: 'the date2', time: 'the time2', email: 'fdsa@gmail.com', number: '323-312-6838'},
+      { firstName: 'werqnb', lastName: 'asewrdf', date: 'the date3', time: 'the time3', email: 'poui@gmail.com', number: '323-312-6838'}
+  ];
 
-    User.collection.insert(testUsers, (err, users) => { if (err) console.log(err); })
-  }
+  User.collection.insert(testUsers, (err, users) => { if (err) console.log(err); })
 });
-
 // Now, we list all of our routes.
 // Note that the actual routes you specify here will be prefixed by /api
 
@@ -41,10 +43,9 @@ router.get('/users', (req, res) => {
   });
 });
 
-//Routed to POST /api/users
-// router.post('/users', (req, res) => {
-//   const doc = new Message({message: req.body.message});
-//   doc.save();
-// });
+router.post('/users', async (req, res) => {
+  alert('yo')
+  res.send('the form posted!')
+})
 
 module.exports = router

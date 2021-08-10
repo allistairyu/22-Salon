@@ -8,6 +8,9 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// Serve static assets
+app.use(express.static(path.resolve(__dirname, '..', 'build')));
+
 // Adds headers
 app.use(function (req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -22,14 +25,11 @@ app.use(function (req, res, next) {
   next();
 });
 
-// Serve static assets
-app.use(express.static(path.resolve(__dirname, '..', 'build')));
-
 var apiRouter = require('./api')
 app.use('/api', apiRouter);
 
 // Always return the main index.html, so react-router render the route in the client
-app.get('/', (req, res) => {
+app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../public/index.html'));
 });
 
