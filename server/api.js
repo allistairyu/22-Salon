@@ -42,6 +42,9 @@ router.get('/users', (req, res) => {
 });
 
 //Routed to POST /api/users
-
+// router.post('/users', (req, res) => {
+//   const doc = new Message({message: req.body.message});
+//   doc.save();
+// });
 
 module.exports = router

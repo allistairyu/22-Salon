@@ -5,20 +5,18 @@ export default class AddPersonForm extends Component {
     constructor(props) {
         super(props);
         this.state = { name: "", description: "" }
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
     }
 
-    handleNameChange(event) {
-        const name = event.target.name;
-        this.setState({
-            name: name,
-        })
-    }
+    handleInputChange(event) {
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
 
-    handleDescriptionChange(event) {
-        const description = event.target.description;
         this.setState({
-            description: description
-        })
+            [name]: value
+        });
     }
     
     handleSubmit(event) {
@@ -47,12 +45,12 @@ export default class AddPersonForm extends Component {
             <form onSubmit={this.handleSubmit}>
                 <label>
                     Name: 
-                    <input name="name" type="text" value={this.state.name} onChange={this.handleNameChange} required/>
+                    <input name="name" type="text" value={this.state.name} onChange={this.handleInputChange} required/>
                 </label>
                 <br></br>
                 <label>
                     Description: 
-                    <input name="description" type="text" value={this.state.description} onChange={this.handleDescriptionChange}/>
+                    <input name="description" type="text" value={this.state.description} onChange={this.handleInputChange}/>
                 </label>
                 <br></br>
                 <input type="submit" value="Submit"/>
