@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import '../style.css'
 import { Link } from 'react-router';
 import logo from './seattle-seahawks-logo-transparent.png'
@@ -14,7 +14,7 @@ export default function Navbar() {
             <div className="leftSide">
                 <div className='logo'>
                     <h1>
-                        <img src={logo} alt='asdf'/>
+                        <img src={logo} alt='asdf' />
                     </h1>
                 </div>
             </div>

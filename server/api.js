@@ -16,7 +16,8 @@ var User = mongoose.model('User', {
   date: String,
   time: String,
   email: String,
-  number: String
+  number: String,
+  services: [Boolean]
 });
 
 // If the database is empty, insert some dummy data into it

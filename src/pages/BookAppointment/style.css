@@ -1,0 +1,33 @@
+.service {
+  outline: 1px solid black;
+  background-color: white;
+  height: 50px;
+  width: 300px;
+  padding: 10px;
+  margin: 10px;
+}
+
+#unselected {
+  outline: 1px solid black !important;
+}
+
+#selected {
+  outline: 1px solid red !important;
+}
+
+/* #selected:hover {
+  background-color: white;
+} */
+/* .service #unselected {
+  outline: 1px solid red !important;
+} */
+/* #unselected:hover {
+  background-color: red;
+} */
+
+/* #selected button:hover {
+  background-color: aqua !important;
+} */
+/* #unselected button:hover {
+  background-color: green !important;
+} */
