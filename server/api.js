@@ -2,11 +2,11 @@
 // Every URL starting with /api/ will be directed here
 // This is a basic CRUD API for our Users MongoDB database
 // TODO: 
-global.bodyParser = require('body-parser')
+// global.bodyParser = require('body-parser')
 
 const express = require('express');
 var router = express.Router();  // get an instance of the express Router
-var mongoose   = require('mongoose');
+var mongoose = require('mongoose');
 mongoose.connect('mongodb://127.0.0.1/my_database', { useNewUrlParser: true, useUnifiedTopology: true });
 
 //Define our schema for User
@@ -16,17 +16,20 @@ var User = mongoose.model('User', {
   date: String,
   time: String,
   email: String,
-  number: String });
+  number: String
+});
 
 // If the database is empty, insert some dummy data into it
 User.find((err, users) => {
+  /*
   var testUsers = [
-    { firstName: 'yo', lastName: 'lastname', date: 'the date', time: 'the time', email: 'asdf@gmail.com', number: '323-312-6838'},
-      { firstName: 'ribgjhf', lastName: 'lastname', date: 'the date2', time: 'the time2', email: 'fdsa@gmail.com', number: '323-312-6838'},
-      { firstName: 'werqnb', lastName: 'asewrdf', date: 'the date3', time: 'the time3', email: 'poui@gmail.com', number: '323-312-6838'}
+    { firstName: 'yo', lastName: 'lastname', date: 'the date', time: 'the time', email: 'asdf@gmail.com', number: '323-312-6838' },
+    { firstName: 'ribgjhf', lastName: 'lastname', date: 'the date2', time: 'the time2', email: 'fdsa@gmail.com', number: '323-312-6838' },
+    { firstName: 'werqnb', lastName: 'asewrdf', date: 'the date3', time: 'the time3', email: 'poui@gmail.com', number: '323-312-6838' }
   ];
 
   User.collection.insert(testUsers, (err, users) => { if (err) console.log(err); })
+  */
 });
 // Now, we list all of our routes.
 // Note that the actual routes you specify here will be prefixed by /api
@@ -34,7 +37,7 @@ User.find((err, users) => {
 //Routed to GET /api/users
 router.get('/users', (req, res) => {
   User.find((err, users) => {
-    if(err) {
+    if (err) {
       console.log(err);
       res.send([]);
     } else {
@@ -43,9 +46,9 @@ router.get('/users', (req, res) => {
   });
 });
 
-router.post('/users', async (req, res) => {
-  alert('yo')
-  res.send('the form posted!')
-})
+router.post('/users', (req, res) => {
+  const doc = new User({ firstName: req.body.firstName, lastName: req.body.lastName, number: req.body.number, email: req.body.email });
+  doc.save();
+});
 
 module.exports = router

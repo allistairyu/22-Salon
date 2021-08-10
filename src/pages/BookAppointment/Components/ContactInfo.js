@@ -28,6 +28,8 @@ export default class ContactInfo extends Component {
     handleSubmit(event) {
         alert(`first name is ${this.state.firstName} last name is ${this.state.lastName} phone number is ${this.state.phoneNumber}
             email address is ${this.state.email}`);
+
+        event.preventDefault();
         // TODO: 
         let databody = {
             'firstName': this.state.firstName,
@@ -35,16 +37,16 @@ export default class ContactInfo extends Component {
             'number': this.state.phoneNumber,
             'email': this.state.email
         }
-        return fetch('http://localhost:8999/api/users', {
+        return fetch('/api/users', {
             method: 'POST',
             body: JSON.stringify(databody),
             headers: {
                 'Content-Type': 'application/json'
             },
         }).then(res => res.json())
-        .then(data => console.log(data))
+            .then(data => console.log(data))
         // TODO: 
-        // event.preventDefault();
+        // 
     }
 
     render() {
@@ -59,29 +61,29 @@ export default class ContactInfo extends Component {
                         onChange={this.handleInputChange} />
                 </label>
                 <label>
-                    Last Name: 
+                    Last Name:
                     <input
-                    name="lastName"
-                    type="string"
-                    value={this.state.lastName}
-                    onChange={this.handleInputChange} />
+                        name="lastName"
+                        type="string"
+                        value={this.state.lastName}
+                        onChange={this.handleInputChange} />
                 </label>
                 <br />
                 <label>
-                    Phone Number: 
+                    Phone Number:
                     <input
-                    name="phoneNumber"
-                    type="string"
-                    value={this.state.phoneNumber}
-                    onChange={this.handleInputChange} />
+                        name="phoneNumber"
+                        type="string"
+                        value={this.state.phoneNumber}
+                        onChange={this.handleInputChange} />
                 </label>
                 <label>
-                    Email Address: 
+                    Email Address:
                     <input
-                    name="email"
-                    type="string"
-                    value={this.state.email}
-                    onChange={this.handleInputChange} />
+                        name="email"
+                        type="string"
+                        value={this.state.email}
+                        onChange={this.handleInputChange} />
                 </label>
                 <br />
                 <input type="submit" value="Submit" />
