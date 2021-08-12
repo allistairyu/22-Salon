@@ -3,12 +3,13 @@
 // This is a basic CRUD API for our Users MongoDB database
 
 const express = require('express');
+const ObjectId = require('mongodb').ObjectId;
 var router = express.Router();  // get an instance of the express Router
-var mongoose = require('mongoose');
+let mongoose = require('mongoose');
 mongoose.connect('mongodb://127.0.0.1/my_database', { useNewUrlParser: true, useUnifiedTopology: true });
 
 //Define our schema for User
-var User = mongoose.model('User', {
+let User = mongoose.model('User', {
   firstName: String,
   lastName: String,
   date: String,
@@ -49,5 +50,13 @@ router.post('/users', (req, res) => {
   const doc = new User({ firstName: req.body.firstName, lastName: req.body.lastName, phoneNumber: req.body.phoneNumber, email: req.body.email, services: JSON.stringify(req.body.services) });
   doc.save();
 });
+
+router.delete('/users/:id', async (req, res) => {
+  const identification = new ObjectId(req.params.id)
+  await User.deleteOne({'_id': identification}, function(err, res) {
+    if (err) console.log(err)
+  })
+  console.log('router delete')
+})
 
 module.exports = router

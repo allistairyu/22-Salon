@@ -88,7 +88,7 @@ export default class BookAppointment extends Component {
 					<div>
 						<Navbar />
 						<div className="page-intro"></div>
-						<h1>Select a Service</h1>
+						<h1 className='page-title'>Choose a Service</h1>
 						<SelectService
 							nextStep={this.nextStep}
 							handleClick={this.handleClick}

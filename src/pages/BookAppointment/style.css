@@ -1,7 +1,7 @@
 .service {
   background-color: white;
   height: 50px;
-  width: 300px;
+  width: 200px;
   padding: 10px;
   margin: 10px;
 }
@@ -18,20 +18,27 @@ button {
 #selected {
   outline: 1px solid red !important;
 }
+.container {
+  display: flex;
+  flex-direction: row;
+}
 
+.leftSide {
+  width: 15%;
+}
+.center {
+  justify-content: center;
+}
+
+.page-title {
+  margin: auto;
+  width: 50%;
+  text-align: center;
+}
 /* #selected:hover {
   background-color: white;
 } */
-/* .service #unselected {
-  outline: 1px solid red !important;
-} */
+
 /* #unselected:hover {
   background-color: red;
-} */
-
-/* #selected button:hover {
-  background-color: aqua !important;
-} */
-/* #unselected button:hover {
-  background-color: green !important;
 } */

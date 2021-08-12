@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import '../style.css'
 import { Link } from 'react-router';
-import logo from './seattle-seahawks-logo-transparent.png'
 import MenuRoundedIcon from '@material-ui/icons/MenuRounded';
 
 export default function Navbar() {

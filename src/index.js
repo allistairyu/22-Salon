@@ -14,12 +14,8 @@ import LocationHours from './pages/LocationHours';
 
 const Routes = (props) => (
   <Router {...props}>
-    <Route path="/" component={App}>
-      yo
-    </Route>
-    <Route path="/about" component={About}>
-      asdf
-    </Route>
+    <Route path="/" component={App} />
+    <Route path="/about" component={About} />
     <Route path="/appointment" component={BookAppointment} />
     <Route path="/services" component={Services} />
     <Route path="/locationandhours" component={LocationHours} />

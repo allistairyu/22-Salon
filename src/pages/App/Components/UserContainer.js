@@ -21,13 +21,26 @@ export default class UserContainer extends Component {
 		}
 	}
 
+	handleClick(id) {
+		return async function() {
+			await fetch(`http://localhost:8999/api/users/${id}`, { method: 'DELETE' }).then(window.location.reload())
+		}
+	}
+
 	render() {
 		return (
 			<div>
 				{this.state.users.map((user) => (
-					<User key={user._id} firstName={user.firstName} lastName={user.lastName} date={user.date} time={user.time} 
-						email={user.email} phoneNumber={user.phoneNumber} services={user.services} />
+					<div>
+						<User key={user._id} firstName={user.firstName} lastName={user.lastName} date={user.date} time={user.time} 
+							email={user.email} phoneNumber={user.phoneNumber} services={user.services} />
+
+						<button onClick={this.handleClick(user._id)}>
+							delete
+						</button>
+					</div>
 				))}
+				
 			</div>
 		);
 	}
