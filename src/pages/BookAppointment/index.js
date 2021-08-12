@@ -4,7 +4,6 @@ import RSUITEnavbar from '../App/Components/RSUITEnavbar'
 import ContactInfo from './Components/ContactInfo';
 import SelectService from './Components/SelectService'
 import ReviewReserve from './Components/ReviewReserve'
-import TestComponent from './Components/TestComponent'
 
 export default class BookAppointment extends Component {
 	
@@ -18,8 +17,11 @@ export default class BookAppointment extends Component {
 			time: '',
 			email: '',
 			number: '',
-			services: []
+			services: { mensHaircut: 'unselected', womensHaircut: 'unselected', seniorKids: 'unselected' }
 		}
+		this.handleSubmit = this.handleSubmit.bind(this)
+		this.handleClick = this.handleClick.bind(this)
+		this.handleChange = this.handleChange.bind(this)
 	}
 
 	prevStep = () => {
@@ -32,9 +34,46 @@ export default class BookAppointment extends Component {
 		this.setState({ step: step + 1 })
 	}
 
-	handleChange = input => e => {
-		this.setState({ [input]: e.target.value })
-	}
+	handleChange(event) {
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+
+        this.setState({
+            [name]: value
+        });
+    }
+
+	handleClick(event) {
+        event.preventDefault();
+        const target = event.target;
+        const value = target.id === 'selected' ? 'unselected' : 'selected';
+        const name = target.name;
+		
+        this.setState({
+            services: {
+				...this.state.services,
+				[name]: value,
+			},
+        })
+    }
+
+	handleSubmit(event) {
+        event.preventDefault();
+		let databody = {
+			'firstName': this.state.firstName,
+			'lastName': this.state.lastName,
+			'email': this.state.email,
+			'services': this.state.services
+		}
+        return fetch('/api/users', {
+            method: 'POST',
+            body: JSON.stringify(databody),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        }).then(this.nextStep())
+    }
 
 	render() {
 		const {step} = this.state
@@ -47,9 +86,9 @@ export default class BookAppointment extends Component {
 					<div>
 						<RSUITEnavbar />
 						<h1>Select a Service</h1>
-						<TestComponent
+						<SelectService
 							nextStep={this.nextStep}
-							handleChange={this.handleChange}
+							handleClick={this.handleClick}
 							values={values}
 						/>
 					</div>
@@ -57,6 +96,7 @@ export default class BookAppointment extends Component {
 			case 2:
 				return (
 					<div>
+						<RSUITEnavbar />
 						<h1>Contact Information</h1>
 						<ContactInfo 
 							prevStep={this.prevStep}
@@ -69,17 +109,22 @@ export default class BookAppointment extends Component {
 			case 3:
 				return (
 					<div>
+						<RSUITEnavbar />
 						<h1>Review and Reserve</h1>
 						<ReviewReserve 
 							prevStep={this.prevStep}
 							nextStep={this.nextStep}
+							handleSubmit={this.handleSubmit}
 							values={values}
 						/>
 					</div>
 				);
 			case 4:
 				return (
-					<h1>success</h1>
+					<div>
+						<RSUITEnavbar />
+						<h1>success</h1>
+					</div>
 				);
 			default:
 			

@@ -1,9 +1,25 @@
 import React from 'react'
 
-export default function ReviewReserve() {
+const ReviewReserve = ({ prevStep, values, handleSubmit }) => {
+    
     return (
         <div>
-            review and reserve
+            <div>
+                {values.firstName}
+                <br></br>
+                {values.lastName}
+                <br></br>
+                {values.email}
+                <br></br>
+            </div>
+            <button onClick={prevStep}>
+                go back
+            </button>
+            <form onSubmit={handleSubmit}>
+                <input type='submit' value="Submit" />
+            </form>
         </div>
     )
 }
+
+export default ReviewReserve

@@ -1,8 +1,6 @@
 // Express router for our API.
 // Every URL starting with /api/ will be directed here
 // This is a basic CRUD API for our Users MongoDB database
-// TODO: 
-// global.bodyParser = require('body-parser')
 
 const express = require('express');
 var router = express.Router();  // get an instance of the express Router
@@ -17,7 +15,7 @@ var User = mongoose.model('User', {
   time: String,
   email: String,
   number: String,
-  services: [Boolean]
+  services: {String}
 });
 
 // If the database is empty, insert some dummy data into it
@@ -46,9 +44,9 @@ router.get('/users', (req, res) => {
     }
   });
 });
-
+//TODO: INCORPORATE SERVICES INTO DATABASE
 router.post('/users', (req, res) => {
-  const doc = new User({ firstName: req.body.firstName, lastName: req.body.lastName, number: req.body.number, email: req.body.email });
+  const doc = new User({ firstName: req.body.firstName, lastName: req.body.lastName, number: req.body.number, email: req.body.email, services: req.body.services });
   doc.save();
 });
 
