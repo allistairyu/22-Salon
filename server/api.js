@@ -14,7 +14,7 @@ var User = mongoose.model('User', {
   date: String,
   time: String,
   email: String,
-  number: String,
+  phoneNumber: String,
   services: {String}
 });
 
@@ -46,7 +46,7 @@ router.get('/users', (req, res) => {
 });
 //TODO: INCORPORATE SERVICES INTO DATABASE
 router.post('/users', (req, res) => {
-  const doc = new User({ firstName: req.body.firstName, lastName: req.body.lastName, number: req.body.number, email: req.body.email, services: req.body.services });
+  const doc = new User({ firstName: req.body.firstName, lastName: req.body.lastName, phoneNumber: req.body.phoneNumber, email: req.body.email, services: JSON.stringify(req.body.services) });
   doc.save();
 });
 

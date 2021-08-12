@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import '../style.css'
 import { Link } from 'react-router';
 import logo from './seattle-seahawks-logo-transparent.png'
-import ReorderIcon from '@material-ui/icons/Reorder';
+import MenuRoundedIcon from '@material-ui/icons/MenuRounded';
 
 export default function Navbar() {
 
@@ -14,7 +14,7 @@ export default function Navbar() {
             <div className="leftSide">
                 <div className='logo'>
                     <h1>
-                        <img src={logo} alt='asdf' />
+                        22 SALON {/* <img src={logo} alt='asdf' className='image'/> */}
                     </h1>
                 </div>
             </div>
@@ -27,7 +27,7 @@ export default function Navbar() {
                     <Link to='/locationandhours'>Location and Hours</Link>
                     <Link to='/about'>About</Link>
                 </div>
-                <button onClick={() => setShowLinks(!showLinks)}><ReorderIcon /></button>
+                <MenuRoundedIcon color='primary' fontSize='large' onClick={() => setShowLinks(!showLinks)} className='MenuRoundedIcon'/>
             </div>
         </div>
     )

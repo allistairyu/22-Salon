@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import './style.css';
 import UserContainer from './Components/UserContainer'
-import RSUITEnavbar from '../App/Components/RSUITEnavbar'
+import Navbar from '../App/Components/Navbar'
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <RSUITEnavbar />
-        <p className="App-intro">
-          Here is a list of people:
-        </p>
+        <Navbar />
+        <div className="page-intro"></div>
+        Here is a list of people:
         <UserContainer />
       </div>
     );

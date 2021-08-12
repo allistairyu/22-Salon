@@ -9,6 +9,8 @@ const ReviewReserve = ({ prevStep, values, handleSubmit }) => {
                 <br></br>
                 {values.lastName}
                 <br></br>
+                {values.phoneNumber}
+                <br></br>
                 {values.email}
                 <br></br>
             </div>

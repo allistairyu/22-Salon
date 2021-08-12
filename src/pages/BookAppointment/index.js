@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './style.css'
-import RSUITEnavbar from '../App/Components/RSUITEnavbar'
+import Navbar from '../App/Components/Navbar'
 import ContactInfo from './Components/ContactInfo';
 import SelectService from './Components/SelectService'
 import ReviewReserve from './Components/ReviewReserve'
@@ -16,7 +16,7 @@ export default class BookAppointment extends Component {
 			date: '',
 			time: '',
 			email: '',
-			number: '',
+			phoneNumber: '',
 			services: { mensHaircut: 'unselected', womensHaircut: 'unselected', seniorKids: 'unselected' }
 		}
 		this.handleSubmit = this.handleSubmit.bind(this)
@@ -63,9 +63,11 @@ export default class BookAppointment extends Component {
 		let databody = {
 			'firstName': this.state.firstName,
 			'lastName': this.state.lastName,
+			'phoneNumber': this.state.phoneNumber,
 			'email': this.state.email,
 			'services': this.state.services
 		}
+		alert(JSON.stringify(databody))
         return fetch('/api/users', {
             method: 'POST',
             body: JSON.stringify(databody),
@@ -77,14 +79,15 @@ export default class BookAppointment extends Component {
 
 	render() {
 		const {step} = this.state
-		const { firstName, lastName, date, time, email, number, services } = this.state;
-		const values = { firstName, lastName, date, time, email, number, services }
+		const { firstName, lastName, date, time, email, phoneNumber, services } = this.state;
+		const values = { firstName, lastName, date, time, email, phoneNumber, services }
 
 		switch(step) {
 			case 1:
 				return (
 					<div>
-						<RSUITEnavbar />
+						<Navbar />
+						<div className="page-intro"></div>
 						<h1>Select a Service</h1>
 						<SelectService
 							nextStep={this.nextStep}
@@ -96,7 +99,8 @@ export default class BookAppointment extends Component {
 			case 2:
 				return (
 					<div>
-						<RSUITEnavbar />
+						<Navbar />
+						<div className="page-intro"></div>
 						<h1>Contact Information</h1>
 						<ContactInfo 
 							prevStep={this.prevStep}
@@ -109,7 +113,8 @@ export default class BookAppointment extends Component {
 			case 3:
 				return (
 					<div>
-						<RSUITEnavbar />
+						<Navbar />
+						<div className="page-intro"></div>
 						<h1>Review and Reserve</h1>
 						<ReviewReserve 
 							prevStep={this.prevStep}
@@ -122,7 +127,8 @@ export default class BookAppointment extends Component {
 			case 4:
 				return (
 					<div>
-						<RSUITEnavbar />
+						<Navbar />
+						<div className="page-intro"></div>
 						<h1>success</h1>
 					</div>
 				);

@@ -26,7 +26,7 @@ export default class UserContainer extends Component {
 			<div>
 				{this.state.users.map((user) => (
 					<User key={user._id} firstName={user.firstName} lastName={user.lastName} date={user.date} time={user.time} 
-						email={user.email} number={user.number}/>
+						email={user.email} phoneNumber={user.phoneNumber} services={user.services} />
 				))}
 			</div>
 		);

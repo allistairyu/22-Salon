@@ -37,7 +37,7 @@ export default function ContactInfoTest({prevStep, nextStep, handleChange, value
                 <input
                     name="phoneNumber"
                     type="string"
-                    defaultValue={values.number}
+                    defaultValue={values.phoneNumber}
                     onChange={handleChange} />
             </label>
             <label>
