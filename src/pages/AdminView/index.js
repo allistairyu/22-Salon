@@ -4,7 +4,8 @@ export default class index extends Component {
     render() {
         return (
             <div>
-                <div className='page-intro'></div>
+                <div className='page-title'></div>
+                admin view!
             </div>
         )
     }

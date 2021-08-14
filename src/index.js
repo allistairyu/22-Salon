@@ -10,11 +10,13 @@ import NotFound from './pages/NotFound';
 import BookAppointment from './pages/BookAppointment';
 import Services from './pages/Services';
 import LocationHours from './pages/LocationHours';
+import AdminView from './pages/AdminView'
 
 
 const Routes = (props) => (
   <Router {...props}>
     <Route path="/" component={App} />
+    <Route path='/admin' component={AdminView} />
     <Route path="/about" component={About} />
     <Route path="/appointment" component={BookAppointment} />
     <Route path="/services" component={Services} />

@@ -17,11 +17,15 @@ export default class BookAppointment extends Component {
 			time: '',
 			email: '',
 			phoneNumber: '',
+			errors: {},
 			services: { mensHaircut: 'unselected', womensHaircut: 'unselected', seniorKids: 'unselected' }
 		}
 		this.handleSubmit = this.handleSubmit.bind(this)
 		this.handleClick = this.handleClick.bind(this)
 		this.handleChange = this.handleChange.bind(this)
+		this.handleValidation = this.handleValidation.bind(this)
+		this.Continue = this.Continue.bind(this)
+		this.Back = this.Back.bind(this)
 	}
 
 	prevStep = () => {
@@ -60,6 +64,7 @@ export default class BookAppointment extends Component {
 
 	handleSubmit(event) {
         event.preventDefault();
+
 		let databody = {
 			'firstName': this.state.firstName,
 			'lastName': this.state.lastName,
@@ -77,6 +82,62 @@ export default class BookAppointment extends Component {
         }).then(this.nextStep())
     }
 
+	Continue = e => {
+        e.preventDefault();
+		if (this.handleValidation()) {
+			alert('form submitted')
+		} else {
+			alert('form has errors')
+		} 	
+        this.nextStep();
+    }
+
+	Back = e => {
+        e.preventDefault();
+        this.prevStep();
+    }
+
+
+	// https://stackoverflow.com/questions/41296668/reactjs-form-input-validation
+	handleValidation() {
+
+		let errors = {};
+		let formIsValid = true;
+
+		//Name
+		if(!this.state.firstName || !this.state.lastName){
+			formIsValid = false;
+			errors["name"] = "Cannot be empty";
+		}
+	
+		if(typeof this.state.firstName !== "undefined" || typeof this.state.lastName !== "undefined"){
+			if(!this.state.firstName.match(/^[a-zA-Z]+$/) || !this.state.lastName.match(/^[a-zA-Z]+$/)){
+				formIsValid = false;
+				errors["name"] = "Only letters";
+			}        
+		}
+	
+		//Email
+		if(!this.state.email){
+			formIsValid = false;
+			errors["email"] = "Cannot be empty";
+		}
+	
+		if(typeof this.state.email !== "undefined"){
+			let lastAtPos = this.state.email.lastIndexOf('@');
+			let lastDotPos = this.state.email.lastIndexOf('.');
+
+			if (!(lastAtPos < lastDotPos && lastAtPos > 0 && this.state.email.indexOf('@@') === -1 && lastDotPos > 2 && (this.state.email.length - lastDotPos) > 2)) {
+				formIsValid = false;
+				errors["email"] = "Email is not valid";
+			}
+		}  
+
+		this.setState({errors: errors});
+		return formIsValid;
+
+    }
+
 	render() {
 		const {step} = this.state
 		const { firstName, lastName, date, time, email, phoneNumber, services } = this.state;
@@ -90,7 +151,7 @@ export default class BookAppointment extends Component {
 						<div className="page-intro"></div>
 						<h1 className='page-title'>Choose a Service</h1>
 						<SelectService
-							nextStep={this.nextStep}
+							Continue={this.Continue}
 							handleClick={this.handleClick}
 							values={values}
 						/>
@@ -103,9 +164,10 @@ export default class BookAppointment extends Component {
 						<div className="page-intro"></div>
 						<h1>Contact Information</h1>
 						<ContactInfo 
-							prevStep={this.prevStep}
-							nextStep={this.nextStep}
+							Continue={this.Continue}
+							Back={this.Back}
 							handleChange={this.handleChange}
+							handleValidation={this.handleValidation}
 							values={values}
 						/>
 					</div>
@@ -117,8 +179,7 @@ export default class BookAppointment extends Component {
 						<div className="page-intro"></div>
 						<h1>Review and Reserve</h1>
 						<ReviewReserve 
-							prevStep={this.prevStep}
-							nextStep={this.nextStep}
+							Back={this.Back}
 							handleSubmit={this.handleSubmit}
 							values={values}
 						/>

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ReviewReserve = ({ prevStep, values, handleSubmit }) => {
+const ReviewReserve = ({ Back, values, handleSubmit }) => {
     
     return (
         <div>
@@ -14,7 +14,7 @@ const ReviewReserve = ({ prevStep, values, handleSubmit }) => {
                 {values.email}
                 <br></br>
             </div>
-            <button onClick={prevStep}>
+            <button onClick={Back}>
                 go back
             </button>
             <form onSubmit={handleSubmit}>

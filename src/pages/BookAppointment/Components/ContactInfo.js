@@ -1,17 +1,7 @@
 import React from 'react'
 // import ContactForm from './ContactForm'
 
-export default function ContactInfoTest({prevStep, nextStep, handleChange, values}) {
-
-    const Continue = e => {
-        e.preventDefault();
-        nextStep();
-    }
-
-    const Back = e => {
-        e.preventDefault();
-        prevStep();
-    }
+export default function ContactInfoTest({Continue, Back, handleChange, values}) {
 
     return (
         <form>

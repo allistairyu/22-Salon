@@ -11,11 +11,7 @@ export default function Navbar() {
     return (
         <div className="Navbar">
             <div className="leftSide">
-                <div className='logo'>
-                    <h1>
-                        22 SALON {/* <img src={logo} alt='asdf' className='image'/> */}
-                    </h1>
-                </div>
+                <Link to='/' className='logo'><h1>22 SALON</h1></Link>
             </div>
 
             <div className="rightSide">

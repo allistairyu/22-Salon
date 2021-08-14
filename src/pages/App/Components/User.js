@@ -6,7 +6,7 @@ export default class User extends Component {
 		return (
 			<div className="user">
 				<p className="name">{this.props.firstName}, {this.props.lastName}, {this.props.date}, {this.props.time}, 
-					{this.props.phoneNumber}, {this.props.email}, {JSON.stringify(this.props.services)}</p>
+					{this.props.phoneNumber}, {this.props.email}, {this.props.services}</p>
 			</div>
 		);
 	}

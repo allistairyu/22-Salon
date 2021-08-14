@@ -16,7 +16,7 @@ let User = mongoose.model('User', {
   time: String,
   email: String,
   phoneNumber: String,
-  services: {String}
+  services: [String]
 });
 
 // If the database is empty, insert some dummy data into it
@@ -56,7 +56,6 @@ router.delete('/users/:id', async (req, res) => {
   await User.deleteOne({'_id': identification}, function(err, res) {
     if (err) console.log(err)
   })
-  console.log('router delete')
 })
 
 module.exports = router

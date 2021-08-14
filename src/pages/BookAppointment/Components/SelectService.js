@@ -1,11 +1,8 @@
 import React from 'react'
 import '../style.css'
 
-const SelectServiceTest = ({ nextStep, values, handleClick }) => {
-    const Continue = e => {
-        e.preventDefault();
-        nextStep();
-    }
+const SelectServiceTest = ({ Continue, values, handleClick }) => {
+
     return (
         <div className='container'>
             <div className='leftSide'>
