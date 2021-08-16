@@ -10,7 +10,7 @@ import NotFound from './pages/NotFound';
 import BookAppointment from './pages/BookAppointment';
 import Services from './pages/Services';
 import LocationHours from './pages/LocationHours';
-import AdminView from './pages/AdminView'
+import AdminView from './pages/AdminView/index'
 
 
 const Routes = (props) => (

@@ -47,10 +47,13 @@ router.get('/users', (req, res) => {
 });
 //TODO: INCORPORATE SERVICES INTO DATABASE
 router.post('/users', (req, res) => {
-  const doc = new User({ firstName: req.body.firstName, lastName: req.body.lastName, phoneNumber: req.body.phoneNumber, email: req.body.email, services: JSON.stringify(req.body.services) });
+  const doc = new User({ firstName: req.body.firstName, lastName: req.body.lastName, date: req.body.date, time: req.body.time,
+                            phoneNumber: req.body.phoneNumber, email: req.body.email, services: JSON.stringify(req.body.services) });
   doc.save();
 });
 
+
+//https://stackoverflow.com/questions/54684258/why-are-documents-not-being-deleted-from-the-mongodb-database
 router.delete('/users/:id', async (req, res) => {
   const identification = new ObjectId(req.params.id)
   await User.deleteOne({'_id': identification}, function(err, res) {

@@ -1,7 +1,7 @@
 import React from 'react'
 import '../style.css'
 
-const SelectServiceTest = ({ Continue, values, handleClick }) => {
+const SelectServiceTest = ({ values, handleClick }) => {
 
     return (
         <div className='container'>
@@ -23,12 +23,6 @@ const SelectServiceTest = ({ Continue, values, handleClick }) => {
                             $10
                         </button>
                     </div>
-                    <button 
-                        onClick={ Continue }
-                        type="submit"
-                    >
-                        Next
-                    </button>
                 </ form>
             </div>
             <div className='rightSide'>

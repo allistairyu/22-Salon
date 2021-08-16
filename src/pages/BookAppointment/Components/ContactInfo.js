@@ -1,7 +1,8 @@
 import React from 'react'
+import MuiPhoneNumber from 'material-ui-phone-number';
 // import ContactForm from './ContactForm'
 
-export default function ContactInfoTest({Continue, Back, handleChange, values}) {
+export default function ContactInfo({ handlePhoneNumChange, handleChange, values}) {
 
     return (
         <form>
@@ -24,11 +25,7 @@ export default function ContactInfoTest({Continue, Back, handleChange, values}) 
             <br />
             <label>
                 Phone Number:
-                <input
-                    name="phoneNumber"
-                    type="string"
-                    defaultValue={values.phoneNumber}
-                    onChange={handleChange} />
+                <MuiPhoneNumber defaultCountry={'us'} onChange={handlePhoneNumChange}/>
             </label>
             <label>
                 Email Address:
@@ -38,20 +35,8 @@ export default function ContactInfoTest({Continue, Back, handleChange, values}) 
                     defaultValue={values.email}
                     onChange={handleChange} />
             </label>
+            
             <br />
-            <button 
-                onClick={ Back }
-                type="submit"
-            >
-                
-                Back
-            </button>
-            <button 
-                onClick={ Continue }
-                type="submit"
-            >
-                Next
-            </button>
         </form>
     );
 }

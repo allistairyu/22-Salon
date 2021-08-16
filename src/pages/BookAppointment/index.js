@@ -4,6 +4,10 @@ import Navbar from '../App/Components/Navbar'
 import ContactInfo from './Components/ContactInfo';
 import SelectService from './Components/SelectService'
 import ReviewReserve from './Components/ReviewReserve'
+import {MuiPickersUtilsProvider, KeyboardDatePicker} from '@material-ui/pickers'
+import DateFnsUtils from '@date-io/date-fns';
+import validator from 'validator';
+// import { Select } from '@material-ui/core';
 
 export default class BookAppointment extends Component {
 	
@@ -13,7 +17,7 @@ export default class BookAppointment extends Component {
 			step: 1,
 			firstName: '',
 			lastName: '',
-			date: '',
+			date: null,
 			time: '',
 			email: '',
 			phoneNumber: '',
@@ -23,19 +27,21 @@ export default class BookAppointment extends Component {
 		this.handleSubmit = this.handleSubmit.bind(this)
 		this.handleClick = this.handleClick.bind(this)
 		this.handleChange = this.handleChange.bind(this)
+		this.handlePhoneNumChange = this.handlePhoneNumChange.bind(this)
 		this.handleValidation = this.handleValidation.bind(this)
-		this.Continue = this.Continue.bind(this)
-		this.Back = this.Back.bind(this)
+		this.selectServiceValidation = this.selectServiceValidation.bind(this)
+		this.nextStep = this.nextStep.bind(this)
+		this.prevStep = this.prevStep.bind(this)
+		// this.handleDateChange = this.handleDateChange.bind(this)
 	}
 
-	prevStep = () => {
+	prevStep() {
 		const {step} = this.state;
 		this.setState({ step: step - 1 })
 	}
 
-	nextStep = () => {
-		const {step} = this.state;
-		this.setState({ step: step + 1 })
+	nextStep() {
+		this.setState((prevState) => ({ step: prevState.step + 1 }))
 	}
 
 	handleChange(event) {
@@ -47,6 +53,18 @@ export default class BookAppointment extends Component {
             [name]: value
         });
     }
+
+	handleDateChange = date => {
+		this.setState({
+			date: date
+		})
+	}
+
+	// showTimes = () => {
+	// 	<button>
+	// 		5:30
+	// 	</button>
+	// }
 
 	handleClick(event) {
         event.preventDefault();
@@ -62,12 +80,20 @@ export default class BookAppointment extends Component {
         })
     }
 
+	handlePhoneNumChange(value) {
+		this.setState({
+			phoneNumber: value
+		})
+	}
+
 	handleSubmit(event) {
         event.preventDefault();
 
 		let databody = {
 			'firstName': this.state.firstName,
 			'lastName': this.state.lastName,
+			'date': this.state.date,
+			'time': this.state.time,
 			'phoneNumber': this.state.phoneNumber,
 			'email': this.state.email,
 			'services': this.state.services
@@ -82,24 +108,9 @@ export default class BookAppointment extends Component {
         }).then(this.nextStep())
     }
 
-	Continue = e => {
-        e.preventDefault();
-		if (this.handleValidation()) {
-			alert('form submitted')
-		} else {
-			alert('form has errors')
-		} 	
-        this.nextStep();
-    }
-
-	Back = e => {
-        e.preventDefault();
-        this.prevStep();
-    }
-
-
 	// https://stackoverflow.com/questions/41296668/reactjs-form-input-validation
-	handleValidation() {
+	handleValidation = () => {
+
 
 		let errors = {};
 		let formIsValid = true;
@@ -115,6 +126,12 @@ export default class BookAppointment extends Component {
 				formIsValid = false;
 				errors["name"] = "Only letters";
 			}        
+		}
+
+		//Phone Number
+		if (!validator.isMobilePhone(this.state.phoneNumber)) {
+			formIsValid = false;
+			errors['phoneNumber'] = 'phone number not valid'
 		}
 	
 		//Email
@@ -138,6 +155,17 @@ export default class BookAppointment extends Component {
 
     }
 
+	selectServiceValidation = () => {
+		for (const service in this.state.services) {
+			if (this.state.services[service] === 'selected') return true
+		}
+		return false
+	}
+
+	disableDates = date => {
+		return date.getDay() === 0 || date <= new Date() || date >= new Date().setMonth(new Date().getMonth() + 3);
+	}
+
 	render() {
 		const {step} = this.state
 		const { firstName, lastName, date, time, email, phoneNumber, services } = this.state;
@@ -151,10 +179,12 @@ export default class BookAppointment extends Component {
 						<div className="page-intro"></div>
 						<h1 className='page-title'>Choose a Service</h1>
 						<SelectService
-							Continue={this.Continue}
 							handleClick={this.handleClick}
 							values={values}
 						/>
+						<button onClick={() => this.selectServiceValidation() ? this.nextStep() : alert('yo pls select smth')}>
+							Next
+						</button>
 					</div>
 				);
 			case 2:
@@ -164,12 +194,38 @@ export default class BookAppointment extends Component {
 						<div className="page-intro"></div>
 						<h1>Contact Information</h1>
 						<ContactInfo 
-							Continue={this.Continue}
-							Back={this.Back}
 							handleChange={this.handleChange}
 							handleValidation={this.handleValidation}
 							values={values}
+							handlePhoneNumChange={this.handlePhoneNumChange}
 						/>
+						{/* https://stackoverflow.com/questions/49491569/disable-specific-days-in-material-ui-calendar-in-react */}
+						<MuiPickersUtilsProvider utils={DateFnsUtils}>
+							<KeyboardDatePicker
+								disableToolbar
+								variant="inline"
+								format="MM/dd/yyyy"
+								margin="normal"
+								id="date-picker-inline"
+								value={this.state.date}
+								onChange={this.handleDateChange}
+								label='Select a Date'
+								KeyboardButtonProps={{
+									'aria-label': 'change date',
+								}}
+								shouldDisableDate={this.disableDates}
+								autoOk={true}
+							/>
+						</MuiPickersUtilsProvider>
+						<br></br>
+
+						<button onClick={this.prevStep }>
+							Back
+						</button>
+						<button onClick={() => this.handleValidation() ? this.nextStep() : alert('not valid')}>
+							Next
+						</button>
+						
 					</div>
 				);
 			case 3:
@@ -179,7 +235,7 @@ export default class BookAppointment extends Component {
 						<div className="page-intro"></div>
 						<h1>Review and Reserve</h1>
 						<ReviewReserve 
-							Back={this.Back}
+							Back={this.prevStep}
 							handleSubmit={this.handleSubmit}
 							values={values}
 						/>
