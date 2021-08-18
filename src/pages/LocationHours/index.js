@@ -11,7 +11,7 @@ export default class LocationHours extends Component {
 			<div>
 				<Navbar />
 				<div className="page-intro"></div>
-				<h1>Location and Hours</h1>
+				<h3>Location and Hours</h3>
 				<div className='location'>
 					<RoomIcon />
 					10535 Greenwood Ave N

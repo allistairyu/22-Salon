@@ -278,7 +278,7 @@ export default class BookAppointment extends Component {
 					<div>
 						<Navbar />
 						<div className="page-intro"></div>
-						<h1>success</h1>
+						<h3>success</h3>
 						<div>
 							email confirmation
 							text confirmation

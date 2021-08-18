@@ -73,16 +73,32 @@
   text-align: right;
 }
 
+@media only screen and (max-width: 1713px) {
+  .phoneNum {
+    top: 0px !important;
+  }
+}
+
 @media only screen and (max-width: 1475px) {
   .flexbox-container {
-    width: 85%;
+    width: 85% !important;
+  }
+  .phoneNum {
+    top: 16px !important;
   }
 }
 @media only screen and (max-width: 1200px) {
   .flexbox-container {
-    width: 95%;
+    width: 95% !important;
   }
 }
+
+@media only screen and (max-width: 902px) {
+  .phoneNum {
+    top: 0px !important;
+  }
+}
+
 @media only screen and (max-width: 733px) {
   .service {
     width: 240px;
@@ -114,6 +130,10 @@
 
 .input {
   margin-right: 50px;
+}
+
+.phoneNum {
+  top: 16px;
 }
 
 /* #selected:hover {

@@ -8,7 +8,7 @@ export default class Services extends Component {
 			<div>
 				<Navbar />
 				<div className="page-intro"></div>
-				<h1>Services</h1>
+				<h3>Services</h3>
 			</div>
 		);
 	}
