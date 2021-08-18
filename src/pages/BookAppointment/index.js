@@ -8,7 +8,8 @@ import {MuiPickersUtilsProvider, KeyboardDatePicker} from '@material-ui/pickers'
 import DateFnsUtils from '@date-io/date-fns';
 import validator from 'validator';
 import Button from '@material-ui/core/Button';
-// import { Select } from '@material-ui/core';
+
+//TODO: IMPLEMENT COMPONENT LIFECYCLE STUFF???
 
 export default class BookAppointment extends Component {
 	
@@ -22,7 +23,10 @@ export default class BookAppointment extends Component {
 			time: '',
 			email: '',
 			phoneNumber: '',
-			services: { mensHaircut: 'unselected', womensHaircut: 'unselected', seniorKids: 'unselected' },
+			services: { mensHaircut: 'unselected', womensHaircut: 'unselected', seniorKids: 'unselected', beardTrim: 'unselected',
+						permAndColor: 'unselected', styleStart: 'unselected', shampoo: 'unselected', pedicure: 'unselected',
+						manicure: 'unselected', pediMani: 'unselected', fullSet: 'unselected', fill: 'unselected', eyebrow: 'unselected',
+						lips: 'unselected', chin: 'unselected' },
 			errors: { firstName: '', lastName: '', phoneNumber: '', email: '' }
 		}
 		this.handleSubmit = this.handleSubmit.bind(this)
@@ -35,6 +39,27 @@ export default class BookAppointment extends Component {
 		this.nextStep = this.nextStep.bind(this)
 		this.prevStep = this.prevStep.bind(this)
 		// this.handleDateChange = this.handleDateChange.bind(this)
+
+		//TODO: store prices somewhere else
+		//TODO: STORE SERVICES IN GLOBAL VARIABLE
+		this.servicesDict = {
+			'mensHaircut': "Men's Haircut \n $15",
+			'womensHaircut': `Women's Haircut \n$18`,
+			'seniorKids': `Seniors & Kids 11 and Under \n$10`,
+			'beardTrim': `Beard Trim \n$5`,
+			'permAndColor': `Perm & Color Start \n$60+`,
+			'styleStart': `Style Starting \n$25`,
+			'shampoo': `Shampoo Only \n$5`,
+			'pedicure': `Pedicure \n$28`,
+			'manicure': `Manicure \n$15`,
+			'pediMani': `Pedi Mani \n$40`,
+			'fullSet': `Full Set \n$28`,
+			'fill': `Fill \n$18`,
+			'eyebrow': `Eyebrow Wax \n$10`,
+			'lips': `Lips \n$5`,
+			'chin': `Chin \n$8`
+		}
+		
 	}
 
 	prevStep() {
@@ -79,11 +104,12 @@ export default class BookAppointment extends Component {
 	}
 
 	handleClick(event) {
+		
         event.preventDefault();
         const target = event.target;
         const value = target.id === 'selected' ? 'unselected' : 'selected';
-        const name = target.name;
-		
+        const name = target.getAttribute('name');
+
         this.setState({
             services: {
 				...this.state.services,
@@ -173,13 +199,19 @@ export default class BookAppointment extends Component {
 						<Navbar />
 						<div className="page-intro"></div>
 						<h1 className='page-title'>Choose a Service</h1>
-						<SelectService
-							handleClick={this.handleClick}
-							values={values}
-						/>
-						<Button onClick={() => this.selectServiceValidation() ? this.nextStep() : alert('yo pls select smth')}>
+						<div className='flexbox-container'>
+							<SelectService 
+								handleClick={this.handleClick}
+								values={values}
+								className='flexbox-item flexbox-item-1'
+								servicesDict={this.servicesDict}
+							/>
+						</div>
+						{/* TODO: MOVE NEXT BUTTON TO BOTTOM... POSSIBLY FLEX-DIRECTION: COLUMN */}
+						<Button className='button flexbox-item-2' onClick={() => this.selectServiceValidation() ? this.nextStep() : alert('Please Select an Option')}>
 							Next
 						</Button>
+						
 					</div>
 				);
 			case 2:
@@ -187,34 +219,44 @@ export default class BookAppointment extends Component {
 					<div>
 						<Navbar />
 						<div className="page-intro"></div>
-						<h1>Contact Information</h1>
-						<ContactInfo 
-							handleChange={this.handleChange}
-							handleValidation={this.handleValidation}
-							values={values}
-							handlePhoneNumChange={this.handlePhoneNumChange}
-						/>
-						{/* https://stackoverflow.com/questions/49491569/disable-specific-days-in-material-ui-calendar-in-react */}
-						<MuiPickersUtilsProvider utils={DateFnsUtils}>
-							<KeyboardDatePicker
-								disableToolbar
-								variant="inline"
-								format="MM/dd/yyyy"
-								margin="normal"
-								id="date-picker-inline"
-								value={this.state.date}
-								onChange={this.handleDateChange}
-								label='Select a Date'
-								KeyboardButtonProps={{
-									'aria-label': 'change date',
-								}}
-								shouldDisableDate={this.disableDates}
-								autoOk={true}
-								error={this.state.errors[date]===''} // TODO: WHY ISN'T THIS WORKING
-							/>
-						</MuiPickersUtilsProvider>
-						<br></br>
-
+						<h1 className='page-title'>Contact Information</h1>
+						<div className='flexbox-container contact-info'>
+							<div className='leftSide'>
+								<ContactInfo 
+									handleChange={this.handleChange}
+									values={values}
+									handlePhoneNumChange={this.handlePhoneNumChange}
+								/>
+								{/* TODO: MOVE TO PREVIOUS FORM? */}
+								{/* TODO: make it so today can't be selected? */}
+								{/* https://stackoverflow.com/questions/49491569/disable-specific-days-in-material-ui-calendar-in-react */}
+								<MuiPickersUtilsProvider utils={DateFnsUtils}>
+									<KeyboardDatePicker
+										disableToolbar
+										variant="inline"
+										format="MM/dd/yyyy"
+										margin="normal"
+										id="date-picker-inline"
+										value={this.state.date}
+										onChange={this.handleDateChange}
+										label='Select a Date'
+										KeyboardButtonProps={{
+											'aria-label': 'change date',
+										}}
+										shouldDisableDate={this.disableDates}
+										autoOk={true}
+										// error={this.state.errors[date]===''} // TODO: WHY ISN'T THIS WORKING
+									/>
+								</MuiPickersUtilsProvider>
+							</div>
+							<div className='rightSide'>
+								Appointment Information
+								<ReviewReserve 
+									servicesDict={this.servicesDict}
+									values={values}
+								/>
+							</div>
+						</div>
 						<Button onClick={this.prevStep }>
 							Back
 						</Button>
@@ -222,7 +264,6 @@ export default class BookAppointment extends Component {
 						<Button onClick={() => this.checkErrors() ? this.nextStep() : (this.handleValidation('date', date), alert('Invalid inputs'))}>
 							Next
 						</Button>
-						
 					</div>
 				);
 			case 3:
@@ -235,6 +276,7 @@ export default class BookAppointment extends Component {
 							Back={this.prevStep}
 							handleSubmit={this.handleSubmit}
 							values={values}
+							servicesDict={this.servicesDict}
 						/>
 					</div>
 				);

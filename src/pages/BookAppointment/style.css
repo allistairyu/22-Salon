@@ -1,40 +1,100 @@
 .service {
   background-color: white;
-  height: 50px;
-  width: 200px;
-  padding: 10px;
-  margin: 10px;
+  height: 100px;
+  width: 330px;
+  padding: 3px;
+  margin: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
-.service {
-  padding: 0 !important;
-  border: none !important;
-  background: none !important;
+
+.service .button {
+  background-color: #f2f3f4;
+  height: 85px;
+  width: 325px;
+  cursor: pointer;
+  border: 0 !important;
+  pointer-events: none;
 }
 
 #unselected {
-  outline: 1px solid black !important;
+  outline: 2px solid white !important;
 }
 
 #selected {
-  outline: 1px solid red !important;
+  outline: 2px solid #b90d1f !important;
 }
 .container {
   display: flex;
   flex-direction: row;
 }
-
 .leftSide {
   width: 15%;
 }
-.center {
+
+.container .button {
+  margin-left: 90%;
+}
+
+.flexbox-container {
+  width: 70%;
+  display: flex;
+  justify-content: flex-start;
+  margin: auto;
+  align-content: flex-start;
+}
+.flexbox-container.contact-info {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+}
+.flexbox-container.contact-info .leftSide {
+  flex-direction: column;
+  width: 50% !important;
+}
+@media only screen and (max-width: 1475px) {
+  .flexbox-container {
+    width: 85%;
+  }
+}
+@media only screen and (max-width: 1200px) {
+  .flexbox-container {
+    width: 95%;
+  }
+}
+@media only screen and (max-width: 733px) {
+  .service {
+    width: 240px;
+  }
+}
+@media only screen and (max-width: 527px) {
+  .service {
+    width: 200px;
+  }
+}
+.flexbox-container-2 {
+  display: flex;
   justify-content: center;
+  flex-wrap: wrap;
+}
+
+.center {
+  text-align: center;
 }
 
 .page-title {
+  display: flex;
   margin: auto;
   width: 50%;
-  text-align: center;
+  text-align: left;
 }
+
+.input {
+  margin-right: 50px;
+}
+
 /* #selected:hover {
   background-color: white;
 } */

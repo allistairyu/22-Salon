@@ -1,37 +1,30 @@
 import React from 'react'
 import '../style.css'
+import keyIndex from 'react-key-index'
 
-const SelectServiceTest = ({ values, handleClick }) => {
-
-
+const SelectService = ({ servicesDict, values, handleClick }) => {
+    
     //TODO: CONVERT TO MATERIAL UI BUTTONS
+    //TODO: make max num of services 3
+
     return (
-        <div className='container'>
-            <div className='leftSide'>
-            </div>
+        <div>
             <div className='Center'>
                 <form>
-                    <div>
-                        <button name='mensHaircut' id={values.services.mensHaircut} onClick={handleClick} className='service'>
-                            Men's Haircut<br></br>
-                            $15
-                        </button>
-                        <button name='womensHaircut' id={values.services.womensHaircut} onClick={handleClick} className='service'>
-                            Women's Haircut<br></br>
-                            $18
-                        </button>
-                        <button name='seniorKids' id={values.services.seniorKids} onClick={handleClick} className='service'>
-                            Senior & Kids 11 and Under<br></br>
-                            $10
-                        </button>
+                    <div className='flexbox-container-2'>
+                        {/* TODO: FIX KEY ID THING */}
+                        {Object.keys(values.services).map((service) => (
+                            <div className='service' name={service} onClick={(e) => handleClick(e)} id={values.services[service]}>
+                                <button key={service.id}  className='service button'>
+                                    {servicesDict[service]}
+                                </button>
+                            </div>
+                        ))}
                     </div>
                 </ form>
-            </div>
-            <div className='rightSide'>
-
             </div>
         </div>
     )
 }
 
-export default SelectServiceTest
+export default SelectService

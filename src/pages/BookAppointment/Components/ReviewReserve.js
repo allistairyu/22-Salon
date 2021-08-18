@@ -1,25 +1,17 @@
 import React from 'react'
 
-const ReviewReserve = ({ Back, values, handleSubmit }) => {
-    
+const ReviewReserve = ({ servicesDict, Back, values, handleSubmit }) => {
+
     return (
         <div>
             <div>
-                {values.firstName}
-                <br></br>
-                {values.lastName}
-                <br></br>
-                {values.phoneNumber}
-                <br></br>
-                {values.email}
-                <br></br>
+                {Object.keys(values.services).map(function(service) {
+                    if (values.services[service] === 'selected') return <p>{servicesDict[service]}</p>
+                })}
             </div>
-            <button onClick={Back}>
-                go back
-            </button>
-            <form onSubmit={handleSubmit}>
+            {/* <form onSubmit={handleSubmit}>
                 <input type='submit' value="Submit" />
-            </form>
+            </form> */}
         </div>
     )
 }
