@@ -7,6 +7,7 @@ import ReviewReserve from './Components/ReviewReserve'
 import {MuiPickersUtilsProvider, KeyboardDatePicker} from '@material-ui/pickers'
 import DateFnsUtils from '@date-io/date-fns';
 import validator from 'validator';
+import Button from '@material-ui/core/Button';
 // import { Select } from '@material-ui/core';
 
 export default class BookAppointment extends Component {
@@ -21,8 +22,8 @@ export default class BookAppointment extends Component {
 			time: '',
 			email: '',
 			phoneNumber: '',
-			errors: {},
-			services: { mensHaircut: 'unselected', womensHaircut: 'unselected', seniorKids: 'unselected' }
+			services: { mensHaircut: 'unselected', womensHaircut: 'unselected', seniorKids: 'unselected' },
+			errors: { firstName: '', lastName: '', phoneNumber: '', email: '' }
 		}
 		this.handleSubmit = this.handleSubmit.bind(this)
 		this.handleClick = this.handleClick.bind(this)
@@ -30,6 +31,7 @@ export default class BookAppointment extends Component {
 		this.handlePhoneNumChange = this.handlePhoneNumChange.bind(this)
 		this.handleValidation = this.handleValidation.bind(this)
 		this.selectServiceValidation = this.selectServiceValidation.bind(this)
+		this.checkErrors = this.checkErrors.bind(this)
 		this.nextStep = this.nextStep.bind(this)
 		this.prevStep = this.prevStep.bind(this)
 		// this.handleDateChange = this.handleDateChange.bind(this)
@@ -45,13 +47,11 @@ export default class BookAppointment extends Component {
 	}
 
 	handleChange(event) {
-        const target = event.target;
-        const value = target.value;
-        const name = target.name;
-
+		
         this.setState({
-            [name]: value
+            [event.target.name]: event.target.value
         });
+		this.handleValidation(event.target.name, event.target.value)
     }
 
 	handleDateChange = date => {
@@ -60,11 +60,23 @@ export default class BookAppointment extends Component {
 		})
 	}
 
-	// showTimes = () => {
-	// 	<button>
-	// 		5:30
-	// 	</button>
-	// }
+	handlePhoneNumChange(value) {
+		let errors = {...this.state.errors}
+		if (!validator.isMobilePhone(value)) {
+			errors.phoneNumber = 'invalid phone number'
+			this.setState({
+				errors: errors
+			})
+		} else {
+			errors.phoneNumber = ''
+			this.setState({
+				errors: errors
+			})
+		}
+		this.setState({
+			phoneNumber: value
+		})
+	}
 
 	handleClick(event) {
         event.preventDefault();
@@ -79,12 +91,6 @@ export default class BookAppointment extends Component {
 			},
         })
     }
-
-	handlePhoneNumChange(value) {
-		this.setState({
-			phoneNumber: value
-		})
-	}
 
 	handleSubmit(event) {
         event.preventDefault();
@@ -109,51 +115,40 @@ export default class BookAppointment extends Component {
     }
 
 	// https://stackoverflow.com/questions/41296668/reactjs-form-input-validation
-	handleValidation = () => {
-
-
-		let errors = {};
-		let formIsValid = true;
-
+	handleValidation = (name, value) => {
+		let errors = this.state.errors;
 		//Name
-		if(!this.state.firstName || !this.state.lastName){
-			formIsValid = false;
-			errors["name"] = "Cannot be empty";
+		if(!value){
+			errors[name] = "Cannot be empty";
+		} else {
+			errors[name] = '';
 		}
-	
-		if(typeof this.state.firstName !== "undefined" || typeof this.state.lastName !== "undefined"){
-			if(!this.state.firstName.match(/^[a-zA-Z]+$/) || !this.state.lastName.match(/^[a-zA-Z]+$/)){
-				formIsValid = false;
-				errors["name"] = "Only letters";
-			}        
-		}
-
-		//Phone Number
-		if (!validator.isMobilePhone(this.state.phoneNumber)) {
-			formIsValid = false;
-			errors['phoneNumber'] = 'phone number not valid'
-		}
-	
-		//Email
-		if(!this.state.email){
-			formIsValid = false;
-			errors["email"] = "Cannot be empty";
-		}
-	
-		if(typeof this.state.email !== "undefined"){
-			let lastAtPos = this.state.email.lastIndexOf('@');
-			let lastDotPos = this.state.email.lastIndexOf('.');
-
-			if (!(lastAtPos < lastDotPos && lastAtPos > 0 && this.state.email.indexOf('@@') === -1 && lastDotPos > 2 && (this.state.email.length - lastDotPos) > 2)) {
-				formIsValid = false;
-				errors["email"] = "Email is not valid";
+		if (name === 'firstName' || name === 'lastName') {
+			if(typeof value !== "undefined"){
+				if(!value.match(/^[a-zA-Z]+$/)){
+					errors[name] = "Only letters";
+				} else {
+					errors[name] = ''
+				}    
 			}
-		}  
+		} else if (name === 'email') {
+			if (!validator.isEmail(value)) {
+				errors['email'] = 'Invalid Email'
+			} else {
+				errors['email'] = ''
+			}   
+		}
+		this.setState({errors: errors})
+	}
 
-		this.setState({errors: errors});
-		return formIsValid;
-
-    }
+	checkErrors = () => {
+		for (const error in this.state.errors) {
+			if (this.state.errors[error] !== '') {
+				return false
+			}
+		}
+		return this.state.firstName && this.state.lastName && this.state.phoneNumber && this.state.email && this.state.date
+	}
 
 	selectServiceValidation = () => {
 		for (const service in this.state.services) {
@@ -168,8 +163,8 @@ export default class BookAppointment extends Component {
 
 	render() {
 		const {step} = this.state
-		const { firstName, lastName, date, time, email, phoneNumber, services } = this.state;
-		const values = { firstName, lastName, date, time, email, phoneNumber, services }
+		const { firstName, lastName, date, time, email, phoneNumber, services, errors } = this.state;
+		const values = { firstName, lastName, date, time, email, phoneNumber, services, errors }
 
 		switch(step) {
 			case 1:
@@ -182,9 +177,9 @@ export default class BookAppointment extends Component {
 							handleClick={this.handleClick}
 							values={values}
 						/>
-						<button onClick={() => this.selectServiceValidation() ? this.nextStep() : alert('yo pls select smth')}>
+						<Button onClick={() => this.selectServiceValidation() ? this.nextStep() : alert('yo pls select smth')}>
 							Next
-						</button>
+						</Button>
 					</div>
 				);
 			case 2:
@@ -215,16 +210,18 @@ export default class BookAppointment extends Component {
 								}}
 								shouldDisableDate={this.disableDates}
 								autoOk={true}
+								error={this.state.errors[date]===''} // TODO: WHY ISN'T THIS WORKING
 							/>
 						</MuiPickersUtilsProvider>
 						<br></br>
 
-						<button onClick={this.prevStep }>
+						<Button onClick={this.prevStep }>
 							Back
-						</button>
-						<button onClick={() => this.handleValidation() ? this.nextStep() : alert('not valid')}>
+						</Button>
+						{/* <Button onClick={() => alert(this.checkErrors())}> */}
+						<Button onClick={() => this.checkErrors() ? this.nextStep() : (this.handleValidation('date', date), alert('Invalid inputs'))}>
 							Next
-						</button>
+						</Button>
 						
 					</div>
 				);

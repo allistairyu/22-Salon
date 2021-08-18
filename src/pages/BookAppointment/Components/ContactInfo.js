@@ -1,42 +1,25 @@
 import React from 'react'
 import MuiPhoneNumber from 'material-ui-phone-number';
+import TextField from '@material-ui/core/TextField'
 // import ContactForm from './ContactForm'
 
 export default function ContactInfo({ handlePhoneNumChange, handleChange, values}) {
 
     return (
-        <form>
+        <form autoComplete='off'>
             <label>
-                First Name:
-                <input
-                    name="firstName"
-                    type="string"
-                    defaultValue={values.firstName}
-                    onChange={handleChange} />
+                <TextField label="First Name" name='firstName' onChange={handleChange} error={values.errors.firstName} defaultValue={values.firstName} />
             </label>
             <label>
-                Last Name:
-                <input
-                    name="lastName"
-                    type="string"
-                    defaultValue={values.lastName}
-                    onChange={handleChange} />
+                <TextField label="Last Name" name='lastName' onChange={handleChange} error={values.errors.lastName} defaultValue={values.lastName} />
             </label>
             <br />
             <label>
-                Phone Number:
-                <MuiPhoneNumber defaultCountry={'us'} onChange={handlePhoneNumChange}/>
+                <MuiPhoneNumber defaultCountry='us' disableAreaCodes onChange={handlePhoneNumChange} error={values.errors.phoneNumber} defaultValue={values.phoneNumber} />
             </label>
             <label>
-                Email Address:
-                <input
-                    name="email"
-                    type="string"
-                    defaultValue={values.email}
-                    onChange={handleChange} />
+                <TextField label="Email" name='email' onChange={handleChange} error={values.errors.email} defaultValue={values.email} />
             </label>
-            
-            <br />
         </form>
     );
 }
