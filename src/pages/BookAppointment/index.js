@@ -43,21 +43,21 @@ export default class BookAppointment extends Component {
 		//TODO: store prices somewhere else
 		//TODO: STORE SERVICES IN GLOBAL VARIABLE
 		this.servicesDict = {
-			'mensHaircut': "Men's Haircut \n $15",
-			'womensHaircut': `Women's Haircut \n$18`,
-			'seniorKids': `Seniors & Kids 11 and Under \n$10`,
-			'beardTrim': `Beard Trim \n$5`,
-			'permAndColor': `Perm & Color Start \n$60+`,
-			'styleStart': `Style Starting \n$25`,
-			'shampoo': `Shampoo Only \n$5`,
-			'pedicure': `Pedicure \n$28`,
-			'manicure': `Manicure \n$15`,
-			'pediMani': `Pedi Mani \n$40`,
-			'fullSet': `Full Set \n$28`,
-			'fill': `Fill \n$18`,
-			'eyebrow': `Eyebrow Wax \n$10`,
-			'lips': `Lips \n$5`,
-			'chin': `Chin \n$8`
+			'mensHaircut': ["Men's Haircut", 15],
+			'womensHaircut': ["Women's Haircut", 18],
+			'seniorKids': ["Seniors & Kids 11 and Under", 10],
+			'beardTrim': ["Beard Trim", 5],
+			'permAndColor': ["Perm & Color Start", 60],
+			'styleStart': ["Style Starting", 25],
+			'shampoo': ["Shampoo Only", 5],
+			'pedicure': ["Pedicure", 28],
+			'manicure': ["Manicure", 15],
+			'pediMani': ["Pedi Mani", 40],
+			'fullSet': ["Full Set", 28],
+			'fill': ["Fill", 18],
+			'eyebrow': ["Eyebrow Wax", 10],
+			'lips': ["Lips", 5],
+			'chin': ["Chin", 8]
 		}
 		
 	}
@@ -120,7 +120,8 @@ export default class BookAppointment extends Component {
 
 	handleSubmit(event) {
         event.preventDefault();
-
+		
+		let now = new Date();
 		let databody = {
 			'firstName': this.state.firstName,
 			'lastName': this.state.lastName,
@@ -128,7 +129,8 @@ export default class BookAppointment extends Component {
 			'time': this.state.time,
 			'phoneNumber': this.state.phoneNumber,
 			'email': this.state.email,
-			'services': this.state.services
+			'services': this.state.services,
+			'timestamp': now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds()
 		}
 		alert(JSON.stringify(databody))
         return fetch('/api/users', {
@@ -198,7 +200,7 @@ export default class BookAppointment extends Component {
 					<div>
 						<Navbar />
 						<div className="page-intro"></div>
-						<h1 className='page-title'>Choose a Service</h1>
+						<h3 className='page-title'>Choose a Service</h3>
 						<div className='flexbox-container'>
 							<SelectService 
 								handleClick={this.handleClick}
@@ -208,7 +210,8 @@ export default class BookAppointment extends Component {
 							/>
 						</div>
 						{/* TODO: MOVE NEXT BUTTON TO BOTTOM... POSSIBLY FLEX-DIRECTION: COLUMN */}
-						<Button className='button flexbox-item-2' onClick={() => this.selectServiceValidation() ? this.nextStep() : alert('Please Select an Option')}>
+						{/* TODO: WHY IS BUTTON SO LONG */}
+						<Button className='center' onClick={() => this.selectServiceValidation() ? this.nextStep() : alert('Please Select an Option')}>
 							Next
 						</Button>
 						
@@ -219,9 +222,9 @@ export default class BookAppointment extends Component {
 					<div>
 						<Navbar />
 						<div className="page-intro"></div>
-						<h1 className='page-title'>Contact Information</h1>
 						<div className='flexbox-container contact-info'>
 							<div className='leftSide'>
+								<h3>Contact Information</h3>
 								<ContactInfo 
 									handleChange={this.handleChange}
 									values={values}
@@ -250,20 +253,24 @@ export default class BookAppointment extends Component {
 								</MuiPickersUtilsProvider>
 							</div>
 							<div className='rightSide'>
-								Appointment Information
+								<h3>Appointment Information</h3>
+								<br></br>
 								<ReviewReserve 
 									servicesDict={this.servicesDict}
 									values={values}
 								/>
+								<br></br>
+								<Button style={{backgroundColor: "#b90d1f"}}
+									onClick={(e) => this.checkErrors() ? this.handleSubmit(e) : (this.handleValidation('date', date), alert('Invalid inputs: ', JSON.stringify(this.state.errors)))}>
+									Reserve
+								</Button>
 							</div>
 						</div>
-						<Button onClick={this.prevStep }>
+						<Button className='center' onClick={this.prevStep }>
 							Back
 						</Button>
 						{/* <Button onClick={() => alert(this.checkErrors())}> */}
-						<Button onClick={() => this.checkErrors() ? this.nextStep() : (this.handleValidation('date', date), alert('Invalid inputs'))}>
-							Next
-						</Button>
+						
 					</div>
 				);
 			case 3:
@@ -271,21 +278,11 @@ export default class BookAppointment extends Component {
 					<div>
 						<Navbar />
 						<div className="page-intro"></div>
-						<h1>Review and Reserve</h1>
-						<ReviewReserve 
-							Back={this.prevStep}
-							handleSubmit={this.handleSubmit}
-							values={values}
-							servicesDict={this.servicesDict}
-						/>
-					</div>
-				);
-			case 4:
-				return (
-					<div>
-						<Navbar />
-						<div className="page-intro"></div>
 						<h1>success</h1>
+						<div>
+							email confirmation
+							text confirmation
+						</div>
 					</div>
 				);
 			default:

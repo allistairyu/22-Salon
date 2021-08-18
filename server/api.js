@@ -16,7 +16,8 @@ let User = mongoose.model('User', {
   time: String,
   email: String,
   phoneNumber: String,
-  services: [String]
+  services: [String],
+  timestamp: String
 });
 
 // If the database is empty, insert some dummy data into it
@@ -48,7 +49,8 @@ router.get('/users', (req, res) => {
 //TODO: INCORPORATE SERVICES INTO DATABASE
 router.post('/users', (req, res) => {
   const doc = new User({ firstName: req.body.firstName, lastName: req.body.lastName, date: req.body.date, time: req.body.time,
-                            phoneNumber: req.body.phoneNumber, email: req.body.email, services: JSON.stringify(req.body.services) });
+                            phoneNumber: req.body.phoneNumber, email: req.body.email, services: JSON.stringify(req.body.services),
+                              timestamp: req.body.timestamp });
   doc.save();
 });
 

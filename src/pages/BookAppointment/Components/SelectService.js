@@ -16,7 +16,10 @@ const SelectService = ({ servicesDict, values, handleClick }) => {
                         {Object.keys(values.services).map((service) => (
                             <div className='service' name={service} onClick={(e) => handleClick(e)} id={values.services[service]}>
                                 <button key={service.id}  className='service button'>
-                                    {servicesDict[service]}
+                                    {servicesDict[service][0]}
+                                    <br>
+                                    </br>
+                                    {"$" + servicesDict[service][1]}
                                 </button>
                             </div>
                         ))}
