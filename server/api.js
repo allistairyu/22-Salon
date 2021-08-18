@@ -32,6 +32,7 @@ User.find((err, users) => {
   User.collection.insert(testUsers, (err, users) => { if (err) console.log(err); })
   */
 });
+
 // Now, we list all of our routes.
 // Note that the actual routes you specify here will be prefixed by /api
 
@@ -48,16 +49,20 @@ router.get('/users', (req, res) => {
 });
 //TODO: INCORPORATE SERVICES INTO DATABASE
 router.post('/users', (req, res) => {
+  let identification = new ObjectId(req.body._id)
   const doc = new User({ firstName: req.body.firstName, lastName: req.body.lastName, date: req.body.date, time: req.body.time,
                             phoneNumber: req.body.phoneNumber, email: req.body.email, services: JSON.stringify(req.body.services),
-                              timestamp: req.body.timestamp });
+                              timestamp: req.body.timestamp, _id: identification });
+  // console.log(req.body._id)
   doc.save();
 });
 
-
+router.put('/users', (req, res) => {
+  
+})
 //https://stackoverflow.com/questions/54684258/why-are-documents-not-being-deleted-from-the-mongodb-database
 router.delete('/users/:id', async (req, res) => {
-  const identification = new ObjectId(req.params.id)
+  const identification =  new ObjectId(req.params.id)
   await User.deleteOne({'_id': identification}, function(err, res) {
     if (err) console.log(err)
   })

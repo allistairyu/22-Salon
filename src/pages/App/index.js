@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './style.css';
-import UserContainer from './Components/UserContainer'
+// import UserContainer from './Components/UserContainer'
 import Navbar from '../App/Components/Navbar'
 
 class App extends Component {
@@ -9,8 +9,7 @@ class App extends Component {
       <div className="App">
         <Navbar />
         <div className="page-intro"></div>
-        Here is a list of people:
-        <UserContainer />
+          Home
       </div>
     );
   }

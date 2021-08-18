@@ -4,12 +4,17 @@ import Navbar from '../App/Components/Navbar'
 import ContactInfo from './Components/ContactInfo';
 import SelectService from './Components/SelectService'
 import ReviewReserve from './Components/ReviewReserve'
-import {MuiPickersUtilsProvider, KeyboardDatePicker} from '@material-ui/pickers'
-import DateFnsUtils from '@date-io/date-fns';
 import validator from 'validator';
 import Button from '@material-ui/core/Button';
+import Success from './Components/Success'
+import SelectDateTime from './Components/SelectDateTime'
+
+const ObjectId = (m = Math, d = Date, h = 16, s = s => m.floor(s).toString(h)) =>
+    s(d.now() / 1000) + ' '.repeat(h).replace(/./g, () => s(m.random() * h))
 
 //TODO: IMPLEMENT COMPONENT LIFECYCLE STUFF???
+//TODO: ADD ROUTER BLOCKING https://stackoverflow.com/questions/32841757/detecting-user-leaving-page-with-react-router
+// https://material-ui.com/components/dialogs/
 
 export default class BookAppointment extends Component {
 	
@@ -27,7 +32,8 @@ export default class BookAppointment extends Component {
 						permAndColor: 'unselected', styleStart: 'unselected', shampoo: 'unselected', pedicure: 'unselected',
 						manicure: 'unselected', pediMani: 'unselected', fullSet: 'unselected', fill: 'unselected', eyebrow: 'unselected',
 						lips: 'unselected', chin: 'unselected' },
-			errors: { firstName: '', lastName: '', phoneNumber: '', email: '' }
+			errors: { firstName: '', lastName: '', phoneNumber: '', email: '' },
+			id: ''
 		}
 		this.handleSubmit = this.handleSubmit.bind(this)
 		this.handleClick = this.handleClick.bind(this)
@@ -61,10 +67,17 @@ export default class BookAppointment extends Component {
 		}
 		
 	}
+	
+	 componentDidMount = async () => {
+		console.log('generate')
+		await this.setState({
+			id: ObjectId()
+		}) 
+		
+	}
 
 	prevStep() {
-		const {step} = this.state;
-		this.setState({ step: step - 1 })
+		this.setState((prevState) => ({ step: prevState.step - 1 }))
 	}
 
 	nextStep() {
@@ -130,7 +143,8 @@ export default class BookAppointment extends Component {
 			'phoneNumber': this.state.phoneNumber,
 			'email': this.state.email,
 			'services': this.state.services,
-			'timestamp': now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds()
+			'timestamp': now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
+			'_id': this.state.id
 		}
 		alert(JSON.stringify(databody))
         return fetch('/api/users', {
@@ -191,8 +205,8 @@ export default class BookAppointment extends Component {
 
 	render() {
 		const {step} = this.state
-		const { firstName, lastName, date, time, email, phoneNumber, services, errors } = this.state;
-		const values = { firstName, lastName, date, time, email, phoneNumber, services, errors }
+		const { firstName, lastName, date, time, email, phoneNumber, services, errors, id } = this.state;
+		const values = { firstName, lastName, date, time, email, phoneNumber, services, errors, id }
 
 		switch(step) {
 			case 1:
@@ -233,24 +247,13 @@ export default class BookAppointment extends Component {
 								{/* TODO: MOVE TO PREVIOUS FORM? */}
 								{/* TODO: make it so today can't be selected? */}
 								{/* https://stackoverflow.com/questions/49491569/disable-specific-days-in-material-ui-calendar-in-react */}
-								<MuiPickersUtilsProvider utils={DateFnsUtils}>
-									<KeyboardDatePicker
-										disableToolbar
-										variant="inline"
-										format="MM/dd/yyyy"
-										margin="normal"
-										id="date-picker-inline"
-										value={this.state.date}
-										onChange={this.handleDateChange}
-										label='Select a Date'
-										KeyboardButtonProps={{
-											'aria-label': 'change date',
-										}}
-										shouldDisableDate={this.disableDates}
-										autoOk={true}
-										// error={this.state.errors[date]===''} // TODO: WHY ISN'T THIS WORKING
-									/>
-								</MuiPickersUtilsProvider>
+								
+								<br></br>
+								<br></br>
+								<h3>Choose Date and Time</h3>
+								<SelectDateTime onChange={this.handleDateChange} value={this.state.date} disableDates={this.disableDates}/>
+								
+
 							</div>
 							<div className='rightSide'>
 								<h3>Appointment Information</h3>
@@ -279,10 +282,10 @@ export default class BookAppointment extends Component {
 						<Navbar />
 						<div className="page-intro"></div>
 						<h3>success</h3>
-						<div>
-							email confirmation
-							text confirmation
-						</div>
+						<Success 
+							values={values}
+							prevStep={this.prevStep}
+						/>
 					</div>
 				);
 			default:

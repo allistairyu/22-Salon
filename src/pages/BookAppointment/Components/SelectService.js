@@ -1,6 +1,6 @@
 import React from 'react'
 import '../style.css'
-import keyIndex from 'react-key-index'
+// import keyIndex from 'react-key-index'
 
 const SelectService = ({ servicesDict, values, handleClick }) => {
     

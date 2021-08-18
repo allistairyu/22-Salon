@@ -47,10 +47,13 @@
   display: flex;
   justify-content: space-between;
 }
+
+/* TODO: https://stackoverflow.com/questions/3680429/click-through-div-to-underlying-elements */
 .flexbox-container.contact-info .leftSide {
   display: flex;
   flex-direction: column;
   width: 50%;
+  /* z-index: -1; */
 }
 
 .flexbox-container.contact-info .rightSide {

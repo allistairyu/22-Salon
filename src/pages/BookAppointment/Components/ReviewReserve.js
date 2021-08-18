@@ -22,9 +22,7 @@ const ReviewReserve = ({ servicesDict, Back, values, handleSubmit }) => {
             <br></br>
             <br></br>
             <hr></hr>
-            {/* <form onSubmit={handleSubmit}>
-                <input type='submit' value="Submit" />
-            </form> */}
+            <br></br>
             <span className='left'>Total</span>
             <span className='right'>${total}.00</span>
         </div>
