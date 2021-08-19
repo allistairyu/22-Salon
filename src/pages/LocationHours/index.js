@@ -11,20 +11,25 @@ export default class LocationHours extends Component {
 			<div>
 				<Navbar />
 				<div className="page-intro"></div>
-				<h3>Location and Hours</h3>
-				<div className='location'>
-					<RoomIcon />
-					10535 Greenwood Ave N
+				<h3 className='page-title'>Location and Hours</h3>
+				<div className='flexbox-container'>
 					<br></br>
-					Seattle, WA 98133
-				</div>
-				<div className='call'>
-					<PhoneIcon />
-					(206) 417-0482
-				</div>
-				<div className='hours'>
-					<ScheduleIcon />
-					Monday through Friday 
+					<div className='location'>
+						<RoomIcon />
+						10535 Greenwood Ave N
+						<br></br>
+						Seattle, WA 98133
+					</div>
+					<br></br>
+					<div className='call'>
+						<PhoneIcon />
+						(206) 417-0482
+					</div>
+					<br></br>
+					<div className='hours'>
+						<ScheduleIcon />
+						Monday through Friday 
+					</div>
 				</div>
 			</div>
 		);

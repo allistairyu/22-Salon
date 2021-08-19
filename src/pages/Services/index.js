@@ -8,9 +8,10 @@ export default class Services extends Component {
 			<div>
 				<Navbar />
 				<div className="page-intro"></div>
-				
 				<h3 className='page-title'>Services</h3>
-				<div className='flexbox-container'></div>
+				<div className='flexbox-container'>
+					
+				</div>
 				
 			</div>
 		);

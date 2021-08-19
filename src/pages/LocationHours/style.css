@@ -1,0 +1,9 @@
+.flexbox-container {
+  width: 50% !important;
+  height: auto;
+  display: flex;
+  justify-content: flex-start;
+  margin: auto;
+  align-content: flex-start;
+  flex-direction: column;
+}
