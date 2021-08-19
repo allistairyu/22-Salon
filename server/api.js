@@ -18,7 +18,7 @@ let User = mongoose.model('User', {
   phoneNumber: String,
   services: [String],
   timestamp: String
-});
+}, 'User');
 
 // If the database is empty, insert some dummy data into it
 User.find((err, users) => {
@@ -47,19 +47,17 @@ router.get('/users', (req, res) => {
     }
   });
 });
-//TODO: INCORPORATE SERVICES INTO DATABASE
-router.post('/users', (req, res) => {
-  let identification = new ObjectId(req.body._id)
-  const doc = new User({ firstName: req.body.firstName, lastName: req.body.lastName, date: req.body.date, time: req.body.time,
-                            phoneNumber: req.body.phoneNumber, email: req.body.email, services: JSON.stringify(req.body.services),
-                              timestamp: req.body.timestamp, _id: identification });
-  // console.log(req.body._id)
-  doc.save();
-});
 
-router.put('/users', (req, res) => {
-  
-})
+router.post('/users', async (req, res, next) => {
+  let identification = new ObjectId(req.body._id)
+  if (await User.find({_id: identification}).countDocuments() > 0) {
+    req.user = await User.findById(req.body._id);
+    next()
+  }
+  req.user = new User
+  next()
+}, createUpdateUser());
+
 //https://stackoverflow.com/questions/54684258/why-are-documents-not-being-deleted-from-the-mongodb-database
 router.delete('/users/:id', async (req, res) => {
   const identification =  new ObjectId(req.params.id)
@@ -67,5 +65,29 @@ router.delete('/users/:id', async (req, res) => {
     if (err) console.log(err)
   })
 })
+
+function createUpdateUser() {
+  return async (req, res) => {
+    let identification = new ObjectId(req.body._id)
+    let user = req.user
+    user.firstName = req.body.firstName
+    user.lastName = req.body.lastName
+    user.date = req.body.date
+    user.time = req.body.time
+    user.phoneNumber = req.body.phoneNumber
+    user.email = req.body.email
+    user.services = JSON.stringify(req.body.services)
+    user.timestamp = req.body.timestamp
+    user._id = identification
+
+    try {
+      user = await user.save()
+      console.log('saved')
+    } catch (e) {
+      console.log(e)
+    }
+  }
+}
+
 
 module.exports = router

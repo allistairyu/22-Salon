@@ -147,6 +147,8 @@ export default class BookAppointment extends Component {
 			'_id': this.state.id
 		}
 		alert(JSON.stringify(databody))
+
+
         return fetch('/api/users', {
             method: 'POST',
             body: JSON.stringify(databody),
