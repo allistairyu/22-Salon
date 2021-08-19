@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "react-scripts": "0.8.4"
+    "react-scripts": "^4.0.3"
   },
   "dependencies": {
     "@date-io/date-fns": "^1.3.13",
@@ -24,17 +24,11 @@
     "prop-types": "^15.7.2",
     "ra-data-json-server": "^3.17.2",
     "react": "^18.0.0-alpha-b9934d6db-20210805",
-    "react-admin": "^3.17.2",
     "react-bootstrap": "^2.0.0-beta.4",
-    "react-date-picker": "^8.3.2",
-    "react-datetime": "^3.0.4",
     "react-dom": "^18.0.0-alpha-b9934d6db-20210805",
     "react-key-index": "^0.1.1",
     "react-router": "^3.0.0",
     "react-router-dom": "^5.2.0",
-    "uuid": "^8.3.2",
-    "uuid-mongodb": "^2.4.4",
-    "uuidv4": "^6.2.12",
     "validator": "^13.6.0"
   },
   "scripts": {
@@ -50,5 +44,17 @@
   "main": "index.js",
   "author": "",
   "license": "ISC",
-  "proxy": "http://localhost:8999"
+  "proxy": "http://localhost:8999",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }
