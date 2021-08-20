@@ -8,6 +8,25 @@ import validator from 'validator';
 import Button from '@material-ui/core/Button';
 import Success from './Components/Success'
 import SelectDateTime from './Components/SelectDateTime'
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+
+
+const timeSlots = [
+	'11:00 am',
+	'11:30 am',
+	'12:00 pm',
+	'12:30 pm',
+	'1:00 pm',
+	'1:30 pm',
+	'2:00 pm',
+	'2:30 pm',
+	'3:00 pm',
+	'3:30 pm',
+	'4:00 pm',
+	'4:30 pm',
+	'5:00 pm',
+	'5:30 pm',
+]
 
 const ObjectId = (m = Math, d = Date, h = 16, s = s => m.floor(s).toString(h)) =>
     s(d.now() / 1000) + ' '.repeat(h).replace(/./g, () => s(m.random() * h))
@@ -33,7 +52,8 @@ export default class BookAppointment extends Component {
 						manicure: 'unselected', pediMani: 'unselected', fullSet: 'unselected', fill: 'unselected', eyebrow: 'unselected',
 						lips: 'unselected', chin: 'unselected' },
 			errors: { firstName: '', lastName: '', phoneNumber: '', email: '' },
-			id: ''
+			id: '',
+			availableTimes: timeSlots
 		}
 		this.handleSubmit = this.handleSubmit.bind(this)
 		this.handleClick = this.handleClick.bind(this)
@@ -42,6 +62,7 @@ export default class BookAppointment extends Component {
 		this.handleValidation = this.handleValidation.bind(this)
 		this.selectServiceValidation = this.selectServiceValidation.bind(this)
 		this.checkErrors = this.checkErrors.bind(this)
+		this.filterTimes = this.filterTimes.bind(this)
 		this.nextStep = this.nextStep.bind(this)
 		this.prevStep = this.prevStep.bind(this)
 		// this.handleDateChange = this.handleDateChange.bind(this)
@@ -69,7 +90,6 @@ export default class BookAppointment extends Component {
 	}
 	
 	 componentDidMount = async () => {
-		console.log('generate')
 		await this.setState({
 			id: ObjectId()
 		}) 
@@ -92,23 +112,43 @@ export default class BookAppointment extends Component {
 		this.handleValidation(event.target.name, event.target.value)
     }
 
-	checkReserved = async (date) => {
+	checkReserved = async () => {
         const response = await fetch(`api/users/${this.state.date}`)
         if (!response.ok) {
             throw Error(response.statusText);
         }
         const reservedDates = await response.json()
-		console.log(JSON.stringify(reservedDates))
+		return reservedDates
     }
+
+	filterTimes = (data) => {
+		if (Object.keys(data).length === 0) return
+		let takenTimes = []
+		//TODO: https://stackoverflow.com/questions/1963102/what-does-the-jslint-error-body-of-a-for-in-should-be-wrapped-in-an-if-statemen
+		for (const u in data) {
+			// if (data.hasOwnProperty(u)) console.log(data[u])
+			takenTimes.push(data[u].time)
+		}
+		let availableTimesInstance = this.state.availableTimes
+		this.setState({
+			availableTimes: availableTimesInstance.filter(time => !takenTimes.includes(time))
+		})
+	}
 
 	handleDateChange = async date => {
 		date = String(date)
 		date = date.slice(0, 15)
+		if (this.state.date === date) return
 
 		await this.setState({
-			date: date
+			date: date,
+			time: '',
+			availableTimes: timeSlots
 		})
-		this.checkReserved()
+		const reservedDates = await this.checkReserved()
+		console.log(this.filterTimes(reservedDates))
+		// alert('TIMES TAKEN ARE ' + this.filterTimes(reservedDates))
+
 	}
 
 	handlePhoneNumChange(value) {
@@ -128,7 +168,8 @@ export default class BookAppointment extends Component {
 			phoneNumber: value
 		})
 	}
-
+	// TODO: restructure services state so it's initialized as a blank object; select up to 3 services
+	// combine handleClick with onClick
 	handleClick(event) {
 		
         event.preventDefault();
@@ -143,6 +184,13 @@ export default class BookAppointment extends Component {
 			},
         })
     }
+
+	onClick = time => {
+		if (this.state.time === time) time = ''
+		this.setState({
+			time: time
+		})
+	}
 
 	handleSubmit(event) {
         event.preventDefault();
@@ -204,7 +252,7 @@ export default class BookAppointment extends Component {
 				return false
 			}
 		}
-		return this.state.firstName && this.state.lastName && this.state.phoneNumber && this.state.email && this.state.date
+		return this.state.firstName && this.state.lastName && this.state.phoneNumber && this.state.email && this.state.date && this.state.time
 	}
 
 	selectServiceValidation = () => {
@@ -238,8 +286,6 @@ export default class BookAppointment extends Component {
 								servicesDict={this.servicesDict}
 							/>
 						</div>
-						{/* TODO: MOVE NEXT BUTTON TO BOTTOM... POSSIBLY FLEX-DIRECTION: COLUMN */}
-						{/* TODO: WHY IS BUTTON SO LONG */}
 						<Button size='large' className='center button' onClick={() => this.selectServiceValidation() ? this.nextStep() : alert('Please Select an Option')}>
 							Next
 						</Button>
@@ -259,16 +305,35 @@ export default class BookAppointment extends Component {
 									values={values}
 									handlePhoneNumChange={this.handlePhoneNumChange}
 								/>
-								{/* TODO: MOVE TO PREVIOUS FORM? */}
-								{/* TODO: make it so today can't be selected? */}
 								{/* https://stackoverflow.com/questions/49491569/disable-specific-days-in-material-ui-calendar-in-react */}
 								
 								<br></br>
 								<br></br>
 								<h3>Choose Date and Time</h3>
+								<div className='small'>Call for an appointment today</div>
 								<SelectDateTime onChange={this.handleDateChange} value={this.state.date} disableDates={this.disableDates}/>
+								<br></br>
+								{this.state.date !== null &&
+									<ButtonGroup>
+										{
+											(this.state.availableTimes !== undefined && this.state.availableTimes.length > 0) ?
+												(
+													this.state.availableTimes.map((time) => {
+														// TODO: fix weird button dimensions
+														return <Button size='small' onClick={() => this.onClick(time)} 
+															color={this.state.time === time ? 'secondary' : 'default'}>{time}</Button>
+													})
+												) :
+												(
+													<div>No available times for this date</div>
+												)
+										}
+									</ButtonGroup>
+								}
 								
-
+							<br></br>
+							<br></br>
+							<br></br>
 							</div>
 							<div className='rightSide'>
 								<h3>Appointment Information</h3>

@@ -12,6 +12,8 @@ import Services from './pages/Services';
 import LocationHours from './pages/LocationHours';
 import AdminView from './pages/AdminView/index'
 
+
+//TODO: route to id after appointment is reserved?
 const Routes = (props) => (
   <Router {...props}>
     <Route path="/" component={App} />
