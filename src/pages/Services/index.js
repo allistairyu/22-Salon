@@ -11,6 +11,7 @@ export default class Services extends Component {
 				
 				<h3 className='page-title'>Services</h3>
 				<div className='flexbox-container'></div>
+				{/* TODO: MAKE SERVICES GLOBAL VARIABLE TO USE MAP HERE */}
 				
 			</div>
 		);

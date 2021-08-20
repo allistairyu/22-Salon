@@ -14,8 +14,8 @@ const SelectService = ({ servicesDict, values, handleClick }) => {
                     <div className='flexbox-container-2'>
                         {/* TODO: FIX KEY ID THING */}
                         {Object.keys(values.services).map((service) => (
-                            <div className='service' name={service} onClick={(e) => handleClick(e)} id={values.services[service]}>
-                                <button key={service.id}  className='service button'>
+                            <div className='service' key={service.id} name={service} onClick={(e) => handleClick(e)} id={values.services[service]}>
+                                <button className='service button'>
                                     {servicesDict[service][0]}
                                     <br>
                                     </br>

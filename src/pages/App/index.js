@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './style.css';
 // import UserContainer from './Components/UserContainer'
 import Navbar from '../App/Components/Navbar'
+import pic from './250472.jpg'
 
 class App extends Component {
   render() {
@@ -9,7 +10,9 @@ class App extends Component {
       <div className="App">
         <Navbar />
         <div className="page-intro"></div>
-          Home
+        <h1>Welcome</h1>
+        <br></br>
+        <img src={pic} alt='firstpic'></img>
       </div>
     );
   }

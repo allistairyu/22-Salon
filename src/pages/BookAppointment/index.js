@@ -92,10 +92,23 @@ export default class BookAppointment extends Component {
 		this.handleValidation(event.target.name, event.target.value)
     }
 
-	handleDateChange = date => {
-		this.setState({
+	checkReserved = async (date) => {
+        const response = await fetch(`api/users/${this.state.date}`)
+        if (!response.ok) {
+            throw Error(response.statusText);
+        }
+        const reservedDates = await response.json()
+		console.log(JSON.stringify(reservedDates))
+    }
+
+	handleDateChange = async date => {
+		date = String(date)
+		date = date.slice(0, 15)
+
+		await this.setState({
 			date: date
 		})
+		this.checkReserved()
 	}
 
 	handlePhoneNumChange(value) {

@@ -48,6 +48,28 @@ router.get('/users', (req, res) => {
   });
 });
 
+router.get('/users/:date', (req, res) => {
+  let usersOnDate = []
+  // try {
+  //   for (const u in User.find({date: req.params.date})) {
+  //     usersOnDate.push(u)
+  //   }
+  //   res.json(usersOnDate);
+  // } catch (e) {
+  //   console.log(e)
+  // }
+  User.find({date: req.params.date}, (err, users) => { 
+    console.log(req.params.date)
+    if (err) {
+      console.log(err);
+      res.send([]);
+    } else {
+      res.json(users);
+    }
+  })
+
+})
+
 router.post('/users', async (req, res, next) => {
   let identification = new ObjectId(req.body._id)
   if (await User.find({_id: identification}).countDocuments() > 0) {
