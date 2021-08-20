@@ -17,6 +17,7 @@
   cursor: pointer;
   border: 0 !important;
   pointer-events: none;
+  font-size: 16px;
 }
 
 #unselected {
@@ -78,7 +79,7 @@
 
 @media only screen and (max-width: 1713px) {
   .phoneNum {
-    top: 0px !important;
+    top: 16px !important;
   }
 }
 
@@ -119,16 +120,21 @@
 }
 
 .center {
-  width: 100%;
-  margin-left: 45%;
-  margin-right: 45%;
+  margin: auto !important;
+}
+
+.center.button {
+  width: 10%;
+  display: flex;
+  justify-content: center;
 }
 
 .page-title {
-  display: flex;
+  /* display: flex;
   margin: auto;
-  width: 50%;
-  text-align: left;
+  width: 50%; */
+  text-align: center;
+  margin-bottom: 15px;
 }
 
 .input {

@@ -11,7 +11,7 @@ export default class LocationHours extends Component {
 			<div>
 				<Navbar />
 				<div className="page-intro"></div>
-				<h3 className='page-title'>Location and Hours</h3>
+				<h1 className='page-title'>Location and Hours</h1>
 				<div className='flexbox-container'>
 					<br></br>
 					<div className='location'>

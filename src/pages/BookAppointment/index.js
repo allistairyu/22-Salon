@@ -229,7 +229,7 @@ export default class BookAppointment extends Component {
 					<div>
 						<Navbar />
 						<div className="page-intro"></div>
-						<h3 className='page-title'>Choose a Service</h3>
+						<h1 className='page-title'>Book an Appointment</h1>
 						<div className='flexbox-container'>
 							<SelectService 
 								handleClick={this.handleClick}
@@ -240,7 +240,7 @@ export default class BookAppointment extends Component {
 						</div>
 						{/* TODO: MOVE NEXT BUTTON TO BOTTOM... POSSIBLY FLEX-DIRECTION: COLUMN */}
 						{/* TODO: WHY IS BUTTON SO LONG */}
-						<Button className='center' onClick={() => this.selectServiceValidation() ? this.nextStep() : alert('Please Select an Option')}>
+						<Button size='large' className='center button' onClick={() => this.selectServiceValidation() ? this.nextStep() : alert('Please Select an Option')}>
 							Next
 						</Button>
 						
@@ -278,13 +278,14 @@ export default class BookAppointment extends Component {
 									values={values}
 								/>
 								<br></br>
-								<Button style={{backgroundColor: "#b90d1f"}}
+								<Button style={{backgroundColor: "#b90d1f", color: 'white'}}
 									onClick={(e) => this.checkErrors() ? this.handleSubmit(e) : (this.handleValidation('date', date), alert('Invalid inputs: ', JSON.stringify(this.state.errors)))}>
 									Reserve
 								</Button>
 							</div>
 						</div>
-						<Button className='center' onClick={this.prevStep }>
+						<br></br>
+						<Button size='large' className='center button' onClick={this.prevStep }>
 							Back
 						</Button>
 						{/* <Button onClick={() => alert(this.checkErrors())}> */}
@@ -296,7 +297,7 @@ export default class BookAppointment extends Component {
 					<div>
 						<Navbar />
 						<div className="page-intro"></div>
-						<h3>success</h3>
+						<h1>success</h1>
 						<Success 
 							values={values}
 							prevStep={this.prevStep}

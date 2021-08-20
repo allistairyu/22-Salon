@@ -21,10 +21,10 @@ export default function Success({values, prevStep}) {
         <div>
             <div>
                 <span className='left'>
-                    <Button onClick={update}>Edit Appointment</Button>
+                    <Button size='large' onClick={update}>Edit Appointment</Button>
                 </span>
                 <span className='right'>
-                    <Button onClick={handleClick(values.id)}>Cancel Appointment</Button>
+                    <Button size='large' onClick={handleClick(values.id)}>Cancel Appointment</Button>
                     <Dialog >
                         yo cancel
                     </Dialog>

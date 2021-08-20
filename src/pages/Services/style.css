@@ -1,7 +1,34 @@
-.flexbox-container {
-    width: 70%;
-    display: flex;
-    justify-content: flex-start;
-    margin: auto;
-    align-content: flex-start;
-  }
+.flexbox-container-3 {
+  height: 100%;
+  width: 70%;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  align-content: flex-start;
+  padding: 10px;
+}
+
+.flexbox-column {
+  width: 100%;
+  display: flex;
+  margin-left: 5%;
+  justify-content: flex-start;
+  align-items: flex-end;
+  flex-direction: column;
+}
+
+.services-button {
+  width: 10%;
+}
+
+.services {
+  width: 100%;
+  margin-right: 5%;
+}
+.in-between {
+  width: 25%;
+}
+
+p {
+  font-size: 22px;
+}

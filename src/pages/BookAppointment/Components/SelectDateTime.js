@@ -57,7 +57,7 @@ export default function SelectDateTime({onChange, value, disableDates}) {
                     (availableTimes !== undefined && availableTimes.length > 0) ?
                         (
                             availableTimes.map((time) => {
-                                return <Button>{time}</Button>
+                                return <Button size='small'>{time}</Button>
                             })
                         ) :
                         (
