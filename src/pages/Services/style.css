@@ -15,10 +15,11 @@
   justify-content: flex-start;
   align-items: flex-end;
   flex-direction: column;
+  margin-right: 10px;
 }
 
 .services-button {
-  width: 10%;
+  width: 15%;
 }
 
 .services {
@@ -31,4 +32,11 @@
 
 p {
   font-size: 22px;
+}
+
+/* https://stackoverflow.com/questions/36029610/how-to-add-vertical-line-between-two-divs/36029731 */
+hr.vertical {
+  height: 100%;
+  width:0;
+  border:1px solid black;
 }

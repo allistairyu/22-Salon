@@ -88,6 +88,7 @@ export default class Services extends Component {
 						<Button size='large' className='services-button' color={this.state.category === 'other' ? 'secondary' : 'default'}
 							onClick={() => this.handleClick('other')}>Other</Button>
 					</div>
+					<hr></hr>
 					<div className='in-between'></div>
 					<div className='services'>
 						{this.renderSwitch(this.state.category)}

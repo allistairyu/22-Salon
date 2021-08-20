@@ -54,7 +54,6 @@
   display: flex;
   flex-direction: column;
   width: 50%;
-  /* z-index: -1; */
 }
 
 .flexbox-container.contact-info .rightSide {
@@ -77,19 +76,19 @@
   text-align: right;
 }
 
-@media only screen and (max-width: 1713px) {
+/* @media only screen and (max-width: 1713px) {
   .phoneNum {
     top: 16px !important;
   }
-}
+} */
 
 @media only screen and (max-width: 1475px) {
   .flexbox-container {
     width: 85% !important;
   }
-  .phoneNum {
+  /* .phoneNum {
     top: 16px !important;
-  }
+  } */
 }
 @media only screen and (max-width: 1200px) {
   .flexbox-container {
@@ -97,11 +96,11 @@
   }
 }
 
-@media only screen and (max-width: 902px) {
+/* @media only screen and (max-width: 902px) {
   .phoneNum {
-    top: 0px !important;
+    top: 16px !important;
   }
-}
+} */
 
 @media only screen and (max-width: 733px) {
   .service {
