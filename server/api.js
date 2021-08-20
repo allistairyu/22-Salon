@@ -104,7 +104,6 @@ function createUpdateUser() {
 
     try {
       user = await user.save()
-      console.log('saved')
     } catch (e) {
       console.log(e)
     }
