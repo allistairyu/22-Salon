@@ -31,6 +31,15 @@
   font-size: 24;
 }
 
+h1.logo-1 {
+  display: inline;
+  font-family: 'Satisfy', cursive;
+}
+
+h1.logo-2 {
+  display: inline;
+}
+
 .blue {
   color: #255f85;
 }

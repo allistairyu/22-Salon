@@ -11,7 +11,7 @@ export default function Navbar() {
     return (
         <div className="Navbar">
             <div className="leftSide">
-                <Link to='/' className='logo'><h1>22 SALON</h1></Link>
+                <Link to='/' className='logo'><h1 className='logo-1'>22 </h1><h1 className='logo-2'>SALON</h1></Link>
             </div>
 
             <div className="rightSide">

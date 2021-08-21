@@ -8,7 +8,6 @@ export default class index extends Component {
             <div>
                 <Navbar />
                 <div className='page-intro'></div>
-                yo admin
                 <UserContainer />
             </div>
         )
