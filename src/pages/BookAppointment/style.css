@@ -1,0 +1,169 @@
+.service {
+  background-color: white;
+  height: 100px;
+  width: 330px;
+  padding: 3px;
+  margin: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.service .button {
+  background-color: #f2f3f4;
+  height: 85px;
+  width: 325px;
+  cursor: pointer;
+  border: 0 !important;
+  pointer-events: none;
+  font-size: 16px;
+}
+
+#unselected {
+  outline: 2px solid white !important;
+}
+
+#selected {
+  outline: 2px solid #b90d1f !important;
+}
+.container {
+  display: flex;
+  flex-direction: row;
+}
+
+.container .button {
+  margin-left: 90%;
+}
+
+.flexbox-container {
+  width: 70%;
+  display: flex;
+  justify-content: flex-start;
+  margin: auto;
+  align-content: flex-start;
+}
+
+.appointment-details {
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.flexbox-container.contact-info {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* TODO: https://stackoverflow.com/questions/3680429/click-through-div-to-underlying-elements */
+.flexbox-container.contact-info .leftSide {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.flexbox-container.contact-info .rightSide {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+}
+
+.appointment-info {
+  width: 100%;
+}
+
+.left {
+  float: left;
+  text-align: left;
+}
+
+.right {
+  float: right;
+  text-align: right;
+}
+
+/* @media only screen and (max-width: 1713px) {
+  .phoneNum {
+    top: 16px !important;
+  }
+} */
+
+@media only screen and (max-width: 1475px) {
+  .flexbox-container {
+    width: 85% !important;
+  }
+  /* .phoneNum {
+    top: 16px !important;
+  } */
+}
+@media only screen and (max-width: 1200px) {
+  .flexbox-container {
+    width: 95% !important;
+  }
+}
+
+/* @media only screen and (max-width: 902px) {
+  .phoneNum {
+    top: 16px !important;
+  }
+} */
+
+@media only screen and (max-width: 733px) {
+  .service {
+    width: 240px;
+  }
+}
+@media only screen and (max-width: 527px) {
+  .service {
+    width: 200px;
+  }
+}
+.flexbox-container-2 {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.center {
+  margin: auto !important;
+  text-align: center;
+  justify-content: center;
+}
+
+.center.button {
+  width: 10%;
+  display: flex;
+  justify-content: center;
+}
+
+.edit-cancel {
+  width: 20%;
+}
+
+.page-title {
+  /* display: flex;
+  margin: auto;
+  width: 50%; */
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.input {
+  margin-right: 50px;
+}
+
+.phoneNum {
+  top: 16px;
+}
+
+.small {
+  font-size: 12px;
+}
+
+/* #selected:hover {
+  background-color: white;
+} */
+
+/* #unselected:hover {
+  background-color: red;
+} */
