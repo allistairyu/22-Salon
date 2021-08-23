@@ -7,7 +7,6 @@ export default class index extends Component {
         return (
             <div>
                 <Navbar />
-                <div className='page-intro'></div>
                 <UserContainer />
             </div>
         )

@@ -76,10 +76,8 @@ export default class Services extends Component {
 		return (
 			<div>
 				<Navbar />
-				<div className="page-intro"></div>
 				<h1 className='page-title'>Services</h1>
 				<div className='flexbox-container-3'>
-					{/* TODO: MAKE SERVICES GLOBAL VARIABLE TO USE MAP HERE */}
 					<div className='flexbox-column'>
 						<Button size='large' className='services-button' color={this.state.category === 'hair' ? 'secondary' : 'default'}
 							onClick={() => this.handleClick('hair')}>Hair</Button>

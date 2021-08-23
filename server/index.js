@@ -4,6 +4,17 @@ const express = require('express');
 const path = require('path');
 const app = express();
 
+process.once('SIGUSR2', 
+  function () { 
+    process.kill(process.pid, 'SIGUSR2'); 
+  }
+);
+
+process.on('SIGINT', function () {
+  // this is only called on ctrl+c, not restart
+  process.kill(process.pid, 'SIGINT');
+});
+
 // Lets us get the data from a POST
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

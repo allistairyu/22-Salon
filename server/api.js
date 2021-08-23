@@ -59,7 +59,6 @@ router.get('/users/:date', (req, res) => {
   //   console.log(e)
   // }
   User.find({date: req.params.date}, (err, users) => { 
-    console.log(req.params.date)
     if (err) {
       console.log(err);
       res.send([]);

@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button';
 import Success from './Components/Success'
 import SelectDateTime from './Components/SelectDateTime'
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-
+import { Link } from 'react-router';
 
 const timeSlots = [
 	'11:00 am',
@@ -32,13 +32,18 @@ const ObjectId = (m = Math, d = Date, h = 16, s = s => m.floor(s).toString(h)) =
     s(d.now() / 1000) + ' '.repeat(h).replace(/./g, () => s(m.random() * h))
 
 //TODO: IMPLEMENT COMPONENT LIFECYCLE STUFF???
-//TODO: ADD ROUTER BLOCKING https://stackoverflow.com/questions/32841757/detecting-user-leaving-page-with-react-router
+//TODO: ADD ROUTER BLOCKING
+//https://stackoverflow.com/questions/32841757/detecting-user-leaving-page-with-react-router
+
+//TODO: figure out time slots if user selects multiple services
 // https://material-ui.com/components/dialogs/
 
 export default class BookAppointment extends Component {
 	
 	constructor(props) {
 		super(props)
+
+		//TODO: remove unnecessary states (e.g. availableTimes)
 		this.state = {
 			step: 1,
 			firstName: '',
@@ -47,27 +52,15 @@ export default class BookAppointment extends Component {
 			time: '',
 			email: '',
 			phoneNumber: '',
-			services: { mensHaircut: 'unselected', womensHaircut: 'unselected', seniorKids: 'unselected', beardTrim: 'unselected',
-						permAndColor: 'unselected', styleStart: 'unselected', shampoo: 'unselected', pedicure: 'unselected',
-						manicure: 'unselected', pediMani: 'unselected', fullSet: 'unselected', fill: 'unselected', eyebrow: 'unselected',
-						lips: 'unselected', chin: 'unselected' },
+			// services: { mensHaircut: 'unselected', womensHaircut: 'unselected', seniorKids: 'unselected', beardTrim: 'unselected',
+			// 			permAndColor: 'unselected', styleStart: 'unselected', shampoo: 'unselected', pedicure: 'unselected',
+			// 			manicure: 'unselected', pediMani: 'unselected', fullSet: 'unselected', fill: 'unselected', eyebrow: 'unselected',
+			// 			lips: 'unselected', chin: 'unselected' },
+			services: [],
 			errors: { firstName: '', lastName: '', phoneNumber: '', email: '' },
 			id: '',
 			availableTimes: timeSlots
 		}
-		this.handleSubmit = this.handleSubmit.bind(this)
-		this.handleClick = this.handleClick.bind(this)
-		this.handleChange = this.handleChange.bind(this)
-		this.handlePhoneNumChange = this.handlePhoneNumChange.bind(this)
-		this.handleValidation = this.handleValidation.bind(this)
-		this.selectServiceValidation = this.selectServiceValidation.bind(this)
-		this.checkErrors = this.checkErrors.bind(this)
-		this.filterTimes = this.filterTimes.bind(this)
-		this.nextStep = this.nextStep.bind(this)
-		this.prevStep = this.prevStep.bind(this)
-		// this.handleDateChange = this.handleDateChange.bind(this)
-
-		//TODO: store prices somewhere else
 		//TODO: STORE SERVICES IN GLOBAL VARIABLE
 		this.servicesDict = {
 			'mensHaircut': ["Men's Haircut", 15],
@@ -96,15 +89,15 @@ export default class BookAppointment extends Component {
 		
 	}
 
-	prevStep() {
+	prevStep = () => {
 		this.setState((prevState) => ({ step: prevState.step - 1 }))
 	}
 
-	nextStep() {
+	nextStep = () => {
 		this.setState((prevState) => ({ step: prevState.step + 1 }))
 	}
 
-	handleChange(event) {
+	handleChange = (event) => {
 		
         this.setState({
             [event.target.name]: event.target.value
@@ -147,11 +140,9 @@ export default class BookAppointment extends Component {
 		})
 		const reservedDates = await this.checkReserved()
 		console.log(this.filterTimes(reservedDates))
-		// alert('TIMES TAKEN ARE ' + this.filterTimes(reservedDates))
-
 	}
 
-	handlePhoneNumChange(value) {
+	handlePhoneNumChange = (value) => {
 		let errors = {...this.state.errors}
 		if (!validator.isMobilePhone(value)) {
 			errors.phoneNumber = 'invalid phone number'
@@ -170,29 +161,34 @@ export default class BookAppointment extends Component {
 	}
 	// TODO: restructure services state so it's initialized as a blank object; select up to 3 services
 	// combine handleClick with onClick
-	handleClick(event) {
-		
-        event.preventDefault();
-        const target = event.target;
-        const value = target.id === 'selected' ? 'unselected' : 'selected';
-        const name = target.getAttribute('name');
-
-        this.setState({
-            services: {
-				...this.state.services,
-				[name]: value,
-			},
-        })
+	handleClick = (name, value) => {
+		if (name === 'services') {
+			console.log('handleClick value is: ' + value)
+			if (this.state.services.indexOf(value) !== -1) {
+				let filteredArray = this.state.services
+				filteredArray.splice(filteredArray.indexOf(value), 1)
+				console.log(filteredArray)
+				this.setState({
+					services: filteredArray
+				})
+			} else {
+				// console.log(name + value)
+				// console.log(this.state.services.length)
+				if (this.state.services.length === 3) return
+				this.setState(prevState => ({
+					services: [...prevState.services, value]
+				}))
+			}
+		} else {
+			console.log('name is: ' + name + ' value is: ' + value)
+			if (this.state[name] === value) value = ''
+			this.setState({
+				[name]: value
+			})
+		}
     }
 
-	onClick = time => {
-		if (this.state.time === time) time = ''
-		this.setState({
-			time: time
-		})
-	}
-
-	handleSubmit(event) {
+	handleSubmit = (event) => {
         event.preventDefault();
 		
 		let now = new Date();
@@ -208,7 +204,6 @@ export default class BookAppointment extends Component {
 			'_id': this.state.id
 		}
 		alert(JSON.stringify(databody))
-
 
         return fetch('/api/users', {
             method: 'POST',
@@ -256,10 +251,7 @@ export default class BookAppointment extends Component {
 	}
 
 	selectServiceValidation = () => {
-		for (const service in this.state.services) {
-			if (this.state.services[service] === 'selected') return true
-		}
-		return false
+		return this.state.services.length > 0 ? true : false
 	}
 
 	disableDates = date => {
@@ -276,8 +268,9 @@ export default class BookAppointment extends Component {
 				return (
 					<div>
 						<Navbar />
-						<div className="page-intro"></div>
 						<h1 className='page-title'>Book an Appointment</h1>
+						<div className='small center'>Select up to 3 services</div>
+						<br></br>
 						<div className='flexbox-container'>
 							<SelectService 
 								handleClick={this.handleClick}
@@ -296,7 +289,6 @@ export default class BookAppointment extends Component {
 				return (
 					<div>
 						<Navbar />
-						<div className="page-intro"></div>
 						<div className='flexbox-container contact-info'>
 							<div className='leftSide'>
 								<h3>Contact Information</h3>
@@ -306,11 +298,11 @@ export default class BookAppointment extends Component {
 									handlePhoneNumChange={this.handlePhoneNumChange}
 								/>
 								{/* https://stackoverflow.com/questions/49491569/disable-specific-days-in-material-ui-calendar-in-react */}
-								
+
 								<br></br>
 								<br></br>
 								<h3>Choose Date and Time</h3>
-								<div className='small'>Call for an appointment today</div>
+								<div className='small'>Please call (206) 417-0482 for an appointment today</div>
 								<SelectDateTime onChange={this.handleDateChange} value={this.state.date} disableDates={this.disableDates}/>
 								<br></br>
 								{this.state.date !== null &&
@@ -319,8 +311,12 @@ export default class BookAppointment extends Component {
 											(this.state.availableTimes !== undefined && this.state.availableTimes.length > 0) ?
 												(
 													this.state.availableTimes.map((time) => {
-														// TODO: fix weird button dimensions
-														return <Button size='small' onClick={() => this.onClick(time)} 
+														// TODO: fix weird
+														// button dimensions
+														// when only a few
+														// available times
+														// left
+														return <Button size='small' onClick={() => this.handleClick('time', time)} 
 															color={this.state.time === time ? 'secondary' : 'default'}>{time}</Button>
 													})
 												) :
@@ -343,29 +339,29 @@ export default class BookAppointment extends Component {
 									values={values}
 								/>
 								<br></br>
-								<Button style={{backgroundColor: "#b90d1f", color: 'white'}}
-									onClick={(e) => this.checkErrors() ? this.handleSubmit(e) : (this.handleValidation('date', date), alert('Invalid inputs: ', JSON.stringify(this.state.errors)))}>
-									Reserve
-								</Button>
+								{/* TODO: incorporate validation handling */}
+								{/* TODO: figure out if this should be Link or anchor tag */}
+								<Link to='/appointment/id'>
+									<Button style={{backgroundColor: "#b90d1f", color: 'white'}}
+										onClick={(e) => this.checkErrors() ? this.handleSubmit(e) : (this.handleValidation('date', date), alert('Invalid inputs: ', JSON.stringify(this.state.errors)))}>
+										Reserve
+									</Button>
+								</Link>
 							</div>
 						</div>
 						<br></br>
 						<Button size='large' className='center button' onClick={this.prevStep }>
 							Back
 						</Button>
-						{/* <Button onClick={() => alert(this.checkErrors())}> */}
-						
 					</div>
 				);
 			case 3:
 				return (
 					<div>
-						<Navbar />
-						<div className="page-intro"></div>
-						<h1>success</h1>
 						<Success 
 							values={values}
 							prevStep={this.prevStep}
+							servicesDict={this.servicesDict}
 						/>
 					</div>
 				);

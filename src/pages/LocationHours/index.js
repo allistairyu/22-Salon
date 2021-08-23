@@ -10,9 +10,8 @@ export default class LocationHours extends Component {
 		return (
 			<div>
 				<Navbar />
-				<div className="page-intro"></div>
 				<h1 className='page-title'>Location and Hours</h1>
-				<div className='flexbox-container'>
+				<div className='flexbox-container appointment-details'>
 					<br></br>
 					<div className='location'>
 						<RoomIcon />
@@ -28,7 +27,7 @@ export default class LocationHours extends Component {
 					<br></br>
 					<div className='hours'>
 						<ScheduleIcon />
-						Monday through Friday 
+						Monday through Saturday 
 					</div>
 				</div>
 			</div>

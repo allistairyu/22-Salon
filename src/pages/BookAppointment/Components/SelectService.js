@@ -1,11 +1,7 @@
 import React from 'react'
 import '../style.css'
-// import keyIndex from 'react-key-index'
 
 const SelectService = ({ servicesDict, values, handleClick }) => {
-    
-    //TODO: CONVERT TO MATERIAL UI BUTTONS
-    //TODO: make max num of services 3
 
     return (
         <div>
@@ -13,8 +9,9 @@ const SelectService = ({ servicesDict, values, handleClick }) => {
                 <form>
                     <div className='flexbox-container-2'>
                         {/* TODO: FIX KEY ID THING */}
-                        {Object.keys(values.services).map((service) => (
-                            <div className='service' key={service.id} name={service} onClick={(e) => handleClick(e)} id={values.services[service]}>
+                        {Object.keys(servicesDict).map((service) => (
+                            <div className='service' onClick={() => handleClick('services', service)}
+                                id={values.services.indexOf(service) > -1 ? 'selected' : 'unselected'} >
                                 <button className='service button'>
                                     {servicesDict[service][0]}
                                     <br>

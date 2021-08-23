@@ -10,7 +10,6 @@ export default class About extends Component {
 		return (
 			<div>
 				<Navbar />
-				<div className='page-intro'></div>
 				<h1>this is an app by me~</h1>
 				<h1>this is an app by me~</h1>
 				<h1>this is an app by me~</h1>

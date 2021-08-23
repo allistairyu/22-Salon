@@ -43,6 +43,12 @@
   margin: auto;
   align-content: flex-start;
 }
+
+.appointment-details {
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
 .flexbox-container.contact-info {
   width: 50%;
   display: flex;
@@ -120,12 +126,18 @@
 
 .center {
   margin: auto !important;
+  text-align: center;
+  justify-content: center;
 }
 
 .center.button {
   width: 10%;
   display: flex;
   justify-content: center;
+}
+
+.edit-cancel {
+  width: 20%;
 }
 
 .page-title {

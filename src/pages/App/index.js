@@ -9,7 +9,6 @@ class App extends Component {
     return (
       <div className="App">
         <Navbar />
-        <div className="page-intro"></div>
         <h1>Welcome</h1>
         <br></br>
         <img src={pic} alt='firstpic'></img>

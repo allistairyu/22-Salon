@@ -1,14 +1,15 @@
 import React from 'react'
 import '../style.css'
 
-
 //TODO: add keyIndex
 const ReviewReserve = ({ servicesDict, Back, values, handleSubmit }) => {
     let total = 0
-    let selectedServices = Object.keys(values.services).filter(service => values.services[service] === 'selected')
+
+    let services = values.services
+
     return (
         <div className='appointment-info'>
-            {selectedServices.map((service) => {
+            {values.services.map((service) => {
                 total += servicesDict[service][1]
                 return (
                     <div>

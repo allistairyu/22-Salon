@@ -33,7 +33,7 @@
   },
   "scripts": {
     "build": "react-scripts build",
-    "server": "nodemon server",
+    "server": "nodemon --delay 500ms server",
     "client": "react-scripts start",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "start": "react-scripts build && sudo su -c \"pm2 start process.yml\" root && echo To kill, run \\\"npm run stop\\\"",

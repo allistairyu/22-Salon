@@ -21,24 +21,10 @@ export default function SelectDateTime({onChange, value, disableDates}) {
                         'aria-label': 'change date',
                     }}
                     shouldDisableDate={disableDates}
-                    autoOk={true}
+                    autoOk
                     // error={this.state.errors[date]===''} // TODO: WHY ISN'T THIS WORKING
                 />
             </MuiPickersUtilsProvider>
-
-            {/* <ButtonGroup>
-                {
-                    (availableTimes !== undefined && availableTimes.length > 0) ?
-                        (
-                            availableTimes.map((time) => {
-                                return <Button size='small'>{time}</Button>
-                            })
-                        ) :
-                        (
-                            <div>No available times for this date</div>
-                        )
-                }
-            </ButtonGroup> */}
         </div>
     )
 }
