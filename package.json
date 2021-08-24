@@ -42,7 +42,7 @@
     "stop": "sudo su -c \"pm2 stop server\" root",
     "eject": "react-scripts eject"
   },
-  "description": "A simple MERN stack template built with create-react-app",
+  "description": "A simple MERN stack appointment booking site built with create-react-app",
   "main": "index.js",
   "author": "",
   "license": "ISC",

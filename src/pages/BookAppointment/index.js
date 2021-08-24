@@ -30,6 +30,7 @@ const timeSlots = [
 
 const ObjectId = (m = Math, d = Date, h = 16, s = s => m.floor(s).toString(h)) =>
     s(d.now() / 1000) + ' '.repeat(h).replace(/./g, () => s(m.random() * h))
+const URL = '/' + ObjectId()
 
 //TODO: IMPLEMENT COMPONENT LIFECYCLE STUFF???
 //TODO: ADD ROUTER BLOCKING
@@ -204,7 +205,7 @@ export default class BookAppointment extends Component {
 			'_id': this.state.id
 		}
 
-        return fetch('/api/users', {
+        fetch('/api/users', {
             method: 'POST',
             body: JSON.stringify(databody),
             headers: {
@@ -331,12 +332,13 @@ export default class BookAppointment extends Component {
 								<br></br>
 								{/* TODO: incorporate validation handling */}
 								{/* TODO: figure out if this should be Link or anchor tag */}
-								{/* <Link to='/appointment/id'> */}
+								<a href={URL} >
 									<Button style={{backgroundColor: "#b90d1f", color: 'white'}}
-										onClick={(e) => this.checkErrors() ? this.handleSubmit(e) : (this.handleValidation('date', date), alert('Invalid inputs: ', JSON.stringify(this.state.errors)))}>
+										onClick={(e) => this.checkErrors() ? this.handleSubmit(e) : (this.handleValidation('date', date), alert('Invalid inputs: ', JSON.stringify(this.state.errors)))}
+										>
 										Reserve
 									</Button>
-								{/* </Link> */}
+								</a>
 							</div>
 						</div>
 						<br></br>

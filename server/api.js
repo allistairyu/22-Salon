@@ -2,9 +2,23 @@
 // Every URL starting with /api/ will be directed here
 // This is a basic CRUD API for our Users MongoDB database
 
+require('dotenv').config()
+
 const express = require('express');
 const ObjectId = require('mongodb').ObjectId;
 var router = express.Router();  // get an instance of the express Router
+let nodemailer = require('nodemailer')
+
+let transporter = nodemailer.createTransport({
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true,
+  auth: {
+      user: process.env.REACT_APP_EMAIL_USERNAME,
+      pass: process.env.REACT_APP_EMAIL_PASSWORD
+  }
+})
+
 let mongoose = require('mongoose');
 mongoose.connect('mongodb://127.0.0.1/my_database', { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -19,19 +33,6 @@ let User = mongoose.model('User', {
   services: [String],
   timestamp: String
 }, 'User');
-
-// If the database is empty, insert some dummy data into it
-User.find((err, users) => {
-  /*
-  var testUsers = [
-    { firstName: 'yo', lastName: 'lastname', date: 'the date', time: 'the time', email: 'asdf@gmail.com', number: '323-312-6838' },
-    { firstName: 'ribgjhf', lastName: 'lastname', date: 'the date2', time: 'the time2', email: 'fdsa@gmail.com', number: '323-312-6838' },
-    { firstName: 'werqnb', lastName: 'asewrdf', date: 'the date3', time: 'the time3', email: 'poui@gmail.com', number: '323-312-6838' }
-  ];
-
-  User.collection.insert(testUsers, (err, users) => { if (err) console.log(err); })
-  */
-});
 
 // Now, we list all of our routes.
 // Note that the actual routes you specify here will be prefixed by /api
@@ -49,15 +50,6 @@ router.get('/users', (req, res) => {
 });
 
 router.get('/users/:date', (req, res) => {
-  let usersOnDate = []
-  // try {
-  //   for (const u in User.find({date: req.params.date})) {
-  //     usersOnDate.push(u)
-  //   }
-  //   res.json(usersOnDate);
-  // } catch (e) {
-  //   console.log(e)
-  // }
   User.find({date: req.params.date}, (err, users) => { 
     if (err) {
       console.log(err);
@@ -69,15 +61,60 @@ router.get('/users/:date', (req, res) => {
 
 })
 
+// TODO: better error handling? 
 router.post('/users', async (req, res, next) => {
   let identification = new ObjectId(req.body._id)
   if (await User.find({_id: identification}).countDocuments() > 0) {
     req.user = await User.findById(req.body._id);
     next()
+    // createUpdateUser()
+    // return
   }
   req.user = new User
   next()
+  //await createUpdateUser()
+  let mailOptions = {
+    from: '22salontestemail@gmail.com',
+    to: req.body.email,
+    subject: 'Hey ' + req.body.firstName + ', your appointment is confirmed',
+    html: `<p><b>Hey ${req.body.firstName}, your appointment is confirmed</b></p>
+            <p>Upcoming appointment:</p>
+            <p>Confirmation code: ${req.body._id}</p>
+            <p>Client: ${req.body.firstName} ${req.body.lastName.charAt(0)}.</p>
+            <p>Service: ${req.body.services}</p>
+            <p>Time: ${req.body.date} at ${req.body.time}</p>
+            <p><a href="google.com">Edit or Cancel appointment</a></p>
+            <p><b>See you soon!</b></p>
+            <p></p>`
+  }
+  // service(s)?
+  //TODO: link?
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+        console.log(error);
+    } else {
+        console.log('Email sent: ' + info.response)
+    }
+  })
+
 }, createUpdateUser());
+/*
+router.post('/users/:email', (req, res) => {
+  let mailOptions = {
+    from: '22salontestemail@gmail.com',
+    to: req.params.email,
+    subject: 'Test email test email' + req.params.email,
+    text: 'yo yo yo yo yo yo yo yo yo'
+  }
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+        console.log(error);
+    } else {
+        console.log('Email sent: ' + info.response)
+    }
+  })
+})*/
 
 //https://stackoverflow.com/questions/54684258/why-are-documents-not-being-deleted-from-the-mongodb-database
 router.delete('/users/:id', async (req, res) => {
