@@ -20,7 +20,7 @@ const Routes = (props) => (
     <Route path='/admin' component={AdminView} />
     <Route path="/about" component={About} />
     <Route path="/appointment" component={BookAppointment} />
-    <Route path="/appointment/id" component={Success} />
+    <Route path="/appointment/:id" component={Success} />
     <Route path="/services" component={Services} />
     <Route path="/locationandhours" component={LocationHours} />
     <Route path="*" component={NotFound} />

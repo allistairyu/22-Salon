@@ -3,15 +3,25 @@ import '../style.css'
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import Navbar from '../../App/Components/Navbar'
+import CancelDialog from './CancelDialog'
 
 //TODO: make delete button be its own component?
 export default function Success({values, prevStep, servicesDict}) {
 
-    const deleteByID = id => {
-		return async function() {
-			await fetch(`http://localhost:8999/api/users/${id}`, { method: 'DELETE' }).then(window.location.reload())
-		}
+    const [cancelDialog, showCancelDialog] = React.useState(false)
+
+    const deleteByID = async id => {
+		await fetch(`http://localhost:8999/api/users/${id}`, { method: 'DELETE' }).then(window.location.reload())
 	}
+
+    const handleClickOpen = () => {
+        showCancelDialog(true);
+    };
+
+    const handleClose = (yesNo) => {
+        showCancelDialog(false);
+        if (yesNo) deleteByID(values.id)
+    };
 
     const update = () => {
         prevStep()
@@ -40,7 +50,6 @@ export default function Success({values, prevStep, servicesDict}) {
                     )
                 })}
                 <br></br>
-                <br></br>
                 Time: <br></br>
                 {values.date + ' at ' + values.time}
 
@@ -51,10 +60,8 @@ export default function Success({values, prevStep, servicesDict}) {
                 Seattle, WA 98133
 
                 <Button className='edit-cancel' size='large' onClick={update}>Edit Appointment</Button>
-                <Button className='edit-cancel' size='large' onClick={() => deleteByID(values.id)}>Cancel Appointment</Button>
-                <Dialog >
-                    yo cancel
-                </Dialog>
+                <Button className='edit-cancel' size='large' onClick={handleClickOpen}>Cancel Appointment</Button>
+                <CancelDialog cancelDialog={cancelDialog} handleClose={handleClose} />
 
             </div>
             {/* right side */}

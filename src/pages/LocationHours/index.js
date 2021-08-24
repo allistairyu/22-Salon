@@ -4,6 +4,7 @@ import Navbar from '../App/Components/Navbar'
 import RoomIcon from '@material-ui/icons/Room';
 import PhoneIcon from '@material-ui/icons/Phone';
 import ScheduleIcon from '@material-ui/icons/Schedule';
+import GoogleMapEmbed from './Map'
 
 export default class LocationHours extends Component {
 	render() {
@@ -29,6 +30,7 @@ export default class LocationHours extends Component {
 						<ScheduleIcon />
 						Monday through Saturday 
 					</div>
+					<GoogleMapEmbed />
 				</div>
 			</div>
 		);

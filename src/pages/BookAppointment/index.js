@@ -82,7 +82,7 @@ export default class BookAppointment extends Component {
 		
 	}
 	
-	 componentDidMount = async () => {
+	componentDidMount = async () => {
 		await this.setState({
 			id: ObjectId()
 		}) 
@@ -203,7 +203,6 @@ export default class BookAppointment extends Component {
 			'timestamp': now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
 			'_id': this.state.id
 		}
-		alert(JSON.stringify(databody))
 
         return fetch('/api/users', {
             method: 'POST',
@@ -299,8 +298,7 @@ export default class BookAppointment extends Component {
 								/>
 								{/* https://stackoverflow.com/questions/49491569/disable-specific-days-in-material-ui-calendar-in-react */}
 
-								<br></br>
-								<br></br>
+								<br></br><br></br>
 								<h3>Choose Date and Time</h3>
 								<div className='small'>Please call (206) 417-0482 for an appointment today</div>
 								<SelectDateTime onChange={this.handleDateChange} value={this.state.date} disableDates={this.disableDates}/>
@@ -311,11 +309,6 @@ export default class BookAppointment extends Component {
 											(this.state.availableTimes !== undefined && this.state.availableTimes.length > 0) ?
 												(
 													this.state.availableTimes.map((time) => {
-														// TODO: fix weird
-														// button dimensions
-														// when only a few
-														// available times
-														// left
 														return <Button size='small' onClick={() => this.handleClick('time', time)} 
 															color={this.state.time === time ? 'secondary' : 'default'}>{time}</Button>
 													})
@@ -326,10 +319,7 @@ export default class BookAppointment extends Component {
 										}
 									</ButtonGroup>
 								}
-								
-							<br></br>
-							<br></br>
-							<br></br>
+							<br></br><br></br><br></br>
 							</div>
 							<div className='rightSide'>
 								<h3>Appointment Information</h3>
@@ -341,12 +331,12 @@ export default class BookAppointment extends Component {
 								<br></br>
 								{/* TODO: incorporate validation handling */}
 								{/* TODO: figure out if this should be Link or anchor tag */}
-								<Link to='/appointment/id'>
+								{/* <Link to='/appointment/id'> */}
 									<Button style={{backgroundColor: "#b90d1f", color: 'white'}}
 										onClick={(e) => this.checkErrors() ? this.handleSubmit(e) : (this.handleValidation('date', date), alert('Invalid inputs: ', JSON.stringify(this.state.errors)))}>
 										Reserve
 									</Button>
-								</Link>
+								{/* </Link> */}
 							</div>
 						</div>
 						<br></br>
@@ -366,7 +356,6 @@ export default class BookAppointment extends Component {
 					</div>
 				);
 			default:
-			
 		}
 	}
 }
