@@ -22,7 +22,6 @@ export default function SelectDateTime({onChange, value, disableDates}) {
                     }}
                     shouldDisableDate={disableDates}
                     autoOk
-                    // error={this.state.errors[date]===''} // TODO: WHY ISN'T THIS WORKING
                 />
             </MuiPickersUtilsProvider>
         </div>

@@ -44,7 +44,6 @@ export default class BookAppointment extends Component {
 	constructor(props) {
 		super(props)
 
-		//TODO: remove unnecessary states (e.g. availableTimes)
 		this.state = {
 			step: 1,
 			firstName: '',
@@ -53,10 +52,6 @@ export default class BookAppointment extends Component {
 			time: '',
 			email: '',
 			phoneNumber: '',
-			// services: { mensHaircut: 'unselected', womensHaircut: 'unselected', seniorKids: 'unselected', beardTrim: 'unselected',
-			// 			permAndColor: 'unselected', styleStart: 'unselected', shampoo: 'unselected', pedicure: 'unselected',
-			// 			manicure: 'unselected', pediMani: 'unselected', fullSet: 'unselected', fill: 'unselected', eyebrow: 'unselected',
-			// 			lips: 'unselected', chin: 'unselected' },
 			services: [],
 			errors: { firstName: '', lastName: '', phoneNumber: '', email: '' },
 			id: '',
@@ -160,8 +155,6 @@ export default class BookAppointment extends Component {
 			phoneNumber: value
 		})
 	}
-	// TODO: restructure services state so it's initialized as a blank object; select up to 3 services
-	// combine handleClick with onClick
 	handleClick = (name, value) => {
 		if (name === 'services') {
 			console.log('handleClick value is: ' + value)
@@ -310,7 +303,7 @@ export default class BookAppointment extends Component {
 											(this.state.availableTimes !== undefined && this.state.availableTimes.length > 0) ?
 												(
 													this.state.availableTimes.map((time) => {
-														return <Button size='small' onClick={() => this.handleClick('time', time)} 
+														return <Button key={time} size='small' onClick={() => this.handleClick('time', time)} 
 															color={this.state.time === time ? 'secondary' : 'default'}>{time}</Button>
 													})
 												) :
@@ -332,13 +325,13 @@ export default class BookAppointment extends Component {
 								<br></br>
 								{/* TODO: incorporate validation handling */}
 								{/* TODO: figure out if this should be Link or anchor tag */}
-								<a href={URL} >
+								{/* <a href={URL} > */}
 									<Button style={{backgroundColor: "#b90d1f", color: 'white'}}
 										onClick={(e) => this.checkErrors() ? this.handleSubmit(e) : (this.handleValidation('date', date), alert('Invalid inputs: ', JSON.stringify(this.state.errors)))}
 										>
 										Reserve
 									</Button>
-								</a>
+								{/* </a> */}
 							</div>
 						</div>
 						<br></br>

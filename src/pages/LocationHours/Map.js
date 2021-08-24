@@ -1,17 +1,20 @@
+
 import React from 'react'
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 
 const containerStyle = {
-  width: '700px',
-  height: '500px'
+  width: '500px',
+  height: '300px'
 };
 
-const center = {
-  lat: 47.706280,
-  lng: -122.355710
-};
+// const center = {
+//   lat: 47.706280,
+//   lng: -122.355710
+// };
 
-function GoogleMapEmbed() {
+function MyComponent() {
+
+  const [center, changeCenter] = React.useState({lat: 47.706280, lng: -122.355710})
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY
@@ -20,8 +23,6 @@ function GoogleMapEmbed() {
   const [map, setMap] = React.useState(null)
 
   const onLoad = React.useCallback(function callback(map) {
-    const bounds = new window.google.maps.LatLngBounds();
-    map.fitBounds(bounds);
     setMap(map)
   }, [])
 
@@ -32,14 +33,16 @@ function GoogleMapEmbed() {
   return isLoaded ? (
       <GoogleMap
         mapContainerStyle={containerStyle}
-        defaultCenter={center}
-        defaultZoom={13}
+        center={center}
+        zoom={14}
         onLoad={onLoad}
         onUnmount={onUnmount}
+        disableDefaultUI
       >
-        <Marker position={center} />
+        <Marker position={{ lat: 47.706280, lng: -122.355710 }} />
+        <></>
       </GoogleMap>
   ) : <></>
 }
 
-export default React.memo(GoogleMapEmbed)
+export default React.memo(MyComponent)

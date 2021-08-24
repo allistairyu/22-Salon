@@ -55,7 +55,6 @@
   justify-content: space-between;
 }
 
-/* TODO: https://stackoverflow.com/questions/3680429/click-through-div-to-underlying-elements */
 .flexbox-container.contact-info .leftSide {
   display: flex;
   flex-direction: column;
@@ -82,31 +81,22 @@
   text-align: right;
 }
 
-/* @media only screen and (max-width: 1713px) {
-  .phoneNum {
-    top: 16px !important;
-  }
-} */
-
 @media only screen and (max-width: 1475px) {
   .flexbox-container {
     width: 85% !important;
   }
-  /* .phoneNum {
-    top: 16px !important;
-  } */
 }
 @media only screen and (max-width: 1200px) {
   .flexbox-container {
     width: 95% !important;
   }
-}
-
-/* @media only screen and (max-width: 902px) {
-  .phoneNum {
-    top: 16px !important;
+  .flexbox-container-3 {
+    width: 95% !important;
   }
-} */
+  .success {
+    width: 80% !important;
+  }
+}
 
 @media only screen and (max-width: 733px) {
   .service {
@@ -123,6 +113,11 @@
   justify-content: center;
   flex-wrap: wrap;
 }
+.flexbox-container-4 {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
 
 .center {
   margin: auto !important;
@@ -133,11 +128,11 @@
 .center.button {
   width: 10%;
   display: flex;
-  justify-content: center;
+  align-items: center;
 }
 
 .edit-cancel {
-  width: 20%;
+  width: 80%;
 }
 
 .page-title {
@@ -158,6 +153,21 @@
 
 .small {
   font-size: 12px;
+}
+
+.success {
+  flex-direction: column;
+  width: 50%;
+}
+
+.flexbox-container-4 .leftSide {
+  margin-bottom: 30px;
+  width: 50%;
+}
+
+.flexbox-container-4 .rightSide {
+  justify-content: flex-end;
+  width: 50%;
 }
 
 /* #selected:hover {

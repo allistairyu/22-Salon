@@ -8,9 +8,8 @@ const SelectService = ({ servicesDict, values, handleClick }) => {
             <div className='Center'>
                 <form>
                     <div className='flexbox-container-2'>
-                        {/* TODO: FIX KEY ID THING */}
                         {Object.keys(servicesDict).map((service) => (
-                            <div className='service' onClick={() => handleClick('services', service)}
+                            <div key={service} className='service' onClick={() => handleClick('services', service)}
                                 id={values.services.indexOf(service) > -1 ? 'selected' : 'unselected'} >
                                 <button className='service button'>
                                     {servicesDict[service][0]}

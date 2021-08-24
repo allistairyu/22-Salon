@@ -1,7 +1,6 @@
 import React from 'react'
 import '../style.css'
 
-//TODO: add keyIndex
 const ReviewReserve = ({ servicesDict, Back, values, handleSubmit }) => {
     let total = 0
 
@@ -12,7 +11,7 @@ const ReviewReserve = ({ servicesDict, Back, values, handleSubmit }) => {
             {values.services.map((service) => {
                 total += servicesDict[service][1]
                 return (
-                    <div>
+                    <div key={service}>
                         <span className='left'>{servicesDict[service][0]}</span>
                         <span className='right'>{servicesDict[service][1]}</span>
                         <br></br>
