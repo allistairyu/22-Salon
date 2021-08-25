@@ -16,13 +16,13 @@ import Success from './pages/BookAppointment/Components/Success'
 //TODO: route to id after appointment is reserved?
 const Routes = (props) => (
   <Router {...props}>
-    <Route path="/" component={App} />
-    <Route path='/admin' component={AdminView} />
-    <Route path="/about" component={About} />
-    <Route path="/appointment" component={BookAppointment} />
+    <Route path="/22-Salon" component={App} />
+    <Route path='/22-Salon/admin' component={AdminView} />
+    <Route path="/22-Salon/about" component={About} />
+    <Route path="/22-Salon/appointment" component={BookAppointment} />
     {/* <Route path="/appointment/:id" component={Success} /> */}
-    <Route path="/services" component={Services} />
-    <Route path="/locationandhours" component={LocationHours} />
+    <Route path="/22-Salon/services" component={Services} />
+    <Route path="/22-Salon/locationandhours" component={LocationHours} />
     <Route path="*" component={NotFound} />
   </Router>
 );

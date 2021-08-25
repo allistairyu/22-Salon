@@ -76,7 +76,7 @@ export default class Services extends Component {
 		return (
 			<div>
 				<Navbar />
-				<h1 className='page-title'>Services</h1>
+				<h1 className='page-title navbar-margin'>Services</h1>
 				<div className='flexbox-container-3'>
 					<div className='flexbox-column'>
 						<Button size='large' className='services-button' color={this.state.category === 'hair' ? 'secondary' : 'default'}

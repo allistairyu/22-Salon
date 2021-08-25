@@ -7,6 +7,7 @@ export default class index extends Component {
         return (
             <div>
                 <Navbar />
+                <div className='navbar-margin'></div>
                 <UserContainer />
             </div>
         )

@@ -2,15 +2,13 @@ import React, { Component } from 'react';
 import './style.css';
 // import UserContainer from './Components/UserContainer'
 import Navbar from '../App/Components/Navbar'
-import pic from './250472.jpg'
+import pic from './22-Salon_street_view.png'
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <Navbar />
-        <h1>Welcome</h1>
-        <br></br>
+        <Navbar />  
         <img src={pic} alt='firstpic'></img>
       </div>
     );

@@ -7,7 +7,7 @@ export default class NotFound extends Component {
 		return (
 			<div>
 				<Navbar />
-				<h1>Error 404: Page Not Found</h1>
+				<h1 className='navbar-margin'>Error 404: Page Not Found</h1>
 			</div>
 		);
 	}

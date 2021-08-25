@@ -10,41 +10,7 @@ export default class About extends Component {
 		return (
 			<div>
 				<Navbar />
-				<h1>this is an app by me~</h1>
-				<h1>this is an app by me~</h1>
-				<h1>this is an app by me~</h1>
-				<h1>this is an app by me~</h1>
-				<h1>this is an app by me~</h1>
-				<h1>this is an app by me~</h1>
-				<h1>this is an app by me~</h1>
-				<h1>this is an app by me~</h1>
-				<h1>this is an app by me~</h1>
-				<h1>this is an app by me~</h1>
-				<h1>this is an app by me~</h1>
-				<h1>this is an app by me~</h1>
-				<h1>this is an app by me~</h1>
-				<h1>this is an app by me~</h1>
-				<h1>this is an app by me~</h1>
-				<h1>this is an app by me~</h1>
-				<h1>this is an app by me~</h1>
-				<h1>this is an app by me~</h1>
-				<h1>this is an app by me~</h1>
-				<h1>this is an app by me~</h1>
-				<h1>this is an app by me~</h1>
-				<h1>this is an app by me~</h1>
-				<h1>this is an app by me~</h1>
-				<h1>this is an app by me~</h1>
-				<h1>this is an app by me~</h1>
-				<h1>this is an app by me~</h1>
-				<h1>this is an app by me~</h1>
-				<h1>this is an app by me~</h1>
-				<h1>this is an app by me~</h1>
-				<h1>this is an app by me~</h1>
-				<h1>this is an app by me~</h1>
-				<h1>this is an app by me~</h1>
-				<h1>this is an app by me~</h1>
-				<h1>this is an app by me~</h1>
-				<h1>this is an app by me~</h1>
+				<h1 className='navbar-margin'>this is an app by me~</h1>
 			</div>
 		);
 	}

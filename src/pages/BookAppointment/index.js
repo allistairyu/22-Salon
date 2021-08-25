@@ -261,7 +261,8 @@ export default class BookAppointment extends Component {
 				return (
 					<div>
 						<Navbar />
-						<h1 className='page-title'>Book an Appointment</h1>
+						{/* <div className='navbar-margin'></div> */}
+						<h1 className='page-title navbar-margin'>Book an Appointment</h1>
 						<div className='small center'>Select up to 3 services</div>
 						<br></br>
 						<div className='flexbox-container'>
@@ -282,7 +283,7 @@ export default class BookAppointment extends Component {
 				return (
 					<div>
 						<Navbar />
-						<div className='flexbox-container contact-info'>
+						<div className='flexbox-container contact-info navbar-margin'>
 							<div className='leftSide'>
 								<h3>Contact Information</h3>
 								<ContactInfo 

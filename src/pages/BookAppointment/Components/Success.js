@@ -36,7 +36,7 @@ export default function Success({values, prevStep, servicesDict}) {
     return (
         <div>
             <Navbar />
-            <h1>success</h1>
+            <h1 className='navbar-margin'>success</h1>
             <div className="flexbox-container-4">
                 <div className='flexbox-container-4 success leftSide'>
                     <h3>Appointment Details</h3>
