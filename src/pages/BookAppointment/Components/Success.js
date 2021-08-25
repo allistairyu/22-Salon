@@ -36,9 +36,9 @@ export default function Success({values, prevStep, servicesDict}) {
     return (
         <div>
             <Navbar />
-            <h1 className='navbar-margin'>success</h1>
-            <div className="flexbox-container-4">
-                <div className='flexbox-container-4 success leftSide'>
+            <h1 className='page-title navbar-margin'>Success</h1>
+            <div className="flexbox-container-5">
+                <div className='leftSide success'>
                     <h3>Appointment Details</h3>
                     <br></br><br></br>
                     {plural()}
@@ -67,7 +67,7 @@ export default function Success({values, prevStep, servicesDict}) {
 
                 </div>
                 {/* right side */}
-                <div className='flexbox-container-4 success rightSide'>
+                <div className='rightSide'>
                     <Map />
                     <br></br>
                 </div>

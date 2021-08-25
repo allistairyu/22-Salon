@@ -283,7 +283,8 @@ export default class BookAppointment extends Component {
 				return (
 					<div>
 						<Navbar />
-						<div className='flexbox-container contact-info navbar-margin'>
+						<div className='navbar-margin'></div>
+						<div className='flexbox-container contact-info'>
 							<div className='leftSide'>
 								<h3>Contact Information</h3>
 								<ContactInfo 

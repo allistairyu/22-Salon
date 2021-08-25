@@ -169,6 +169,31 @@
   justify-content: flex-end;
   width: 50%;
 }
+.flexbox-container-5 .leftSide.success {
+  width: 40% !important;
+}
+
+@media only screen and (max-width: 1520px) {
+  .flexbox-container-5 {
+    width: 60%;
+  }
+}
+@media only screen and (max-width: 1243px) {
+  .flexbox-container-5 {
+    width: 70%;
+  }
+}
+
+@media only screen and (max-width: 1080px) {
+  .flexbox-container-5 {
+    width: 80%;
+  }
+}
+@media only screen and (max-width: 945px) {
+  .flexbox-container-5 {
+    width: 95%;
+  }
+}
 
 /* #selected:hover {
   background-color: white;
