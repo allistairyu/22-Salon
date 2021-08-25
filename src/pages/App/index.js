@@ -9,7 +9,7 @@ class App extends Component {
     return (
       <div className="App">
         <Navbar />  
-        <img src={pic} alt='firstpic'></img>
+        <img src={pic} alt='placeholder-image'></img>
       </div>
     );
   }
