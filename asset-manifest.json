@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/22-Salon/static/css/main.98388ec4.chunk.css",
-    "main.js": "/22-Salon/static/js/main.fee923ff.chunk.js",
-    "main.js.map": "/22-Salon/static/js/main.fee923ff.chunk.js.map",
+    "main.js": "/22-Salon/static/js/main.df689920.chunk.js",
+    "main.js.map": "/22-Salon/static/js/main.df689920.chunk.js.map",
     "runtime-main.js": "/22-Salon/static/js/runtime-main.4dd4f2ed.js",
     "runtime-main.js.map": "/22-Salon/static/js/runtime-main.4dd4f2ed.js.map",
     "static/js/2.2b095d1f.chunk.js": "/22-Salon/static/js/2.2b095d1f.chunk.js",
@@ -16,6 +16,6 @@
     "static/js/runtime-main.4dd4f2ed.js",
     "static/js/2.2b095d1f.chunk.js",
     "static/css/main.98388ec4.chunk.css",
-    "static/js/main.fee923ff.chunk.js"
+    "static/js/main.df689920.chunk.js"
   ]
 }
