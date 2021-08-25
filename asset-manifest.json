@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/22-Salon/static/css/main.98388ec4.chunk.css",
+    "main.js": "/22-Salon/static/js/main.fee923ff.chunk.js",
+    "main.js.map": "/22-Salon/static/js/main.fee923ff.chunk.js.map",
+    "runtime-main.js": "/22-Salon/static/js/runtime-main.4dd4f2ed.js",
+    "runtime-main.js.map": "/22-Salon/static/js/runtime-main.4dd4f2ed.js.map",
+    "static/js/2.2b095d1f.chunk.js": "/22-Salon/static/js/2.2b095d1f.chunk.js",
+    "static/js/2.2b095d1f.chunk.js.map": "/22-Salon/static/js/2.2b095d1f.chunk.js.map",
+    "index.html": "/22-Salon/index.html",
+    "static/css/main.98388ec4.chunk.css.map": "/22-Salon/static/css/main.98388ec4.chunk.css.map",
+    "static/js/2.2b095d1f.chunk.js.LICENSE.txt": "/22-Salon/static/js/2.2b095d1f.chunk.js.LICENSE.txt",
+    "static/media/250472.1a5b19ea.jpg": "/22-Salon/static/media/250472.1a5b19ea.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.4dd4f2ed.js",
+    "static/js/2.2b095d1f.chunk.js",
+    "static/css/main.98388ec4.chunk.css",
+    "static/js/main.fee923ff.chunk.js"
+  ]
+}
