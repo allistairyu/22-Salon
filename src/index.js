@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { browserHistory } from 'react-router';
+import { hashHistory } from 'react-router';
 import './index.css';
 import { Router, Route } from 'react-router';
 
@@ -29,6 +30,6 @@ const Routes = (props) => (
 );
 
 ReactDOM.render(
-  <Routes history={browserHistory} />,
+  <Routes history={hashHistory} />,
   document.getElementById('root')
 );
