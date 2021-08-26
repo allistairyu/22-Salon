@@ -102,12 +102,18 @@ export default class BookAppointment extends Component {
     }
 
 	checkReserved = async () => {
-        const response = await fetch(`api/users/${this.state.date}`)
-        if (!response.ok) {
-            throw Error(response.statusText);
-        }
-        const reservedDates = await response.json()
-		return reservedDates
+        
+		try {
+			const response = await fetch(`api/users/${this.state.date}`)
+			if (!response.ok) {
+				throw Error(response.statusText);
+			}
+			const reservedDates = await response.json()
+			return reservedDates
+		} catch (e) {
+			console.log(e)
+		}
+		
     }
 
 	filterTimes = (data) => {

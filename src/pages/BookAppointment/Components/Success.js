@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import Navbar from '../../App/Components/Navbar'
 import CancelDialog from './CancelDialog'
 import Map from '../../LocationHours/Map'
+import { Link } from 'react-router';
 
 //TODO: make delete button be its own component?
 export default function Success({values, prevStep, servicesDict}) {
@@ -33,6 +34,13 @@ export default function Success({values, prevStep, servicesDict}) {
         return values.services.length > 1 ? 'Services:' : 'Service:'
     }
 
+    const componentDidMount = () => {
+        const appointmentID = '';
+        // pass in appointment ID from this.props.id
+        // if this is from email link, fetch data from database and set states?
+        //
+    }
+
     return (
         <div>
             <Navbar appointment />
@@ -60,11 +68,12 @@ export default function Success({values, prevStep, servicesDict}) {
                     Shop: <br></br>
                     10535 Greenwood Ave N <br></br>
                     Seattle, WA 98133
+                    <Link to={'/appointment/' + values.id}>click this to go to id</Link>
 
                     <Button className='edit-cancel' size='large' onClick={update}>Edit Appointment</Button>
                     <Button className='edit-cancel' size='large' onClick={handleClickOpen}>Cancel Appointment</Button>
                     <CancelDialog cancelDialog={cancelDialog} handleClose={handleClose} />
-
+                    
                 </div>
                 {/* right side */}
                 <div className='rightSide'>

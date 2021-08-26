@@ -3,6 +3,8 @@ import './style.css';
 // import UserContainer from './Components/UserContainer'
 import Navbar from '../App/Components/Navbar'
 import pic from './22-Salon_street_view.png'
+import StarIcon from '@material-ui/icons/Star';
+import StarHalfIcon from '@material-ui/icons/StarHalf';
 
 class App extends Component {
   render() {
@@ -13,7 +15,17 @@ class App extends Component {
           <img src={pic} alt='placeholder-image'></img>
           <div className='image-text'>PLACEHOLDER IMAGE</div>
         </div>
-        <div className='flexbox-container margin-top'>
+        <div className='margin-top'>
+          <StarIcon fontSize='large' />
+          <StarIcon fontSize='large' />
+          <StarIcon fontSize='large' />
+          <StarIcon fontSize='large' />
+          <StarHalfIcon fontSize='large' />
+        </div>
+        <div className='center'>
+          on <a href='https://www.yelp.com/biz/22-salon-seattle?hrid=61ZneHVlrNjZ4z7L67Q5tw&rh_type=people&rh_ident=Kelli'>Yelp</a>
+        </div>
+        <div className='flexbox-container'>
           <div className='review left-review'>
             Kelli has over 18 years' experience in precision styling and it shows!  She is fast, intuitive and artful in her approach.
             <br></br>

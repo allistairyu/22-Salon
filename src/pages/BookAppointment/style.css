@@ -90,7 +90,7 @@
 }
 @media only screen and (max-width: 1200px) {
   .flexbox-container {
-    width: 100% !important;
+    width: 95% !important;
   }
   .flexbox-container-3 {
     width: 95% !important;
@@ -108,6 +108,16 @@
 @media only screen and (max-width: 527px) {
   .service {
     width: 200px;
+  }
+  .flexbox-container.contact-info {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .flexbox-container.contact-info .leftSide {
+    width: 70%;
+  }
+  .flexbox-container.contact-info .rightSide {
+    width: 70%;
   }
 }
 .flexbox-container-2 {
