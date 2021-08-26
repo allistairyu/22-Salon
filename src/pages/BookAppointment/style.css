@@ -53,7 +53,9 @@
   width: 50%;
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
+/* TODO: fix mobile view for contact info page */
 
 .flexbox-container.contact-info .leftSide {
   display: flex;
@@ -88,7 +90,7 @@
 }
 @media only screen and (max-width: 1200px) {
   .flexbox-container {
-    width: 95% !important;
+    width: 100% !important;
   }
   .flexbox-container-3 {
     width: 95% !important;

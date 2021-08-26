@@ -75,7 +75,7 @@ export default class Services extends Component {
 	render() {
 		return (
 			<div>
-				<Navbar />
+				<Navbar services />
 				<h1 className='page-title navbar-margin'>Services</h1>
 				<div className='flexbox-container-3'>
 					<div className='flexbox-column'>

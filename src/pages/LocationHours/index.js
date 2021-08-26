@@ -10,7 +10,7 @@ export default class LocationHours extends Component {
 	render() {
 		return (
 			<div>
-				<Navbar />
+				<Navbar locationandhours />
 				<h1 className='page-title navbar-margin'>Location and Hours</h1>
 				<div className='flexbox-container-5'>
 					<div className='leftSide'>

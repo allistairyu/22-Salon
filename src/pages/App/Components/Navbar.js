@@ -3,10 +3,9 @@ import '../style.css'
 import { Link } from 'react-router';
 import MenuRoundedIcon from '@material-ui/icons/MenuRounded';
 
-export default function Navbar() {
+export default function Navbar(props) {
 
     const [showLinks, setShowLinks] = useState(false);
-
 
     return (
         <div>
@@ -17,11 +16,11 @@ export default function Navbar() {
 
                 <div className="rightSide">
                     <div className='links' id={showLinks ? 'hidden' : ''}>
-                        <Link to='/22-Salon/'>Home</Link>
-                        <Link to='/22-Salon/appointment'>Book an Appointment</Link>
-                        <Link to='/22-Salon/services'>Services</Link>
-                        <Link to='/22-Salon/locationandhours'>Location and Hours</Link>
-                        <Link to='/22-Salon/about'>About</Link>
+                        <Link to='/22-Salon/' style={props.home ? {color: '#b90d1f'} : {color: 'black'}} >Home</Link>
+                        <Link to='/22-Salon/appointment' style={props.appointment ? {color: '#b90d1f'} : {color: 'black'}}>Book an Appointment</Link>
+                        <Link to='/22-Salon/services' style={props.services ? {color: '#b90d1f'} : {color: 'black'}}>Services</Link>
+                        <Link to='/22-Salon/locationandhours' style={props.locationandhours ? {color: '#b90d1f'} : {color: 'black'}}>Location and Hours</Link>
+                        <Link to='/22-Salon/about' style={props.about ? {color: '#b90d1f'} : {color: 'black'}}>About</Link>
                     </div>
                     <MenuRoundedIcon color='primary' fontSize='large' onClick={() => setShowLinks(!showLinks)} className='MenuRoundedIcon'/>
                 </div>

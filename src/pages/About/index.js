@@ -9,7 +9,7 @@ export default class About extends Component {
 	render() {
 		return (
 			<div>
-				<Navbar />
+				<Navbar about />
 				<h1 className='navbar-margin'>this is an app by me~</h1>
 			</div>
 		);
