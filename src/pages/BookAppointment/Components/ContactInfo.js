@@ -15,7 +15,7 @@ export default function ContactInfo({ handlePhoneNumChange, handleChange, values
             <br></br><br></br>
             <MuiPhoneNumber className='phoneNum' defaultCountry='us' disableAreaCodes onChange={handlePhoneNumChange} error={values.errors.phoneNumber} value={values.phoneNumber} />
             <br></br><br></br>
-            <TextField label="Email" name='email' onChange={handleChange} error={values.errors.email} defaultValue={values.email} />
+            <TextField label="Email" name='email' onChange={handleChange} error={values.errors.email} defaultValue={values.email} fullWidth/>
         </form>
     );
 }

@@ -53,7 +53,7 @@ export default class BookAppointment extends Component {
 			email: '',
 			phoneNumber: '',
 			services: [],
-			errors: { firstName: '', lastName: '', phoneNumber: '', email: '' },
+			errors: {},
 			id: '',
 			availableTimes: timeSlots
 		}
@@ -119,10 +119,9 @@ export default class BookAppointment extends Component {
 	filterTimes = (data) => {
 		if (Object.keys(data).length === 0) return
 		let takenTimes = []
-		//TODO: https://stackoverflow.com/questions/1963102/what-does-the-jslint-error-body-of-a-for-in-should-be-wrapped-in-an-if-statemen
-		for (const u in data) {
-			// if (data.hasOwnProperty(u)) console.log(data[u])
-			takenTimes.push(data[u].time)
+		//https://stackoverflow.com/questions/1963102/what-does-the-jslint-error-body-of-a-for-in-should-be-wrapped-in-an-if-statemen
+		for (const [index, user] in data) {
+			takenTimes.push(data[index].time)
 		}
 		let availableTimesInstance = this.state.availableTimes
 		this.setState({
@@ -141,7 +140,7 @@ export default class BookAppointment extends Component {
 			availableTimes: timeSlots
 		})
 		const reservedDates = await this.checkReserved()
-		console.log(this.filterTimes(reservedDates))
+		this.filterTimes(reservedDates)
 	}
 
 	handlePhoneNumChange = (value) => {
@@ -163,24 +162,19 @@ export default class BookAppointment extends Component {
 	}
 	handleClick = (name, value) => {
 		if (name === 'services') {
-			console.log('handleClick value is: ' + value)
 			if (this.state.services.indexOf(value) !== -1) {
 				let filteredArray = this.state.services
 				filteredArray.splice(filteredArray.indexOf(value), 1)
-				console.log(filteredArray)
 				this.setState({
 					services: filteredArray
 				})
 			} else {
-				// console.log(name + value)
-				// console.log(this.state.services.length)
 				if (this.state.services.length === 3) return
 				this.setState(prevState => ({
 					services: [...prevState.services, value]
 				}))
 			}
 		} else {
-			console.log('name is: ' + name + ' value is: ' + value)
 			if (this.state[name] === value) value = ''
 			this.setState({
 				[name]: value
@@ -335,7 +329,7 @@ export default class BookAppointment extends Component {
 								{/* TODO: figure out if this should be Link or anchor tag */}
 								{/* <a href={URL} > */}
 									<Button style={{backgroundColor: "#b90d1f", color: 'white'}}
-										onClick={(e) => this.checkErrors() ? this.handleSubmit(e) : (this.handleValidation('date', date), alert('Invalid inputs: ', JSON.stringify(this.state.errors)))}
+										onClick={(e) => this.checkErrors() ? this.handleSubmit(e) : (this.handleValidation('date', date), console.log('Invalid inputs: ' + JSON.stringify(this.state.errors)))}
 										>
 										Reserve
 									</Button>

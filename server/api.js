@@ -9,6 +9,25 @@ const ObjectId = require('mongodb').ObjectId;
 var router = express.Router();  // get an instance of the express Router
 let nodemailer = require('nodemailer')
 
+
+let servicesDict = {
+  'mensHaircut': ["Men's Haircut", 15],
+  'womensHaircut': ["Women's Haircut", 18],
+  'seniorKids': ["Seniors & Kids 11 and Under", 10],
+  'beardTrim': ["Beard Trim", 5],
+  'permAndColor': ["Perm & Color Start", 60],
+  'styleStart': ["Style Starting", 25],
+  'shampoo': ["Shampoo Only", 5],
+  'pedicure': ["Pedicure", 28],
+  'manicure': ["Manicure", 15],
+  'pediMani': ["Pedi Mani", 40],
+  'fullSet': ["Full Set", 28],
+  'fill': ["Fill", 18],
+  'eyebrow': ["Eyebrow Wax", 10],
+  'lips': ["Lips", 5],
+  'chin': ["Chin", 8]
+}
+
 let transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 465,
@@ -53,17 +72,20 @@ router.get('/users/:date', (req, res) => {
   User.find({date: req.params.date}, (err, users) => { 
     if (err) {
       console.log(err);
-      console.log('yo date asdfasdfasdf')
       res.send([]);
     } else {
-      console.log('yo date sent')
       res.json(users);
     }
   })
 
 })
 
-// TODO: better error handling? 
+const mapServices = (services) => {
+  return services.map(service => {
+    servicesDict[service][0] + '\n'
+  })
+}
+
 router.post('/users', async (req, res, next) => {
   let identification = new ObjectId(req.body._id)
   if (await User.find({_id: identification}).countDocuments() > 0) {
@@ -75,19 +97,22 @@ router.post('/users', async (req, res, next) => {
   req.user = new User
   next()
   //await createUpdateUser()
+  console.log(req.body.services)
+  console.log(servicesDict)
+  console.log(mapServices(req.body.services))
   let mailOptions = {
     from: '22salontestemail@gmail.com',
     to: req.body.email,
     subject: 'Hey ' + req.body.firstName + ', your appointment is confirmed',
-    html: `<p><b>Hey ${req.body.firstName}, your appointment is confirmed</b></p>
+    html: `<div style={{text-align: "center"}}><p><b>Hey ${req.body.firstName}, your appointment is confirmed</b></p>
             <p>Upcoming appointment:</p>
             <p>Confirmation code: ${req.body._id}</p>
             <p>Client: ${req.body.firstName} ${req.body.lastName.charAt(0)}.</p>
-            <p>Service: ${req.body.services}</p>
+            <p>Service${req.body.services.length > 1 ? 's' : ''}: ${mapServices(req.body.services)}</p>
             <p>Time: ${req.body.date} at ${req.body.time}</p>
             <p><a href="google.com">Edit or Cancel appointment</a></p>
             <p><b>See you soon!</b></p>
-            <p></p>`
+            <p></p></div>`
   }
   // service(s)?
   //TODO: link?
@@ -101,22 +126,6 @@ router.post('/users', async (req, res, next) => {
   })
 
 }, createUpdateUser());
-/*
-router.post('/users/:email', (req, res) => {
-  let mailOptions = {
-    from: '22salontestemail@gmail.com',
-    to: req.params.email,
-    subject: 'Test email test email' + req.params.email,
-    text: 'yo yo yo yo yo yo yo yo yo'
-  }
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-        console.log(error);
-    } else {
-        console.log('Email sent: ' + info.response)
-    }
-  })
-})*/
 
 //https://stackoverflow.com/questions/54684258/why-are-documents-not-being-deleted-from-the-mongodb-database
 router.delete('/users/:id', async (req, res) => {
@@ -147,6 +156,5 @@ function createUpdateUser() {
     }
   }
 }
-
 
 module.exports = router
