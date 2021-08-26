@@ -1,8 +1,11 @@
 #Configuration to startup production server with pm2
 
 apps:
-  - script   : server
+  - script: server
     exec_mode: fork
-    watch  : true
-    env    :
+    watch: true
+    env:
       NODE_ENV: production
+      REACT_APP_EMAIL_USERNAME: ${{ secrets.REACT_APP_EMAIL_USERNAME }}
+      REACT_APP_EMAIL_PASSWORD: ${{ secrets.REACT_APP_EMAIL_PASSWORD }}
+      REACT_APP_GOOGLE_MAPS_API_KEY: ${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }}
