@@ -33,6 +33,7 @@
     "react-key-index": "^0.1.1",
     "react-router": "^3.0.0",
     "react-router-dom": "^5.2.0",
+    "twilio": "^3.67.1",
     "validator": "^13.6.0"
   },
   "scripts": {
@@ -42,9 +43,10 @@
     "server": "nodemon --delay 500ms server",
     "client": "react-scripts start",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "start": "react-scripts build && sudo su -c \"pm2 start process.yml\" root && echo To kill, run \\\"npm run stop\\\"",
+    "start": "node backend/server.js",
     "stop": "sudo su -c \"pm2 stop server\" root",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install npm && run build"
   },
   "description": "A simple MERN stack appointment booking site built with create-react-app",
   "main": "index.js",
@@ -62,5 +64,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "engines": {
+    "node": "16.6.1",
+    "npm": "7.20.3"
   }
 }

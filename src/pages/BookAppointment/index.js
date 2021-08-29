@@ -185,13 +185,14 @@ export default class BookAppointment extends Component {
 	handleSubmit = (event) => {
         event.preventDefault();
 		
+		let normalizedNumber = this.state.phoneNumber.slice(0,2)+this.state.phoneNumber.slice(4,7)+this.state.phoneNumber.slice(9,12)+this.state.phoneNumber.slice(13,17)
 		let now = new Date();
 		let databody = {
 			'firstName': this.state.firstName,
 			'lastName': this.state.lastName,
 			'date': this.state.date,
 			'time': this.state.time,
-			'phoneNumber': this.state.phoneNumber,
+			'phoneNumber': normalizedNumber,
 			'email': this.state.email,
 			'services': this.state.services,
 			'timestamp': now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),

@@ -6,9 +6,9 @@ require('dotenv').config()
 
 const express = require('express');
 const ObjectId = require('mongodb').ObjectId;
-var router = express.Router();  // get an instance of the express Router
-let nodemailer = require('nodemailer')
-
+const router = express.Router();  // get an instance of the express Router
+const nodemailer = require('nodemailer')
+const client = require('twilio')(process.env.TWILIO_SID, process.env.TWILIO_KEY)
 
 let servicesDict = {
   'mensHaircut': ["Men's Haircut", 15],
@@ -33,13 +33,13 @@ let transporter = nodemailer.createTransport({
   port: 465,
   secure: true,
   auth: {
-      user: process.env.REACT_APP_EMAIL_USERNAME,
-      pass: process.env.REACT_APP_EMAIL_PASSWORD
+      user: process.env.EMAIL_USERNAME,
+      pass: process.env.EMAIL_PASSWORD
   }
 })
 
 let mongoose = require('mongoose');
-mongoose.connect('mongodb://127.0.0.1/my_database', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGOOSE_CONNECT_STRING, { useNewUrlParser: true, useUnifiedTopology: true });
 
 //Define our schema for User
 let User = mongoose.model('User', {
@@ -96,34 +96,9 @@ router.post('/users', async (req, res, next) => {
   }
   req.user = new User
   next()
-  //await createUpdateUser()
-  console.log(req.body.services)
-  console.log(servicesDict)
-  console.log(mapServices(req.body.services))
-  let mailOptions = {
-    from: '22salontestemail@gmail.com',
-    to: req.body.email,
-    subject: 'Hey ' + req.body.firstName + ', your appointment is confirmed',
-    html: `<div style={{text-align: "center"}}><p><b>Hey ${req.body.firstName}, your appointment is confirmed</b></p>
-            <p>Upcoming appointment:</p>
-            <p>Confirmation code: ${req.body._id}</p>
-            <p>Client: ${req.body.firstName} ${req.body.lastName.charAt(0)}.</p>
-            <p>Service${req.body.services.length > 1 ? 's' : ''}: ${mapServices(req.body.services)}</p>
-            <p>Time: ${req.body.date} at ${req.body.time}</p>
-            <p><a href="google.com">Edit or Cancel appointment</a></p>
-            <p><b>See you soon!</b></p>
-            <p></p></div>`
-  }
-  // service(s)?
-  //TODO: link?
 
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-        console.log(error);
-    } else {
-        console.log('Email sent: ' + info.response)
-    }
-  })
+  sendEmail(req, res)
+  sendText(req, res)
 
 }, createUpdateUser());
 
@@ -154,6 +129,47 @@ function createUpdateUser() {
     } catch (e) {
       console.log(e)
     }
+  }
+}
+
+const sendEmail = (req, res) => {
+  let mailOptions = {
+    from: '22salontestemail@gmail.com',
+    to: req.body.email,
+    subject: 'Hey ' + req.body.firstName + ', your appointment is confirmed',
+    html: `<div style={{text-align: "center"}}><p><b>Hey ${req.body.firstName}, your appointment is confirmed</b></p>
+            <p>Upcoming appointment:</p>
+            <p>Confirmation code: ${req.body._id}</p>
+            <p>Client: ${req.body.firstName} ${req.body.lastName.charAt(0)}.</p>
+            <p>Service${req.body.services.length > 1 ? 's' : ''}: ${mapServices(req.body.services)}</p>
+            <p>Time: ${req.body.date} at ${req.body.time}</p>
+            <p><a href="google.com">Edit or Cancel appointment</a></p>
+            <p><b>See you soon!</b></p>
+            <p></p></div>`
+  }
+  // service(s)?
+  //TODO: link?
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+        console.log(error);
+    } else {
+        console.log('Email sent: ' + info.response)
+    }
+  })
+}
+
+const sendText = async (req, res) => {
+  // WON'T WORK WITH UNVERIFIED PHONE NUMBERS FOR NOW...
+  try {
+    await client.messages.create({
+      body: `Hey ${req.body.firstName}, your appointment at ${req.body.time} on ${req.body.date} is confirmed! \n~See you soon~`,
+      from: process.env.TWILIO_NUMBER,
+      to: req.body.phoneNumber
+    })
+    console.log('SMS sent')
+  } catch (e) {
+    console.log(e)
   }
 }
 

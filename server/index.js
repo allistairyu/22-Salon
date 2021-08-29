@@ -34,10 +34,7 @@ app.get('*', (req, res) => {
 });
 
 //Choose our port and launch the server
-let PORT = 8999;
-if(process.env.NODE_ENV == 'production'){
-  PORT = 80;
-}
+let PORT = process.env.PORT || 8999;
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}!`);

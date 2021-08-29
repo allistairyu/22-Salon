@@ -6,6 +6,3 @@ apps:
     watch: true
     env:
       NODE_ENV: production
-      REACT_APP_EMAIL_USERNAME: ${{ secrets.REACT_APP_EMAIL_USERNAME }}
-      REACT_APP_EMAIL_PASSWORD: ${{ secrets.REACT_APP_EMAIL_PASSWORD }}
-      REACT_APP_GOOGLE_MAPS_API_KEY: ${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }}
