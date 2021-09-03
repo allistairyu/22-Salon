@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './style.css'
 import Navbar from '../App/Components/Navbar'
 import Button from '@material-ui/core/Button'
+import { Link } from 'react-router-dom';
 
 export default class Services extends Component {
 	constructor (props) {
@@ -34,31 +35,31 @@ export default class Services extends Component {
 			case 'hair':
 				return (
 					<div>
-						<p>Men's Haircut</p><br></br>
-						<p>Women's Haircut</p><br></br>
-						<p>Seniors & Kids 11 and Under</p><br></br>
-						<p>Perm & Color Start</p><br></br>
-						<p>Style Starting</p><br></br>
-						<p>Shampoo Only</p>
+						<p>Men's Haircut</p>$15<br></br><br></br>
+						<p>Women's Haircut</p>$20<br></br><br></br>
+						<p>Seniors & Kids 11 and Under</p>$12<br></br><br></br>
+						<p>Perm & Color Start</p>$60<br></br><br></br>
+						<p>Style Starting</p>$25<br></br><br></br>
+						<p><strike>Shampoo Only</strike></p>
 					</div>
 				);
 			case 'face':
 				return (
 					<div>
-						<p>Beard Trim</p><br></br>
-						<p>Eyebrow Wax</p><br></br>
-						<p>Lips</p><br></br>
-						<p>Chin</p>
+						<p>Beard Trim</p>$5<br></br><br></br>
+						<p><strike>Eyebrow Wax</strike></p><br></br><br></br>
+						<p><strike>Lips</strike></p><br></br><br></br>
+						<p><strike>Chin</strike></p>
 					</div>
 				);
 			case 'other':
 				return (
 					<div>
-						<p>Pedicure</p><br></br>
-						<p>Manicure</p><br></br>
-						<p>Mani-Pedi</p><br></br>
-						<p>Full Set</p><br></br>
-						<p>Fill</p>
+						<p><strike>Pedicure</strike></p><br></br><br></br>
+						<p><strike>Manicure</strike></p><br></br><br></br>
+						<p><strike>Mani-Pedi</strike></p><br></br><br></br>
+						<p><strike>Full Set</strike></p><br></br><br></br>
+						<p><strike>Fill</strike></p>
 					</div>
 				);
 			default:
@@ -77,6 +78,7 @@ export default class Services extends Component {
 			<div>
 				<Navbar services />
 				<h1 className='page-title navbar-margin'>Services</h1>
+				<div className='small center'>Services are limited due to COVID-19</div>
 				<div className='flexbox-container-3'>
 					<div className='flexbox-column'>
 						<Button size='large' className='services-button' color={this.state.category === 'hair' ? 'secondary' : 'default'}

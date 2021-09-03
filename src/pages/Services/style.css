@@ -37,6 +37,6 @@ p {
 /* https://stackoverflow.com/questions/36029610/how-to-add-vertical-line-between-two-divs/36029731 */
 hr.vertical {
   height: 100%;
-  width:0;
-  border:1px solid black;
+  width: 0;
+  border: 1px solid black;
 }

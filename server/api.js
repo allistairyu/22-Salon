@@ -12,20 +12,11 @@ const client = require('twilio')(process.env.TWILIO_SID, process.env.TWILIO_KEY)
 
 let servicesDict = {
   'mensHaircut': ["Men's Haircut", 15],
-  'womensHaircut': ["Women's Haircut", 18],
-  'seniorKids': ["Seniors & Kids 11 and Under", 10],
+  'womensHaircut': ["Women's Haircut", 20],
+  'seniorKids': ["Seniors & Kids 11 and Under", 12],
   'beardTrim': ["Beard Trim", 5],
   'permAndColor': ["Perm & Color Start", 60],
-  'styleStart': ["Style Starting", 25],
-  'shampoo': ["Shampoo Only", 5],
-  'pedicure': ["Pedicure", 28],
-  'manicure': ["Manicure", 15],
-  'pediMani': ["Pedi Mani", 40],
-  'fullSet': ["Full Set", 28],
-  'fill': ["Fill", 18],
-  'eyebrow': ["Eyebrow Wax", 10],
-  'lips': ["Lips", 5],
-  'chin': ["Chin", 8]
+  'styleStart': ["Style Starting", 25]
 }
 
 let transporter = nodemailer.createTransport({

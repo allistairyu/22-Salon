@@ -12,8 +12,6 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { Link } from 'react-router';
 
 const timeSlots = [
-	'11:00 am',
-	'11:30 am',
 	'12:00 pm',
 	'12:30 pm',
 	'1:00 pm',
@@ -23,9 +21,7 @@ const timeSlots = [
 	'3:00 pm',
 	'3:30 pm',
 	'4:00 pm',
-	'4:30 pm',
-	'5:00 pm',
-	'5:30 pm',
+	'4:30 pm'
 ]
 
 const ObjectId = (m = Math, d = Date, h = 16, s = s => m.floor(s).toString(h)) =>
@@ -60,20 +56,11 @@ export default class BookAppointment extends Component {
 		//TODO: STORE SERVICES IN GLOBAL VARIABLE
 		this.servicesDict = {
 			'mensHaircut': ["Men's Haircut", 15],
-			'womensHaircut': ["Women's Haircut", 18],
-			'seniorKids': ["Seniors & Kids 11 and Under", 10],
+			'womensHaircut': ["Women's Haircut", 20],
+			'seniorKids': ["Seniors & Kids 11 and Under", 12],
 			'beardTrim': ["Beard Trim", 5],
 			'permAndColor': ["Perm & Color Start", 60],
-			'styleStart': ["Style Starting", 25],
-			'shampoo': ["Shampoo Only", 5],
-			'pedicure': ["Pedicure", 28],
-			'manicure': ["Manicure", 15],
-			'pediMani': ["Pedi Mani", 40],
-			'fullSet': ["Full Set", 28],
-			'fill': ["Fill", 18],
-			'eyebrow': ["Eyebrow Wax", 10],
-			'lips': ["Lips", 5],
-			'chin': ["Chin", 8]
+			'styleStart': ["Style Starting", 25]
 		}
 		
 	}
@@ -169,7 +156,7 @@ export default class BookAppointment extends Component {
 					services: filteredArray
 				})
 			} else {
-				if (this.state.services.length === 3) return
+				if (this.state.services.length === 2) return
 				this.setState(prevState => ({
 					services: [...prevState.services, value]
 				}))
@@ -249,7 +236,7 @@ export default class BookAppointment extends Component {
 	}
 
 	disableDates = date => {
-		return date.getDay() === 0 || date <= new Date() || date >= new Date().setMonth(new Date().getMonth() + 3);
+		return date.getDay() === 0 || date.getDay() === 6 || date <= new Date() || date >= new Date().setMonth(new Date().getMonth() + 3);
 	}
 
 	render() {
@@ -264,7 +251,7 @@ export default class BookAppointment extends Component {
 						<Navbar appointment />
 						{/* <div className='navbar-margin'></div> */}
 						<h1 className='page-title navbar-margin'>Book an Appointment</h1>
-						<div className='small center'>Select up to 3 services</div>
+						<div className='small center'>Select up to 2 services</div>
 						<br></br>
 						<div className='flexbox-container'>
 							<SelectService 

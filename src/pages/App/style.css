@@ -5,10 +5,7 @@
   padding: 0;
   font-family: "Montserrat", sans-serif;
 }
-/* .page-intro {
-  padding-top: 120px;
-  background-color: white;
-} */
+
 /* #f2f3f4 */
 .Navbar {
   background-color: #f2f3f4;
@@ -52,14 +49,19 @@ h1.logo-2 {
 }
 
 .Navbar .rightSide .links {
-  max-height: 80px;
+  height: 120px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  text-align: center;
 }
 
 .Navbar .rightSide .links a {
   text-decoration: none;
   color: #1a1423;
   font-size: 16px;
-  margin-right: 75px;
+  margin-right: 25px;
+  text-transform: none;
 }
 .MenuRoundedIcon {
   color: #1a1423 !important;
@@ -155,6 +157,7 @@ img {
 .review.right-review {
   width: 33%;
   text-align: center;
+  margin-left: 50px;
 }
 
 .review.center-review {
@@ -164,6 +167,7 @@ img {
 .review.left-review {
   width: 33%;
   text-align: center;
+  margin-right: 50px;
 }
 
 .footer {
@@ -172,12 +176,23 @@ img {
   background-color: #f2f3f4;
 }
 
-@media only screen and (max-width: 728px) {
+@media only screen and (max-width: 858px) {
   .review {
     font-size: 18px;
     width: 45% !important;
   }
+  .review.right-review {
+    margin: auto;
+    margin-top: 50px;
+  }
   .flexbox-container {
     flex-wrap: wrap;
+  }
+}
+
+@media only screen and (max-width: 545px) {
+  .review {
+    width: 95% !important;
+    margin-top: 50px;
   }
 }

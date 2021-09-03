@@ -8,6 +8,27 @@
 
 .flexbox-container-5 .leftSide {
   margin-bottom: 20px;
+  flex-direction: column;
+}
+
+.flexbox-container-5 .leftSide .location {
+  display: flex;
+  justify-content: space-between;
+}
+
+.flexbox-container-5 .leftSide .call {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.flexbox-container-5 .leftSide .hours {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.text {
+  padding-top: 3px;
+  padding-left: 5px;
 }
 
 @media only screen and (max-width: 1520px) {
