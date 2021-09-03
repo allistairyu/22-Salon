@@ -91,7 +91,7 @@ export default class BookAppointment extends Component {
 	checkReserved = async () => {
         
 		try {
-			const response = await fetch(`api/users/${this.state.date}`)
+			const response = await fetch(`api/appointments/${this.state.date}`)
 			if (!response.ok) {
 				throw Error(response.statusText);
 			}
@@ -107,7 +107,7 @@ export default class BookAppointment extends Component {
 		if (Object.keys(data).length === 0) return
 		let takenTimes = []
 		//https://stackoverflow.com/questions/1963102/what-does-the-jslint-error-body-of-a-for-in-should-be-wrapped-in-an-if-statemen
-		for (const [index, user] in data) {
+		for (const [index, appointment] in data) {
 			takenTimes.push(data[index].time)
 		}
 		let availableTimesInstance = this.state.availableTimes
@@ -186,7 +186,7 @@ export default class BookAppointment extends Component {
 			'_id': this.state.id
 		}
 
-        fetch('/api/users', {
+        fetch('/api/appointments', {
             method: 'POST',
             body: JSON.stringify(databody),
             headers: {

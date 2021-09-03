@@ -13,7 +13,7 @@ export default function Success({values, prevStep, servicesDict}) {
 
     //TODO: route to different page instead of reload?
     const deleteByID = async id => {
-		await fetch(`http://localhost:8999/api/users/${id}`, { method: 'DELETE' }).then(window.location.reload())
+		await fetch(`/api/appointments/${id}`, { method: 'DELETE' }).then(window.location.reload())
 	}
 
     const handleClickOpen = () => {

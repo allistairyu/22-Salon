@@ -9,6 +9,7 @@ const ObjectId = require('mongodb').ObjectId;
 const router = express.Router();  // get an instance of the express Router
 const nodemailer = require('nodemailer')
 const client = require('twilio')(process.env.TWILIO_SID, process.env.TWILIO_KEY)
+const jwt = require('jsonwebtoken')
 
 let servicesDict = {
   'mensHaircut': ["Men's Haircut", 15],
@@ -32,8 +33,8 @@ let transporter = nodemailer.createTransport({
 let mongoose = require('mongoose');
 mongoose.connect(process.env.MONGOOSE_CONNECT_STRING, { useNewUrlParser: true, useUnifiedTopology: true });
 
-//Define our schema for User
-let User = mongoose.model('User', {
+//Define our schema for appointments
+let Appointment = mongoose.model('Appointment', {
   firstName: String,
   lastName: String,
   date: String,
@@ -42,30 +43,28 @@ let User = mongoose.model('User', {
   phoneNumber: String,
   services: [String],
   timestamp: String
-}, 'User');
+}, 'Appointment');
 
-// Now, we list all of our routes.
-// Note that the actual routes you specify here will be prefixed by /api
-
-//Routed to GET /api/users
-router.get('/users', (req, res) => {
-  User.find((err, users) => {
+//Routed to GET /api/appointments
+router.get('/appointments', (req, res) => {
+  Appointment.find((err, appointments) => {
     if (err) {
       console.log(err);
       res.send([]);
     } else {
-      res.json(users);
+      res.json(appointments);
     }
   });
 });
 
-router.get('/users/:date', (req, res) => {
-  User.find({date: req.params.date}, (err, users) => { 
+
+router.get('/appointments/:date', (req, res) => {
+  Appointment.find({date: req.params.date}, (err, appointments) => { 
     if (err) {
       console.log(err);
       res.send([]);
     } else {
-      res.json(users);
+      res.json(appointments);
     }
   })
 
@@ -77,46 +76,44 @@ const mapServices = (services) => {
   })
 }
 
-router.post('/users', async (req, res, next) => {
+router.post('/appointments', async (req, res, next) => {
   let identification = new ObjectId(req.body._id)
-  if (await User.find({_id: identification}).countDocuments() > 0) {
-    req.user = await User.findById(req.body._id);
+  if (await Appointment.find({_id: identification}).countDocuments() > 0) {
+    req.appointment = await Appointment.findById(req.body._id);
     next()
-    // createUpdateUser()
-    // return
   }
-  req.user = new User
+  req.appointment = new Appointment
   next()
 
   sendEmail(req, res)
   sendText(req, res)
 
-}, createUpdateUser());
+}, createUpdateAppointment());
 
 //https://stackoverflow.com/questions/54684258/why-are-documents-not-being-deleted-from-the-mongodb-database
-router.delete('/users/:id', async (req, res) => {
+router.delete('/appointments/:id', async (req, res) => {
   const identification =  new ObjectId(req.params.id)
-  await User.deleteOne({'_id': identification}, function(err, res) {
+  await Appointment.deleteOne({'_id': identification}, function(err, res) {
     if (err) console.log(err)
   })
 })
 
-function createUpdateUser() {
+function createUpdateAppointment() {
   return async (req, res) => {
     let identification = new ObjectId(req.body._id)
-    let user = req.user
-    user.firstName = req.body.firstName
-    user.lastName = req.body.lastName
-    user.date = req.body.date
-    user.time = req.body.time
-    user.phoneNumber = req.body.phoneNumber
-    user.email = req.body.email
-    user.services = JSON.stringify(req.body.services)
-    user.timestamp = req.body.timestamp
-    user._id = identification
+    let appointment = req.appointment
+    appointment.firstName = req.body.firstName
+    appointment.lastName = req.body.lastName
+    appointment.date = req.body.date
+    appointment.time = req.body.time
+    appointment.phoneNumber = req.body.phoneNumber
+    appointment.email = req.body.email
+    appointment.services = JSON.stringify(req.body.services)
+    appointment.timestamp = req.body.timestamp
+    appointment._id = identification
 
     try {
-      user = await user.save()
+      appointment = await appointment.save()
     } catch (e) {
       console.log(e)
     }

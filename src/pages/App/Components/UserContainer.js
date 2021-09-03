@@ -5,17 +5,17 @@ import User from './User'
 export default class UserContainer extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {users: []};
+		this.state = {appointments: []};
 	}
 
 	async componentDidMount() {
 		try {
-			const response = await fetch("api/users/")
+			const response = await fetch("api/appointments/")
 			if (!response.ok) {
 				throw Error(response.statusText);
 			}
 			const json = await response.json()
-			this.setState({ users: json })
+			this.setState({ appointments: json })
 		} catch(error) {
 			console.log(error)
 		}
@@ -24,19 +24,19 @@ export default class UserContainer extends Component {
 	//https://stackoverflow.com/questions/34226076/why-is-my-onclick-being-called-on-render-react-js
 	handleClick(id) {
 		return async function() {
-			await fetch(`http://localhost:8999/api/users/${id}`, { method: 'DELETE' }).then(window.location.reload())
+			await fetch(`/api/appointments/${id}`, { method: 'DELETE' }).then(window.location.reload())
 		}
 	}
 
 	render() {
 		return (
 			<div>
-				{this.state.users.map((user) => (
-					<div key={user._id}>
-						<User firstName={user.firstName} lastName={user.lastName} date={user.date} time={user.time} 
-							email={user.email} phoneNumber={user.phoneNumber} services={user.services} />
+				{this.state.appointments.map((appointment) => (
+					<div key={appointment._id}>
+						<User firstName={appointment.firstName} lastName={appointment.lastName} date={appointment.date} time={appointment.time} 
+							email={appointment.email} phoneNumber={appointment.phoneNumber} services={appointment.services} />
 
-						<button onClick={this.handleClick(user._id)}>
+						<button onClick={this.handleClick(appointment._id)}>
 							delete
 						</button>
 					</div>
