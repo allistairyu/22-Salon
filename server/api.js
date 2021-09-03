@@ -10,6 +10,7 @@ const router = express.Router();  // get an instance of the express Router
 const nodemailer = require('nodemailer')
 const client = require('twilio')(process.env.TWILIO_SID, process.env.TWILIO_KEY)
 const jwt = require('jsonwebtoken')
+const bcrypt = require("bcrypt");
 
 let servicesDict = {
   'mensHaircut': ["Men's Haircut", 15],
@@ -44,6 +45,67 @@ let Appointment = mongoose.model('Appointment', {
   services: [String],
   timestamp: String
 }, 'Appointment');
+
+let User = mongoose.model('User', {
+  username: String,
+  password: String,
+}, 'User')
+
+User.find((err, users) => {
+  if(users.length == 0) {
+    var testUsers = [
+      { username: 'test-admin', password: '12345' }
+    ];
+
+    User.collection.insert(testUsers, (err, users) => { if (err) console.log(err); });
+  }
+});
+
+const verifyToken = (req, res, next) => {
+  const bearerHeader = req.headers['authorization'];
+  if (typeof bearerHeader !== 'undefined') {
+    const bearer = bearerHeader.split(' ');
+    const bearerToken = bearer[1];
+    req.token = bearerToken;
+    next();
+  } else {
+    res.sendStatus(403)
+  }
+}
+
+router.get('/', (req, res) => {
+  res.json({
+    message: 'yo'
+  })
+})
+
+router.post('/posts', verifyToken,  (req, res) => {
+  jwt.verify(req.token, 'secretkey', (err, authData) => {
+    if (err) {
+      res.sendStatus(403);
+    } else {
+      res.json({
+        message: 'post created',
+        authData
+      })
+    }
+  })
+  
+})
+
+router.post('/login', (req, res) => {
+  //test user
+  const user = {
+    username: req.body.username
+  }
+  User.find(user, )
+  jwt.sign({user}, 'secretkey', (err, token) => {
+    res.json({
+      token
+    })
+  });
+})
+
 
 //Routed to GET /api/appointments
 router.get('/appointments', (req, res) => {

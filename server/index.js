@@ -29,50 +29,50 @@ app.use(function (req, res, next) {
 var apiRouter = require('./api')
 app.use('/api', apiRouter);
 
-const verifyToken = (req, res, next) => {
-  const bearerHeader = req.headers['authorization'];
-  if (typeof bearerHeader !== 'undefined') {
-    const bearer = bearerHeader.split(' ');
-    const bearerToken = bearer[1];
-    req.token = bearerToken;
-    next();
-  } else {
-    res.sendStatus(403)
-  }
-}
+// const verifyToken = (req, res, next) => {
+//   const bearerHeader = req.headers['authorization'];
+//   if (typeof bearerHeader !== 'undefined') {
+//     const bearer = bearerHeader.split(' ');
+//     const bearerToken = bearer[1];
+//     req.token = bearerToken;
+//     next();
+//   } else {
+//     res.sendStatus(403)
+//   }
+// }
 
-app.get('/api', (req, res) => {
-  res.json({
-    message: 'yo'
-  })
-})
+// app.get('/api', (req, res) => {
+//   res.json({
+//     message: 'yo'
+//   })
+// })
 
-app.post('/api/posts', verifyToken,  (req, res) => {
-  jwt.verify(req.token, 'secretkey', (err, authData) => {
-    if (err) {
-      res.sendStatus(403);
-    } else {
-      res.json({
-        message: 'post created',
-        authData
-      })
-    }
-  })
+// app.post('/api/posts', verifyToken,  (req, res) => {
+//   jwt.verify(req.token, 'secretkey', (err, authData) => {
+//     if (err) {
+//       res.sendStatus(403);
+//     } else {
+//       res.json({
+//         message: 'post created',
+//         authData
+//       })
+//     }
+//   })
   
-})
+// })
 
-app.post('/api/login', (req, res) => {
-  //test user
-  const user = {
-    username: req.body.username,
-    password: req.body.password
-  }
-  jwt.sign({user}, 'secretkey', (err, token) => {
-    res.json({
-      token
-    })
-  });
-})
+// app.post('/api/login', (req, res) => {
+//   //test user
+//   const user = {
+//     username: req.body.username,
+//     password: req.body.password
+//   }
+//   jwt.sign({user}, 'secretkey', (err, token) => {
+//     res.json({
+//       token
+//     })
+//   });
+// })
 
 // Always return the main index.html, so react-router render the route in the client
 app.get('*', (req, res) => {

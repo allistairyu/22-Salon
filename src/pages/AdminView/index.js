@@ -5,21 +5,32 @@ import UserContainer from '../App/Components/UserContainer'
 export default function index() {
 
     const [username, setUsername] = useState()
-    const [password, setPassword] = useState()
 
-    const submitLogin = () => {
-        fetch('/api/login', {
-            method: 'POST',
-            body: {username, password}
-        })
-        localStorage.setItem('token', 'asdf')
+    const submitLogin = async () => {
+        try {
+            const response = await fetch('/api/login', {
+                method: 'POST',
+                body: JSON.stringify({username: username}),
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+            if (!response.ok) {
+				throw Error(response.statusText);
+			}
+			const json = await response.json()
+            console.log(json.token)
+            localStorage.setItem('token', json.token)
+        } catch (e) {
+            console.log(e)
+        }
     }
 
     return (
         <div>
             <Navbar />
             <div className='navbar-margin'></div>
-            <form>
+            <form onSubmit={submitLogin}>
                 <label>
                     username: 
                     <input type='text' onChange={e => setUsername(e.target.value)} />
@@ -27,12 +38,10 @@ export default function index() {
                 <br></br><br></br>
                 <label>
                     password: 
-                    <input type='text' onChange={e => setPassword(e.target.value)} />
+                    <input type='password'/>
                 </label>
                 <br></br><br></br><br></br>
-                <button type='submit' onClick={submitLogin}>
-                    submit
-                </button>
+                <input type="submit" value="Submit" />
             </form>
             {/* <UserContainer /> */}
         </div>
