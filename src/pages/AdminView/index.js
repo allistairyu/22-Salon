@@ -8,8 +8,7 @@ export default function index() {
     const [username, setUsername] = useState()
     const [password, setPassword] = useState()
 
-    const [registerUsername, setRegisterUsername] = useState()
-    const [registerPassword, setRegisterPassword] = useState()
+    const [loginRegister, toggleLoginRegister] = useState(true)
     const SALT_WORK_FACTOR = 10;
 
     const submitLogin = async () => {
@@ -36,7 +35,7 @@ export default function index() {
         try {
             const response = await fetch('/api/register', {
                 method: 'POST',
-                body: JSON.stringify({username: registerUsername, password: registerPassword}),
+                body: JSON.stringify({username: username, password: password}),
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -51,12 +50,17 @@ export default function index() {
         }
     }
 
+    const switchLoginRegister = (e) => {
+        e.preventDefault()
+        toggleLoginRegister(loginRegister => !loginRegister)
+    }
+
     return (
         <div>
             <Navbar />
             <div className='navbar-margin'></div>
-            Log In
-            <form onSubmit={submitLogin}>
+            {loginRegister ? 'Log In' : 'Register' }
+            <form onSubmit={loginRegister ? submitLogin : submitRegister}>
                 <label>
                     username: 
                     <input type='text' onChange={e => setUsername(e.target.value)} />
@@ -68,21 +72,9 @@ export default function index() {
                 </label>
                 <br></br><br></br>
                 <input type="submit" value="Submit" />
-            </form>
-            <br></br>
-            Register
-            <form onSubmit={submitRegister}>
-                <label>
-                    username: 
-                    <input type='text' onChange={e => setRegisterUsername(e.target.value)} />
-                </label>
-                <br></br><br></br>
-                <label>
-                    password: 
-                    <input type='password' onChange={e => setRegisterPassword(e.target.value)} />
-                </label>
-                <br></br><br></br>
-                <input type="submit" value="Submit" />
+                <br></br>
+                <button onClick={e => switchLoginRegister(e)}>{loginRegister ? 'Register Instead' : 'Log In Instead'}</button>
+
             </form>
             {/* <UserContainer /> */}
         </div>

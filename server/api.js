@@ -50,6 +50,7 @@ let Appointment = mongoose.model('Appointment', {
 let User = mongoose.model('User', {
   username: String,
   password: String,
+  admin: Boolean
 }, 'User')
 
 User.find((err, users) => {
@@ -117,7 +118,8 @@ router.post('/register', async (req, res) => {
   let user = new User({
     username: req.body.username,
     password: hash,
-    salt: salt
+    salt: salt,
+    admin: false
   })
   try {
     user.save()
