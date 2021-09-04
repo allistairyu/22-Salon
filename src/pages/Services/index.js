@@ -40,26 +40,26 @@ export default class Services extends Component {
 						<p>Seniors & Kids 11 and Under</p>$12<br></br><br></br>
 						<p>Perm & Color Start</p>$60<br></br><br></br>
 						<p>Style Starting</p>$25<br></br><br></br>
-						<p><strike>Shampoo Only</strike></p>
+						<p><strike><i>Shampoo Only</i></strike></p>
 					</div>
 				);
 			case 'face':
 				return (
 					<div>
 						<p>Beard Trim</p>$5<br></br><br></br>
-						<p><strike>Eyebrow Wax</strike></p><br></br><br></br>
-						<p><strike>Lips</strike></p><br></br><br></br>
-						<p><strike>Chin</strike></p>
+						<p><strike><i>Eyebrow Wax</i></strike></p><br></br><br></br>
+						<p><strike><i>Lips</i></strike></p><br></br><br></br>
+						<p><strike><i>Chin</i></strike></p>
 					</div>
 				);
 			case 'other':
 				return (
 					<div>
-						<p><strike>Pedicure</strike></p><br></br><br></br>
-						<p><strike>Manicure</strike></p><br></br><br></br>
-						<p><strike>Mani-Pedi</strike></p><br></br><br></br>
-						<p><strike>Full Set</strike></p><br></br><br></br>
-						<p><strike>Fill</strike></p>
+						<p><strike><i>Pedicure</i></strike></p><br></br><br></br>
+						<p><strike><i>Manicure</i></strike></p><br></br><br></br>
+						<p><strike><i>Mani-Pedi</i></strike></p><br></br><br></br>
+						<p><strike><i>Full Set</i></strike></p><br></br><br></br>
+						<p><strike><i>Fill</i></strike></p>
 					</div>
 				);
 			default:
