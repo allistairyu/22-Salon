@@ -10,7 +10,8 @@ const router = express.Router();  // get an instance of the express Router
 const nodemailer = require('nodemailer')
 const client = require('twilio')(process.env.TWILIO_SID, process.env.TWILIO_KEY)
 const jwt = require('jsonwebtoken')
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
+const SALT_WORK_FACTOR = 10
 
 let servicesDict = {
   'mensHaircut': ["Men's Haircut", 15],
@@ -95,15 +96,34 @@ router.post('/posts', verifyToken,  (req, res) => {
 
 router.post('/login', (req, res) => {
   //test user
-  const user = {
-    username: req.body.username
+  User.findOne({username: req.body.username})
+    .then(user => {
+      if (!user) res.sendStatus(204)
+      else {
+        bcrypt.compare(req.body.password, user.password)
+      }
+    }).then(user => jwt.sign({user}, 'secretkey', (err, token) => {
+      res.json({
+        token,
+        username: req.body.username
+      })
+    }))
+  
+})
+
+router.post('/register', async (req, res) => {
+  const salt = await bcrypt.genSalt(SALT_WORK_FACTOR);
+  const hash = await bcrypt.hash(req.body.password, salt)
+  let user = new User({
+    username: req.body.username,
+    password: hash,
+    salt: salt
+  })
+  try {
+    user.save()
+  } catch (e) {
+    console.log(e)
   }
-  User.find(user, )
-  jwt.sign({user}, 'secretkey', (err, token) => {
-    res.json({
-      token
-    })
-  });
 })
 
 
