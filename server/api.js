@@ -96,7 +96,6 @@ router.post('/posts', verifyToken,  (req, res) => {
 })
 
 router.post('/login', (req, res) => {
-  //test user
   User.findOne({username: req.body.username})
     .then(user => {
       if (!user) res.sendStatus(204)
@@ -141,17 +140,28 @@ router.get('/appointments', (req, res) => {
   });
 });
 
-
-router.get('/appointments/:date', (req, res) => {
-  Appointment.find({date: req.params.date}, (err, appointments) => { 
-    if (err) {
-      console.log(err);
-      res.send([]);
-    } else {
-      res.json(appointments);
-    }
-  })
-
+//get all appointments on certain date AND
+//get appointment by id
+router.get('/appointments/:param', (req, res) => {
+  //TODO: find better way to differentiate date from id
+  if (req.params.param.substr(-4) === '2021') {
+    Appointment.find({date: req.params.param}, (err, appointments) => { 
+      if (err) {
+        console.log(err);
+        res.send([]);
+      } else {
+        res.json(appointments);
+      }
+    })
+  } else {
+    const identification = new ObjectId(req.params.param)
+    Appointment.find({_id: identification}, (err, appointment) => {
+      if (err) console.log(err)
+      else {
+        res.json(appointment)
+      }
+    })
+  }
 })
 
 const mapServices = (services) => {
@@ -195,7 +205,7 @@ function createUpdateAppointment() {
     appointment.services = JSON.stringify(req.body.services)
     appointment.timestamp = req.body.timestamp
     appointment._id = identification
-
+    res.json([])
     try {
       appointment = await appointment.save()
     } catch (e) {
