@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { hashHistory } from 'react-router';
 import './index.css';
-import { Router, Route } from 'react-router';
+import { Router } from 'react-router';
+import { Route } from 'react-router-dom';
 
 import App from './pages/App';
 import About from './pages/About';
@@ -19,9 +20,8 @@ const Routes = (props) => (
     <Route path="/" component={App} />
     <Route path='/admin' component={AdminView} />
     <Route path="/about" component={About} />
-    <Route path="/appointment" component={BookAppointment}>
-      <Route path="/appointment/:id" component={Success} />
-    </Route>
+    <Route path="/appointment" component={BookAppointment} />
+    <Route path="/appointment/:id" component={Success} />
     <Route path="/services" component={Services} />
     <Route path="/locationandhours" component={LocationHours} />
     <Route path="*" component={NotFound} />
