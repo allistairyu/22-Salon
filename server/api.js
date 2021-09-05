@@ -12,6 +12,7 @@ const client = require('twilio')(process.env.TWILIO_SID, process.env.TWILIO_KEY)
 const jwt = require('jsonwebtoken')
 const bcrypt = require("bcryptjs");
 const SALT_WORK_FACTOR = 10
+const BASE_URL = 'http://localhost:3000/#/'
 
 let servicesDict = {
   'mensHaircut': ["Men's Haircut", 15],
@@ -180,7 +181,7 @@ router.post('/appointments', async (req, res, next) => {
   next()
 
   sendEmail(req, res)
-  sendText(req, res)
+  // sendText(req, res)
 
 }, createUpdateAppointment());
 
@@ -215,17 +216,20 @@ function createUpdateAppointment() {
 }
 
 const sendEmail = (req, res) => {
+  //TODO: add link (with ID appended at end)
+  //https://stackoverflow.com/questions/39489229/pass-variable-to-html-template-in-nodemailer
+  const link = BASE_URL + 'appointment/' + req.body.id
   let mailOptions = {
     from: '22salontestemail@gmail.com',
     to: req.body.email,
     subject: 'Hey ' + req.body.firstName + ', your appointment is confirmed',
-    html: `<div style={{text-align: "center"}}><p><b>Hey ${req.body.firstName}, your appointment is confirmed</b></p>
+    html: ` <div style={{text-align: "center"}}><p><b>Hey ${req.body.firstName}, your appointment is confirmed</b></p>
             <p>Upcoming appointment:</p>
             <p>Confirmation code: ${req.body._id}</p>
             <p>Client: ${req.body.firstName} ${req.body.lastName.charAt(0)}.</p>
             <p>Service${req.body.services.length > 1 ? 's' : ''}: ${mapServices(req.body.services)}</p>
             <p>Time: ${req.body.date} at ${req.body.time}</p>
-            <p><a href="google.com">Edit or Cancel appointment</a></p>
+            <p><a id='link'>Edit or Cancel appointment</a></p>
             <p><b>See you soon!</b></p>
             <p></p></div>`
   }
@@ -243,9 +247,10 @@ const sendEmail = (req, res) => {
 
 const sendText = async (req, res) => {
   // WON'T WORK WITH UNVERIFIED PHONE NUMBERS FOR NOW...
+  //TODO: add link (with ID appended at end)
   try {
     await client.messages.create({
-      body: `Hey ${req.body.firstName}, your appointment at ${req.body.time} on ${req.body.date} is confirmed! \n~See you soon~`,
+      body: `Hey ${req.body.firstName}, your appointment at ${req.body.time} on ${req.body.date} is confirmed! \n~See you soon~\n22 Salon`,
       from: process.env.TWILIO_NUMBER,
       to: req.body.phoneNumber
     })

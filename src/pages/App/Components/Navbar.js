@@ -10,8 +10,8 @@ export default function Navbar(props) {
 
     const linkStyle = link => {
         let style = {
-            height: '75%',
-            width: '75%'
+            height: '100%',
+            width: '100%'
         }
         style = link ? Object.assign({color: '#b90d1f'}, style) : Object.assign({color: 'black'}, style)
         return style

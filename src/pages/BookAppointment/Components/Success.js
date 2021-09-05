@@ -45,8 +45,10 @@ export default class Success extends React.Component {
 
     handleClose = (yesNo) => {
         this.setState({cancelDialog: false})
-        if (yesNo) this.deleteByID(this.state.id)
-        hashHistory.push('/')
+        if (yesNo) {
+            this.deleteByID(this.state.id)
+            hashHistory.push('/')
+        }
     };
 
     editAppointment = () => {
