@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button';
 import Success from './Components/Success'
 import SelectDateTime from './Components/SelectDateTime'
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-import { Link } from 'react-router';
+import { hashHistory } from 'react-router';
 
 const timeSlots = [
 	'12:00 pm',
@@ -42,15 +42,15 @@ export default class BookAppointment extends Component {
 
 		this.state = {
 			step: 1,
-			firstName: '',
-			lastName: '',
-			date: null,
-			time: '',
-			email: '',
-			phoneNumber: '',
-			services: [],
+			firstName: props.location.state?.firstName,
+			lastName: props.location.state?.lastName,
+			date: props.location.state?.date ?? null,
+			time: props.location.state?.time,
+			email: props.location.state?.email,
+			phoneNumber: props.location.state?.phoneNumber,
+			services: props.location.state?.services ?? [],
 			errors: {},
-			id: '',
+			id: props.location.state?.id,
 			availableTimes: timeSlots
 		}
 		//TODO: STORE SERVICES IN GLOBAL VARIABLE
@@ -69,7 +69,6 @@ export default class BookAppointment extends Component {
 		await this.setState({
 			id: ObjectId()
 		}) 
-		
 	}
 
 	prevStep = () => {
@@ -103,6 +102,7 @@ export default class BookAppointment extends Component {
 		
     }
 
+	//TODO: make async so site doesn't briefly show wrong times?
 	filterTimes = (data) => {
 		if (Object.keys(data).length === 0) return
 		let takenTimes = []
@@ -169,7 +169,7 @@ export default class BookAppointment extends Component {
 		}
     }
 
-	handleSubmit = (event) => {
+	handleSubmit = async (event) => {
         event.preventDefault();
 		
 		let normalizedNumber = this.state.phoneNumber.slice(0,2)+this.state.phoneNumber.slice(4,7)+this.state.phoneNumber.slice(9,12)+this.state.phoneNumber.slice(13,17)
@@ -185,14 +185,17 @@ export default class BookAppointment extends Component {
 			'timestamp': now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
 			'_id': this.state.id
 		}
-
-        fetch('/api/appointments', {
+		// localStorage.setItem('appointmentDetails', JSON.stringify(databody))
+        const response = await fetch('/api/appointments', {
             method: 'POST',
             body: JSON.stringify(databody),
             headers: {
                 'Content-Type': 'application/json'
             },
-        }).then(this.nextStep())
+        })
+		console.log(await response.json())
+		hashHistory.push(`/appointment/${this.state.id}`)
+		// this.nextStep()
     }
 
 	// https://stackoverflow.com/questions/41296668/reactjs-form-input-validation
@@ -243,7 +246,7 @@ export default class BookAppointment extends Component {
 		const {step} = this.state
 		const { firstName, lastName, date, time, email, phoneNumber, services, errors, id } = this.state;
 		const values = { firstName, lastName, date, time, email, phoneNumber, services, errors, id }
-
+		
 		switch(step) {
 			case 1:
 				return (
@@ -287,10 +290,10 @@ export default class BookAppointment extends Component {
 								<div className='small'>Please call (206) 417-0482 for an appointment today</div>
 								<SelectDateTime onChange={this.handleDateChange} value={this.state.date} disableDates={this.disableDates}/>
 								<br></br>
-								{this.state.date !== null &&
+								{this.state.date &&
 									<ButtonGroup>
 										{
-											(this.state.availableTimes !== undefined && this.state.availableTimes.length > 0) ?
+											(this.state.availableTimes.length > 0) ?
 												(
 													this.state.availableTimes.map((time) => {
 														return <Button key={time} size='small' onClick={() => this.handleClick('time', time)} 
@@ -330,16 +333,16 @@ export default class BookAppointment extends Component {
 						</Button>
 					</div>
 				);
-			case 3:
-				return (
-					<div>
-						<Success 
-							values={values}
-							prevStep={this.prevStep}
-							servicesDict={this.servicesDict}
-						/>
-					</div>
-				);
+			// case 3:
+			// 	return (
+			// 		<div>
+			// 			<Success 
+			// 				values={values}
+			// 				prevStep={this.prevStep}
+			// 				servicesDict={this.servicesDict}
+			// 			/>
+			// 		</div>
+			// 	);
 			default:
 		}
 	}
