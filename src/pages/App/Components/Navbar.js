@@ -27,7 +27,7 @@ export default function Navbar(props) {
                 <div className="rightSide">
                     <div className='links' id={showLinks ? 'hidden' : ''}>
                         <Button component={Link} to={'/'} style={linkStyle(props.home)}>Home</Button>
-                        <Button component={Link} to={'/appointment'} style={linkStyle(props.appointment)}>Book Online</Button>
+                        <Button component={Link} to={'/appointment'} style={linkStyle(props.appointment)}>Book Appointment</Button>
                         {/* <Button component={Link} to={'/appointment'} style={props.appointment ? {color: '#b90d1f'} : {color: 'black'}}>Book an Appointment</Button> */}
                         <Button component={Link} to={'/services'} style={linkStyle(props.services)}>Services</Button>
                         <Button component={Link} to={'/locationandhours'} style={linkStyle(props.locationandhours)}>Location & Hours</Button>
