@@ -1,15 +1,27 @@
 import React, { useState } from 'react'
 import Navbar from '../App/Components/Navbar'
 import UserContainer from '../App/Components/UserContainer'
-import bcrypt from 'bcryptjs'
+import Calendar from 'react-awesome-calendar';
 
+
+//TODO: event calendar, delete appointment confirmation dialog, change hours,
+//manually add appointments
 export default function index() {
 
     const [username, setUsername] = useState()
     const [password, setPassword] = useState()
+    const events = [{
+        id: 1,
+        color: '#fd3153',
+        from: '2021-09-08T18:00:00+00:00',
+        to: '2021-09-08T18:30:00+00:00',
+        title: 'This is an event'
+    }]
 
     const [loginRegister, toggleLoginRegister] = useState(true)
     const SALT_WORK_FACTOR = 10;
+
+    
 
     const submitLogin = async () => {
         try {
@@ -76,7 +88,8 @@ export default function index() {
                 <button onClick={e => switchLoginRegister(e)}>{loginRegister ? 'Register Instead' : 'Log In Instead'}</button>
 
             </form>
-            {/* <UserContainer /> */}
+            <UserContainer />
+            <Calendar events={events} />
         </div>
     )
 }
