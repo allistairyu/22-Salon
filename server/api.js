@@ -220,7 +220,7 @@ const sendEmail = (req, res) => {
   //https://stackoverflow.com/questions/39489229/pass-variable-to-html-template-in-nodemailer
   const link = BASE_URL + 'appointment/' + req.body.id
   let mailOptions = {
-    from: '22salontestemail@gmail.com',
+    from: process.env.EMAIL_USERNAME,
     to: req.body.email,
     subject: 'Hey ' + req.body.firstName + ', your appointment is confirmed',
     html: ` <div style={{text-align: "center"}}><p><b>Hey ${req.body.firstName}, your appointment is confirmed</b></p>
