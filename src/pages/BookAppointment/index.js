@@ -66,6 +66,7 @@ export default class BookAppointment extends Component {
 	}
 	
 	componentDidMount = async () => {
+		if (!this.state.id) return
 		await this.setState({
 			id: ObjectId()
 		}) 
