@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './style.css'
 import Navbar from '../App/Components/Navbar';
 
-
+//TODO: picture of Kelli, about section
 
 
 export default class About extends Component {
