@@ -1,5 +1,4 @@
 {
-  "homepage": "http://allistairyu.github.io/22-Salon",
   "name": "package",
   "version": "0.1.0",
   "private": true,
@@ -44,10 +43,10 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "build": "react-scripts build",
-    "server": "nodemon --delay 500ms server",
+    "server": "nodemon server",
     "client": "react-scripts start",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "start": "node backend/server.js",
+    "start": "sudo su -c \"pm2 start process.yml\" root",
     "stop": "sudo su -c \"pm2 stop server\" root",
     "eject": "react-scripts eject",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install npm && run build"
