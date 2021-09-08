@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './style.css';
-// import UserContainer from './Components/UserContainer'
 import Navbar from '../App/Components/Navbar'
+// TODO: get better picture
 import pic from './22-Salon_street_view.png'
 import StarIcon from '@material-ui/icons/Star';
 import StarHalfIcon from '@material-ui/icons/StarHalf';
