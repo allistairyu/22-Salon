@@ -14,7 +14,7 @@ import LocationHours from './pages/LocationHours';
 import AdminView from './pages/AdminView/index'
 import Success from './pages/BookAppointment/Components/Success'
 
-//TODO: route to id after appointment is reserved?
+//TODO: figure out how to add /appointment/:id/edit route
 const Routes = (props) => (
   <Router {...props}>
     <Route path="/" component={App} />
