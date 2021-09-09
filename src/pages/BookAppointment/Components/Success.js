@@ -18,6 +18,9 @@ const servicesDict = {
 }
 
 //TODO: make delete button be its own component?
+//TODO: FIX EDIT BUTTON
+// TODO: make edit/cancel button not ugly
+// TODO: api key error in production?
 export default class Success extends React.Component {
     constructor(props) {
         super(props)
