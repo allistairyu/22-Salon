@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Navbar from '../App/Components/Navbar'
 import UserContainer from '../App/Components/UserContainer'
 import Calendar from 'react-awesome-calendar';
-
+var moment = require('moment-timezone');
 
 //TODO: event calendar, delete appointment confirmation dialog, change hours,
 //manually add appointments
@@ -10,18 +10,61 @@ export default function index() {
 
     const [username, setUsername] = useState()
     const [password, setPassword] = useState()
-    const events = [{
-        id: 1,
-        color: '#fd3153',
-        from: '2021-09-08T18:00:00+00:00',
-        to: '2021-09-08T18:30:00+00:00',
-        title: 'This is an event'
-    }]
+
+    const [events, setEvents] = useState([])
+
+    // [{
+    //     id: 1,
+    //     color: '#fd3153',
+    //     from: '2021-09-08T18:00:00+00:00',
+    //     to: '2021-09-08T18:30:00+00:00',
+    //     title: 'This is an event'
+    // }]
 
     const [loginRegister, toggleLoginRegister] = useState(true)
-    const SALT_WORK_FACTOR = 10;
-
     
+    useEffect(async () => {
+        let response = await fetch('/api/appointments')
+        if (!response.ok) {
+            throw Error(response.statusText);
+        }
+        const json = await response.json()
+
+        for (const [index, appointment] of json.entries()) {
+            let dateTime = convertToISO(appointment.date, appointment.time)
+            setEvents(events => [...events, {id: index, color: '#fd3153', from: dateTime, to: dateTime, title: appointment.firstName}])
+        }
+    }, [])
+    //TODO: KEEP?
+    // useEffect(() => {
+    //     function checkUserData() {
+    //         const item = localStorage.getItem('token')
+        
+    //         if (item) {
+    //             return <UserContainer />
+    //         }
+    //     }
+        
+    //     window.addEventListener('storage', checkUserData)
+        
+    //     return () => {
+    //         window.removeEventListener('storage', checkUserData)
+    //     }
+    // }, [])
+    //TODO: make not sketchy, convert to local time?
+    const convertToISO = (date, time) => {
+        let ISOdate = new Date(date).toISOString()
+        if (time.substring(time.length-2, time.length) === 'pm' && time.substring(0, 2) !== '12') {
+            const colonIndex = time.indexOf(':')
+            let hour = parseInt(time[0],10) + 12
+            time = hour.toString() + ':' + time.substring(colonIndex + 1, colonIndex + 3)
+        } else {
+            time = time.substring(0,5)
+        }
+        ISOdate = ISOdate.substring(0, 11) + time + ':00.000z'
+        return ISOdate
+        // return moment.tz(ISOdate, "America/Los_Angeles").format()
+    }
 
     const submitLogin = async () => {
         try {
@@ -39,6 +82,7 @@ export default function index() {
 			const json = await response.json()
             localStorage.setItem('token', json.token)
             localStorage.setItem('username', json.username)
+
         } catch (e) {
             console.log(e)
         }
@@ -67,29 +111,39 @@ export default function index() {
         toggleLoginRegister(loginRegister => !loginRegister)
     }
 
-    return (
-        <div>
-            <Navbar />
-            <div className='navbar-margin'></div>
-            {loginRegister ? 'Log In' : 'Register' }
-            <form onSubmit={loginRegister ? submitLogin : submitRegister}>
-                <label>
-                    username: 
-                    <input type='text' onChange={e => setUsername(e.target.value)} />
-                </label>
-                <br></br><br></br>
-                <label>
-                    password: 
-                    <input type='password' onChange={e => setPassword(e.target.value)} />
-                </label>
-                <br></br><br></br>
-                <input type="submit" value="Submit" />
-                <br></br>
-                <button onClick={e => switchLoginRegister(e)}>{loginRegister ? 'Register Instead' : 'Log In Instead'}</button>
+    //TODO: add verifyToken?
+    const renderAppointments = () => {
+        if (localStorage.getItem('token')) return (
+            <div>
+                <Calendar events={events} />
+                <UserContainer />
+            </div>
+        )
+    }
 
-            </form>
-            <UserContainer />
-            <Calendar events={events} />
-        </div>
+    return (
+            <div>
+                <Navbar />
+                <div className='navbar-margin'></div>
+                {loginRegister ? 'Log In' : 'Register' }
+                <form onSubmit={loginRegister ? submitLogin : submitRegister}>
+                    <label>
+                        username: 
+                        <input type='text' onChange={e => setUsername(e.target.value)} />
+                    </label>
+                    <br></br><br></br>
+                    <label>
+                        password: 
+                        <input type='password' onChange={e => setPassword(e.target.value)} />
+                    </label>
+                    <br></br><br></br>
+                    <input type="submit" value="Submit" />
+                    <br></br>
+                    <button onClick={e => switchLoginRegister(e)}>{loginRegister ? 'Register Instead' : 'Log In Instead'}</button>
+
+                </form>
+                {renderAppointments()}
+                {/* <Calendar events={events} /> */}
+            </div>
     )
 }
