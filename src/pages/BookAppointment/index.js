@@ -44,11 +44,11 @@ export default class BookAppointment extends Component {
 			step: 1,
 			firstName: props.location.state?.firstName,
 			lastName: props.location.state?.lastName,
-			date: props.location.state?.date ?? null,
+			date: props.location.state?.date || null,
 			time: props.location.state?.time,
 			email: props.location.state?.email,
 			phoneNumber: props.location.state?.phoneNumber,
-			services: props.location.state?.services ?? [],
+			services: props.location.state?.services || [],
 			errors: {},
 			id: props.location.state?.id,
 			availableTimes: timeSlots
