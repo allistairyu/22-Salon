@@ -38,28 +38,15 @@ export default class Services extends Component {
 						<p>Men's Haircut</p>$15<br></br><br></br>
 						<p>Women's Haircut</p>$20<br></br><br></br>
 						<p>Seniors & Kids 11 and Under</p>$12<br></br><br></br>
-						<p>Perm & Color Start</p>$60<br></br><br></br>
-						<p>Style Starting</p>$25<br></br><br></br>
-						<p><strike><i>Shampoo Only</i></strike></p>
-					</div>
-				);
-			case 'face':
-				return (
-					<div>
-						<p>Beard Trim</p>$5<br></br><br></br>
-						<p><strike><i>Eyebrow Wax</i></strike></p><br></br><br></br>
-						<p><strike><i>Lips</i></strike></p><br></br><br></br>
-						<p><strike><i>Chin</i></strike></p>
 					</div>
 				);
 			case 'other':
 				return (
 					<div>
-						<p><strike><i>Pedicure</i></strike></p><br></br><br></br>
-						<p><strike><i>Manicure</i></strike></p><br></br><br></br>
-						<p><strike><i>Mani-Pedi</i></strike></p><br></br><br></br>
-						<p><strike><i>Full Set</i></strike></p><br></br><br></br>
-						<p><strike><i>Fill</i></strike></p>
+						<p>Beard Trim</p>$5<br></br><br></br>
+						<p>Perm & Color Start</p>$60<br></br><br></br>
+						<p>Style Starting</p>$25<br></br><br></br>
+						<p>Shampoo Only</p>$10
 					</div>
 				);
 			default:
@@ -78,13 +65,10 @@ export default class Services extends Component {
 			<div>
 				<Navbar services />
 				<h1 className='page-title navbar-margin'>Services</h1>
-				<div className='small center'>Services are limited due to COVID-19</div>
 				<div className='flexbox-container-3'>
 					<div className='flexbox-column'>
 						<Button size='large' className='services-button' color={this.state.category === 'hair' ? 'secondary' : 'default'}
-							onClick={() => this.handleClick('hair')}>Hair</Button>
-						<Button size='large' className='services-button' color={this.state.category === 'face' ? 'secondary' : 'default'}
-							onClick={() => this.handleClick('face')}>Face</Button>
+							onClick={() => this.handleClick('hair')}>Haircuts</Button>
 						<Button size='large' className='services-button' color={this.state.category === 'other' ? 'secondary' : 'default'}
 							onClick={() => this.handleClick('other')}>Other</Button>
 					</div>
