@@ -16,7 +16,7 @@ export default function ContactInfo({ handlePhoneNumChange, handleChange, values
             {/* TODO: https://stackoverflow.com/questions/60909788/how-to-use-material-ui-textfield-with-react-phone-number-input */}
             <MuiPhoneNumber className='phoneNum' defaultCountry='us' disableAreaCodes onChange={handlePhoneNumChange} error={values.errors.phoneNumber} value={values.phoneNumber} />
             <br></br><br></br>
-            <TextField label="Email" name='email' onChange={handleChange} error={values.errors.email} defaultValue={values.email} fullWidth/>
+            <TextField label="Email (optional)" name='email' onChange={handleChange} error={values.errors.email} defaultValue={values.email} fullWidth/>
         </form>
     );
 }

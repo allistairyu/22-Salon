@@ -60,7 +60,8 @@ export default class BookAppointment extends Component {
 			'seniorKids': ["Seniors & Kids 11 and Under", 12],
 			'beardTrim': ["Beard Trim", 5],
 			'permAndColor': ["Perm & Color Start", 60],
-			'styleStart': ["Style Starting", 25]
+			'styleStart': ["Style Starting", 25],
+			'shampooOnly': ["Shampoo Only", 10]
 		}
 		
 	}
@@ -200,6 +201,7 @@ export default class BookAppointment extends Component {
     }
 
 	// https://stackoverflow.com/questions/41296668/reactjs-form-input-validation
+	// TODO: optional email?
 	handleValidation = (name, value) => {
 		let errors = this.state.errors;
 		//Name
