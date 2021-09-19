@@ -76,6 +76,19 @@ const verifyToken = (req, res, next) => {
   }
 }
 
+router.get('/admin', (req, res) => {
+  jwt.verify(req.headers.token, 'secretkey', async (err, authData) => {
+    if (err) { // Token is invalid
+      console.log(err);
+      res.sendStatus(403); // Send 'Forbidden' status
+    } else {
+      console.log(req.headers.username)
+      let user = await User.findOne({ username: req.headers.username })
+      res.json(user)
+    }
+  });
+})
+
 router.get('/', (req, res) => {
   res.json({
     message: 'yo'
@@ -128,8 +141,6 @@ router.post('/register', async (req, res) => {
   }
 })
 
-
-//Routed to GET /api/appointments
 router.get('/appointments', (req, res) => {
   Appointment.find((err, appointments) => {
     if (err) {
