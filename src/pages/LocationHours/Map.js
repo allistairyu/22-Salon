@@ -7,11 +7,6 @@ const containerStyle = {
   height: '300px'
 };
 
-// const center = {
-//   lat: 47.706280,
-//   lng: -122.355710
-// };
-
 function MyComponent() {
 
   const [center, changeCenter] = React.useState({lat: 47.706280, lng: -122.355710})
@@ -34,7 +29,7 @@ function MyComponent() {
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
-        zoom={12}
+        zoom={11}
         onLoad={onLoad}
         onUnmount={onUnmount}
         disableDefaultUI
