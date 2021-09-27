@@ -67,7 +67,7 @@ export default class BookAppointment extends Component {
 	}
 	
 	componentDidMount = async () => {
-		if (!this.state.id) return
+		if (!this.state.id == null) return
 		await this.setState({
 			id: ObjectId()
 		}) 
@@ -197,7 +197,6 @@ export default class BookAppointment extends Component {
         })
 		console.log(await response.json())
 		hashHistory.push(`/appointment/${this.state.id}`)
-		// this.nextStep()
     }
 
 	// https://stackoverflow.com/questions/41296668/reactjs-form-input-validation
@@ -255,7 +254,6 @@ export default class BookAppointment extends Component {
 				return (
 					<div>
 						<Navbar appointment />
-						{/* <div className='navbar-margin'></div> */}
 						<h1 className='page-title navbar-margin'>Book an Appointment</h1>
 						<div className='small center'>Select up to 2 services</div>
 						<br></br>
@@ -336,16 +334,6 @@ export default class BookAppointment extends Component {
 						</Button>
 					</div>
 				);
-			// case 3:
-			// 	return (
-			// 		<div>
-			// 			<Success 
-			// 				values={values}
-			// 				prevStep={this.prevStep}
-			// 				servicesDict={this.servicesDict}
-			// 			/>
-			// 		</div>
-			// 	);
 			default:
 		}
 	}
